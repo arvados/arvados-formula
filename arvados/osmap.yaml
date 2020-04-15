@@ -13,14 +13,14 @@
 # os_family: Debian
 Ubuntu:
   pkg:
-    name: TEMPLATE-ubuntu
-  config: /etc/TEMPLATE.d/custom-ubuntu.conf
+    name: arvados-ubuntu
+  config: /etc/arvados.d/custom-ubuntu.conf
 Raspbian: {}
 
 # os_family: RedHat
 Fedora:
   pkg:
-    name: TEMPLATE-fedora
+    name: arvados-fedora
   service:
     name: service-fedora
 CentOS: {}

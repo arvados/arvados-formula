@@ -12,23 +12,23 @@
 ---
 Debian:
   pkg:
-    name: TEMPLATE-debian
-  config: /etc/TEMPLATE.d/custom.conf
+    name: arvados-debian
+  config: /etc/arvados.d/custom.conf
 
 RedHat:
   pkg:
-    name: TEMPLATE-redhat
-  config: /etc/TEMPLATE.conf
+    name: arvados-redhat
+  config: /etc/arvados.conf
 
 Suse:
   pkg:
-    name: TEMPLATE-suse
+    name: arvados-suse
 
 Gentoo: {}
 
 Arch:
   pkg:
-    name: TEMPLATE-arch
+    name: arvados-arch
   service:
     name: service-arch
 

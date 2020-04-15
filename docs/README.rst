@@ -1,14 +1,14 @@
 .. _readme:
 
-TEMPLATE-formula
+arvados-formula
 ================
 
 |img_travis| |img_sr|
 
-.. |img_travis| image:: https://travis-ci.com/saltstack-formulas/TEMPLATE-formula.svg?branch=master
+.. |img_travis| image:: https://travis-ci.com/saltstack-formulas/arvados-formula.svg?branch=master
    :alt: Travis CI Build Status
    :scale: 100%
-   :target: https://travis-ci.com/saltstack-formulas/TEMPLATE-formula
+   :target: https://travis-ci.com/saltstack-formulas/arvados-formula
 .. |img_sr| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
    :alt: Semantic Release
    :scale: 100%
@@ -45,33 +45,7 @@ Please see `How to contribute <https://github.com/saltstack-formulas/.github/blo
 Special notes
 -------------
 
-.. <REMOVEME
-
-Using this template
-^^^^^^^^^^^^^^^^^^^
-
-The easiest way to use this template formula as a base for a new formula is to use GitHub's **Use this template** button to create a new repository. For consistency with the rest of the formula ecosystem, name your formula repository following the pattern ``<formula theme>-formula``, where ``<formula theme>`` consists of lower-case alphabetic characters and numbers.
-
-In the rest of this example we'll use ``example`` as the ``<formula theme>``.
-
-Follow these steps to complete the conversion from ``template-formula`` to ``example-formula``. ::
-
-  $ git clone git@github.com:YOUR-USERNAME/example-formula.git
-  $ cd example-formula/
-  $ bin/convert-formula.sh example
-  $ git push --force
-
-Alternatively, it's possible to clone ``template-formula`` into a new repository and perform the conversion there. For example::
-
-  $ git clone https://github.com/saltstack-formulas/template-formula example-formula
-  $ cd example-formula/
-  $ bin/convert-formula.sh example
-
-To take advantage of `semantic-release <https://github.com/semantic-release/semantic-release>`_ for automated changelog generation and release tagging, you will need a GitHub `Personal Access Token <https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line>`_ with at least the **public_repo** scope.
-
-In the Travis repository settings for your new repository, create an `environment variable <https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings>`_ named ``GH_TOKEN`` with the personal access token as value, restricted to the ``master`` branch for security.
-
-.. REMOVEME>
+None
 
 Available states
 ----------------
@@ -79,79 +53,79 @@ Available states
 .. contents::
    :local:
 
-``TEMPLATE``
+``arvados``
 ^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-This installs the TEMPLATE package,
-manages the TEMPLATE configuration file and then
-starts the associated TEMPLATE service.
+This installs the arvados package,
+manages the arvados configuration file and then
+starts the associated arvados service.
 
-``TEMPLATE.package``
+``arvados.package``
 ^^^^^^^^^^^^^^^^^^^^
 
-This state will install the TEMPLATE package only.
+This state will install the arvados package only.
 
-``TEMPLATE.config``
+``arvados.config``
 ^^^^^^^^^^^^^^^^^^^
 
-This state will configure the TEMPLATE service and has a dependency on ``TEMPLATE.install``
+This state will configure the arvados service and has a dependency on ``arvados.install``
 via include list.
 
-``TEMPLATE.service``
+``arvados.service``
 ^^^^^^^^^^^^^^^^^^^^
 
-This state will start the TEMPLATE service and has a dependency on ``TEMPLATE.config``
+This state will start the arvados service and has a dependency on ``arvados.config``
 via include list.
 
-``TEMPLATE.clean``
+``arvados.clean``
 ^^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-this state will undo everything performed in the ``TEMPLATE`` meta-state in reverse order, i.e.
+this state will undo everything performed in the ``arvados`` meta-state in reverse order, i.e.
 stops the service,
 removes the configuration file and
 then uninstalls the package.
 
-``TEMPLATE.service.clean``
+``arvados.service.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will stop the TEMPLATE service and disable it at boot time.
+This state will stop the arvados service and disable it at boot time.
 
-``TEMPLATE.config.clean``
+``arvados.config.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will remove the configuration of the TEMPLATE service and has a
-dependency on ``TEMPLATE.service.clean`` via include list.
+This state will remove the configuration of the arvados service and has a
+dependency on ``arvados.service.clean`` via include list.
 
-``TEMPLATE.package.clean``
+``arvados.package.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will remove the TEMPLATE package and has a depency on
-``TEMPLATE.config.clean`` via include list.
+This state will remove the arvados package and has a depency on
+``arvados.config.clean`` via include list.
 
-``TEMPLATE.subcomponent``
+``arvados.subcomponent``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
 This state installs a subcomponent configuration file before
-configuring and starting the TEMPLATE service.
+configuring and starting the arvados service.
 
-``TEMPLATE.subcomponent.config``
+``arvados.subcomponent.config``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will configure the TEMPLATE subcomponent and has a
-dependency on ``TEMPLATE.config`` via include list.
+This state will configure the arvados subcomponent and has a
+dependency on ``arvados.config`` via include list.
 
-``TEMPLATE.subcomponent.config.clean``
+``arvados.subcomponent.config.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will remove the configuration of the TEMPLATE subcomponent
-and reload the TEMPLATE service by a dependency on
-``TEMPLATE.service.running`` via include list and ``watch_in``
+This state will remove the configuration of the arvados subcomponent
+and reload the arvados service by a dependency on
+``arvados.service.running`` via include list and ``watch_in``
 requisite.
 
 Testing
@@ -177,7 +151,7 @@ e.g. ``debian-9-2019-2-py3``.
 ``bin/kitchen converge``
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Creates the docker instance and runs the ``TEMPLATE`` main state, ready for testing.
+Creates the docker instance and runs the ``arvados`` main state, ready for testing.
 
 ``bin/kitchen verify``
 ^^^^^^^^^^^^^^^^^^^^^^

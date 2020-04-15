@@ -4,7 +4,7 @@
 service_name = 'systemd-journald'
 service_name = 'crond' if (os[:name] == 'centos') && os[:release].start_with?('6')
 
-control 'TEMPLATE service' do
+control 'arvados service' do
   impact 0.5
   title 'should be running and enabled'
 
