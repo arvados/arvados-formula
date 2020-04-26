@@ -11,148 +11,19 @@ driver:
 # Make sure the platforms listed below match up with
 # the `env.matrix` instances defined in `.travis.yml`
 platforms:
-  ## SALT `master`
-  - name: debian-10-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:debian-10
-  - name: ubuntu-1804-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:ubuntu-18.04
-  - name: centos-8-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:centos-8
-  - name: fedora-31-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:fedora-31
-  - name: opensuse-leap-151-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:opensuse-leap-15.1
-      run_command: /usr/lib/systemd/systemd
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.1`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: amazonlinux-2-master-py3
-    driver:
-      image: netmanagers/salt-master-py3:amazonlinux-2
-  - name: arch-base-latest-master-py2
-    driver:
-      image: netmanagers/salt-master-py2:arch-base-latest
-      run_command: /usr/lib/systemd/systemd
-
   ## SALT `3000.1`
   - name: debian-10-3000-1-py3
     driver:
       image: netmanagers/salt-3000.1-py3:debian-10
-  - name: ubuntu-1804-3000-1-py3
-    driver:
-      image: netmanagers/salt-3000.1-py3:ubuntu-18.04
-  - name: centos-8-3000-1-py3
-    driver:
-      image: netmanagers/salt-3000.1-py3:centos-8
-  - name: fedora-31-3000-1-py3
-    driver:
-      image: netmanagers/salt-3000.1-py3:fedora-31
-  - name: opensuse-leap-151-3000-1-py3
-    driver:
-      image: netmanagers/salt-3000.1-py3:opensuse-leap-15.1
-      run_command: /usr/lib/systemd/systemd
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.1`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: amazonlinux-2-3000-1-py3
-    driver:
-      image: netmanagers/salt-3000.1-py3:amazonlinux-2
-  - name: arch-base-latest-3000-1-py2
-    driver:
-      image: netmanagers/salt-3000.1-py2:arch-base-latest
-      run_command: /usr/lib/systemd/systemd
 
-  ## SALT `2019.2`
-  - name: debian-10-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:debian-10
-  - name: debian-9-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:debian-9
-  - name: ubuntu-1804-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:ubuntu-18.04
-  - name: ubuntu-1604-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:ubuntu-16.04
-  - name: centos-8-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:centos-8
-  - name: centos-7-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:centos-7
-  - name: fedora-31-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:fedora-31
-  - name: opensuse-leap-151-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:opensuse-leap-15.1
-      run_command: /usr/lib/systemd/systemd
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.1`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: amazonlinux-2-2019-2-py3
-    driver:
-      image: netmanagers/salt-2019.2-py3:amazonlinux-2
-  - name: ubuntu-1804-2019-2-py2
-    driver:
-      image: netmanagers/salt-2019.2-py2:ubuntu-18.04
-  - name: amazonlinux-1-2019-2-py2
-    driver:
-      image: netmanagers/salt-2019.2-py2:amazonlinux-1
-      run_command: /sbin/init
-  - name: arch-base-latest-2019-2-py2
-    driver:
-      image: netmanagers/salt-2019.2-py2:arch-base-latest
-      run_command: /usr/lib/systemd/systemd
+#   - name: ubuntu-1804-3000-1-py3
+#     driver:
+#       image: netmanagers/salt-3000.1-py3:ubuntu-18.04
 
-  ## SALT `2018.3`
-  - name: centos-7-2018-3-py3
-    driver:
-      image: netmanagers/salt-2018.3-py3:centos-7
-  - name: fedora-30-2018-3-py3
-    driver:
-      image: netmanagers/salt-2018.3-py3:fedora-30
-  - name: debian-9-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:debian-9
-  - name: debian-8-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:debian-8
-  - name: ubuntu-1804-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:ubuntu-18.04
-  - name: ubuntu-1604-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:ubuntu-16.04
-  - name: centos-6-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:centos-6
-      run_command: /sbin/init
-  - name: opensuse-leap-151-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:opensuse-leap-15.1
-      run_command: /usr/lib/systemd/systemd
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.1`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: amazonlinux-1-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:amazonlinux-1
-      run_command: /sbin/init
-  - name: arch-base-latest-2018-3-py2
-    driver:
-      image: netmanagers/salt-2018.3-py2:arch-base-latest
-      run_command: /usr/lib/systemd/systemd
+#   ## SALT `2019.2`
+#   - name: centos-7-2019-2-py3
+#     driver:
+#       image: netmanagers/salt-2019.2-py3:centos-7
 
 provisioner:
   name: salt_solo
@@ -173,43 +44,143 @@ verifier:
     - cli
 
 suites:
-  - name: default
-    excludes:
-      - centos-6-2018-3-py2
+  #### api,websocket,keepproxy,keepweb,controller
+  - name: api
+    driver:
+      hostname: example.net
     provisioner:
       state_top:
         base:
           '*':
-            - arvados
+            - example_add_snakeoil_certs
+            - nginx.passenger
+            - postgres
+            - arvados.repo
+            - arvados.api
+            - arvados.websocket
+            # keepproxy complains when using snakeoil certs, so we can't
+            # properly test it here until next version removes this limitation
+            # - arvados.keepproxy
+            - arvados.keepweb
+            - arvados.controller
       pillars:
         top.sls:
           base:
             '*':
               - arvados
-              - define_roles
+              - example_postgres
+              - example_nginx
+              - example_nginx_api
+              - example_nginx_websocket
+              - example_nginx_keepweb
+              - example_nginx_controller
+              # keepproxy expects to retrieve a list of services from API, so
+              # installing/testing it without an api server running will fail
+              # - example_nginx_keepproxy
       pillars_from_files:
         arvados.sls: pillar.example
-        define_roles.sls: test/salt/pillar/define_roles.sls
+        example_postgres.sls: test/salt/pillar/examples/postgresql.sls
+        example_nginx.sls: test/salt/pillar/examples/nginx_passenger.sls
+        example_nginx_api.sls: test/salt/pillar/examples/nginx_api_configuration.sls
+        example_nginx_websocket.sls: test/salt/pillar/examples/nginx_websocket_configuration.sls
+        example_nginx_keepweb.sls: test/salt/pillar/examples/nginx_keepweb_configuration.sls
+        # example_nginx_keepproxy.sls: test/salt/pillar/examples/nginx_keepproxy_configuration.sls
+        example_nginx_controller.sls: test/salt/pillar/examples/nginx_controller_configuration.sls
+      dependencies:
+        - name: example_add_snakeoil_certs
+          path: test/salt/states
+        - name: postgres
+          repo: git
+          source: https://github.com/saltstack-formulas/postgres-formula.git
+        - name: nginx
+          repo: git
+          source: https://github.com/saltstack-formulas/nginx-formula.git
     verifier:
       inspec_tests:
-        - path: test/integration/default
-  - name: centos6
-    includes:
-      - centos-6-2018-3-py2
+        - path: test/integration/api
+        - path: test/integration/websocket
+        # - path: test/integration/keepproxy
+        - path: test/integration/keepweb
+        - path: test/integration/controller
+
+  #### workbench,workbench2
+  - name: workbench
+    driver:
+      hostname: workbench.example.net
     provisioner:
       state_top:
         base:
           '*':
-            - arvados
+            - example_add_snakeoil_certs
+            - nginx.passenger
+            - arvados.repo
+            - arvados.workbench
+            - arvados.workbench2
       pillars:
         top.sls:
           base:
             '*':
               - arvados
-              - define_roles
+              - example_nginx
+              - example_nginx_workbench
+              - example_nginx_workbench2
       pillars_from_files:
-        arvados.sls: test/salt/pillar/centos6.sls
-        define_roles.sls: test/salt/pillar/define_roles.sls
+        arvados.sls: pillar.example
+        example_nginx.sls: test/salt/pillar/examples/nginx_passenger.sls
+        example_nginx_workbench.sls: test/salt/pillar/examples/nginx_workbench_configuration.sls
+        example_nginx_workbench2.sls: test/salt/pillar/examples/nginx_workbench2_configuration.sls
+      dependencies:
+        - name: example_add_snakeoil_certs
+          path: test/salt/states
+        - name: nginx
+          repo: git
+          source: https://github.com/saltstack-formulas/nginx-formula.git
     verifier:
       inspec_tests:
-        - path: test/integration/default
+        - path: test/integration/workbench
+        - path: test/integration/workbench2
+
+  #### shell
+  - name: shell
+    driver:
+      hostname: shell.example.net
+    provisioner:
+      state_top:
+        base:
+          '*':
+            # We also test repo here. No sense for a whole separate suite
+            - arvados.repo
+            - arvados.shell
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - arvados
+      pillars_from_files:
+        arvados.sls: pillar.example
+    verifier:
+      inspec_tests:
+        - path: test/integration/repo
+        - path: test/integration/shell
+
+  #### keepstore
+  - name: keepstore
+    driver:
+      hostname: keep0.example.net
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - arvados.repo
+            - arvados.keepstore.service
+            # - arvados.clean
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - arvados
+      pillars_from_files:
+        arvados.sls: pillar.example
+    verifier:
+      inspec_tests:
+        - path: test/integration/keepstore

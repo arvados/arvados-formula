@@ -1,0 +1,115 @@
+---
+########################################################################
+# File managed by Salt at <{{ source }}>.
+# Your changes will be overwritten.
+#
+# Please check https://doc.arvados.org/master/admin/config.html for 
+# documentation about the parameters configured here.
+########################################################################
+Clusters:
+  {{ arvados.cluster.name }}:
+    SystemRootToken: "{{ arvados.cluster.tokens.system_root }}"
+    ManagementToken: "{{ arvados.cluster.tokens.management }}"
+
+    API:
+      RailsSessionSecretToken: "{{ arvados.cluster.tokens.rails_secret }}"
+
+    Collections:
+      BlobSigningKey: "{{ arvados.cluster.secrets.blob_signing_key }}"
+      ForwardSlashNameSubstitution: "%2f"
+      DefaultReplication: 1
+      TrustAllContent: true
+
+    Login:
+      ProviderAppSecret: "{{ arvados.cluster.tokens.provider_secret }}"
+      ProviderAppID: arvados-server
+
+    Users:
+      NewUsersAreActive: true
+      AutoAdminFirstUser: true
+      AutoSetupNewUsers: true
+      AutoSetupNewUsersWithVmUUID: x2jbo-2x53u-6maueyy9if4u7vq
+      AutoSetupNewUsersWithRepository: true
+
+    TLS:
+      Certificate: "{{ arvados.cluster.tls.certificate }}"
+      Key: "{{ arvados.cluster.tls.key }}"
+      Insecure: {{ arvados.cluster.tls.insecure }}
+
+    Workbench:
+      SecretKeyBase: {{ arvados.cluster.secrets.workbench_secret_key }}
+      SiteName:  {{ arvados.cluster.name | upper }}
+
+    # FIXME!!!!
+    # Git:
+    #   GitCommand: /usr/share/gitolite3/gitolite-shell
+    #   GitoliteHome: /var/lib/arvados/git
+    #   Repositories: /var/lib/arvados/git/repositories
+
+    Volumes:
+      {% for v, p in arvados.cluster.volumes.items() -%}
+      ### {{ v | upper }}
+      {{ p.cluster }}-nyw5e-{{ p.volume_id }}:
+        Driver: {{ p.driver }}
+        DriverParameters: {{ p.driver_parameters | yaml }}
+        AccessViaHosts: {{ p.access_via_hosts | yaml }}
+        Replication: {{ p.replication }}
+      {% endfor -%}
+
+    ### DATABASE CONFIGURATION
+    PostgreSQL:
+      ConnectionPool: {{ arvados.cluster.database.connection_pool_max }}
+      Connection:
+        # All parameters here are passed to the PG client library in a connection string;
+        # see https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+        dbname: {{ arvados.cluster.database.name }}
+        host: {{ arvados.cluster.database.host }}
+        password: {{ arvados.cluster.database.password }}
+        user: {{ arvados.cluster.database.user }}
+        client_encoding: {{ arvados.cluster.database.client_encoding }}
+
+    ### SERVICES URLs
+    # This could probably made into a loop, but some consistency check needs to be done
+    # on the arvados side before that's possible
+    Services:
+      # Composer: FIXME!!!
+      Controller:
+        ExternalURL: "https://{{ arvados.cluster.domain }}"
+        InternalURLs:
+          "http://localhost:{{ arvados.controller.service.port }}": {}
+      DispatchCloud:
+        InternalURLs:
+          "http://localhost:{{ arvados.dispatcher.service.port }}": {}
+      # GitSSH: FIXME!!!
+      # Health: FIXME!!!
+      # Keepbalance: FIXME!!!
+      # Keepproxy: FIXME!!!
+      # Keepstore: FIXME!!!
+      # Nodemanager: FIXME!!!
+      RailsAPI:
+        InternalURLs:
+          "http://localhost:{{ arvados.api.service.port }}": {}
+      SSO:
+        ExternalURL: "https://sso.{{ arvados.cluster.domain }}"
+      WebDAV:
+        ExternalURL: https://collections.{{ arvados.cluster.domain }}
+        InternalURLs:
+          "http://localhost:{{ arvados.keepweb.service.port }}": {}
+      WebDAVDownload:
+        ExternalURL: https://download.{{ arvados.cluster.domain }}
+      # WebShell: FIXME!!!
+      Websocket:
+        ExternalURL: wss://ws.{{ arvados.cluster.domain }}/websocket
+        InternalURLs:
+          "http://localhost:{{ arvados.websocket.service.port }}": {}
+      Workbench1:
+        ExternalURL: "https://workbench.{{ arvados.cluster.domain }}"
+      Workbench2:
+        ExternalURL: "https://workbench2.{{ arvados.cluster.domain }}"
+      Keepproxy:
+        ExternalURL: https://keep.{{ arvados.cluster.domain }}
+        InternalURLs:
+          "http://localhost:{{ arvados.keepproxy.service.port }}": {}
+      Keepstore:
+        InternalURLs:
+          "http://keep0.{{ arvados.cluster.domain }}:{{ arvados.keepstore.service.port }}/": {}

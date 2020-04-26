@@ -11,37 +11,13 @@
 # osfamilymap: {}
 ---
 Debian:
-  pkg:
-    name: arvados-debian
-  config: /etc/arvados.d/custom.conf
+  repo:
+    url_base: 'http://apt.arvados.org'
+    file: /etc/apt/sources.list.d/arvados.list
+    key_url: 'http://apt.arvados.org/pubkey.gpg'
 
 RedHat:
-  pkg:
-    name: arvados-redhat
-  config: /etc/arvados.conf
-
-Suse:
-  pkg:
-    name: arvados-suse
-
-Gentoo: {}
-
-Arch:
-  pkg:
-    name: arvados-arch
-  service:
-    name: service-arch
-
-Alpine: {}
-
-FreeBSD:
-  rootgroup: wheel
-
-OpenBSD:
-  rootgroup: wheel
-
-Solaris: {}
-
-Windows: {}
-
-MacOS: {}
+  repo:
+    url_base: 'http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
+    file: /etc/yum.repos.d/arvados.repo
+    key_url: 'http://rpm.arvados.org/CentOS/RPM-GPG-KEY-curoverse'

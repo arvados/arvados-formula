@@ -11,6 +11,7 @@ extends: default
 ignore: |
   node_modules/
   test/**/states/**/*.sls
+  test/**/pillar/**/*.sls
   .kitchen/
 
 yaml-files:
@@ -30,7 +31,7 @@ rules:
   line-length:
     # Increase from default of `80`
     # Based on https://github.com/PyCQA/flake8-bugbear#opinionated-warnings (`B950`)
-    max: 88
+    max: 100
   octal-values:
     forbid-implicit-octal: true
     forbid-explicit-octal: true

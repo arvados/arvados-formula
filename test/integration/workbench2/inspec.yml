@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+name: workbench2
+title: arvados formula workbench2 submodule
+maintainer: SaltStack Formulas
+license: Apache-2.0
+summary: Verify that the arvados formula workbench2 is setup and configured correctly
+supports:
+  - platform-name: debian
+  - platform-name: ubuntu
+  - platform-name: centos

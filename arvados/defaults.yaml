@@ -2,14 +2,143 @@
 # vim: ft=yaml
 ---
 arvados:
-  pkg:
-    name: arvados
-  rootgroup: root
-  config: '/etc/arvados'
-  service:
-    name: arvados
-  subcomponent:
-    config: '/etc/arvados-subcomponent-formula.conf'
-  # Just here for testing
-  added_in_defaults: defaults_value
-  winner: defaults
+  version: '2.0.2'
+  use_upstream_repo: true
+  repo:
+    humanname: Arvados Official Repository
+  ruby:
+    manage_ruby: false
+    pkg: ruby
+    manage_gems_deps: false
+    gems_deps:
+      - bundler
+      - curl
+      - g++
+      - gcc
+      - git
+      - libcurl4
+      - libcurl4-gnutls-dev
+      - libpam0g-dev
+      - libpq-dev
+      - libxml2
+      - libxml2-dev
+      - make
+      - python-dev
+      - ruby-dev
+      - zlib1g-dev
+
+  config:
+    file: /etc/arvados/config.yml
+    user: root
+    group: root
+    mode: 640
+
+  cluster:
+    database:
+      connection_pool_max: 32
+
+    tls:
+      certificate: ''
+      key: ''
+      insecure: false
+
+  ### SERVICES
+  ##### API
+  api:
+    pkg:
+      name:
+        - arvados-api-server
+    gem:
+      name:
+        - arvados-cli
+    service:
+      name: nginx
+      port: 8004
+  ##### CONTROLLER
+  controller:
+    pkg:
+      name: arvados-controller
+    service:
+      name: arvados-controller
+      port: 8003
+  ##### DISPATCHER
+  dispatcher:
+    pkg:
+      name:
+        - crunch-dispatch-local
+        # - arvados-dispatch-cloud
+        # - crunch-dispatch-slurm
+    service:
+      name: crunch-dispatch-local
+      port: 9006
+  ##### KEEPPROXY
+  keepproxy:
+    pkg:
+      name: keepproxy
+    service:
+      name: keepproxy
+      port: 25107
+  ##### KEEPWEB
+  keepweb:
+    pkg:
+      name: keep-web
+    service:
+      name: keep-web
+      # webdav
+      port: 9002
+  ##### KEEPSTORE
+  keepstore:
+    pkg:
+      name: keepstore
+    service:
+      name: keepstore
+      port: 25107
+  ##### GIT-HTTPD
+  githttpd:
+    pkg:
+      name: arvados-git-httpd
+    service:
+      name: arvados-git-httpd
+      port: 9001
+  ##### SHELL
+  shell:
+    pkg:
+      name:
+        - arvados-client
+        - arvados-src
+        - libpam-arvados
+        - python-arvados-fuse
+        - python-arvados-python-client
+        - python3-arvados-cwl-runner
+    gem:
+      name:
+        - arvados-cli
+        - arvados-login-sync
+  ##### WORKBENCH
+  workbench:
+    pkg:
+      name: arvados-workbench
+    service:
+      name: nginx
+      # just for reference, is where the upstream is configured
+      port: 9000
+  ##### WORKBENCH2
+  workbench2:
+    pkg:
+      name: arvados-workbench2
+    service:
+      name: nginx
+  #####  WEBSOCKET
+  websocket:
+    pkg:
+      name: arvados-ws
+    service:
+      name: arvados-ws
+      port: 8005
+  ##### SSO
+  sso:
+    pkg:
+      name: arvados-sso
+    service:
+      name: arvados-sso
+      port: 8900

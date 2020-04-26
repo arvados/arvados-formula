@@ -2,7 +2,13 @@
 # vim: ft=sls
 
 include:
-  - .subcomponent.clean
-  - .service.clean
   - .config.clean
-  - .package.clean
+  #- .api.clean
+  #- .keepstore.clean
+  #- .websocket.clean
+  #- .keepweb.clean
+  #- .workbench2.clean
+  #- .keepproxy.clean
+  - .shell.clean
+  #- .workbench.clean
+  - .repo.clean

@@ -2,7 +2,13 @@
 # vim: ft=sls
 
 include:
-  - .package
-  - .config
-  - .service
-  - .subcomponent
+  - .repo
+  #- .config
+  #- .api
+  #- .keepstore
+  #- .websocket
+  #- .keepweb
+  #- .workbench2
+  #- .keepproxy
+  #- .shell
+  #- .workbench
