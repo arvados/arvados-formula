@@ -41,27 +41,77 @@ Contributing to this repo
 
 Please see `How to contribute <https://github.com/saltstack-formulas/.github/blob/master/CONTRIBUTING.rst>`_ for more details.
 
-Special notes
--------------
+Requisites
+----------
 
 Arvados **requires** a Postgres database for its API server and SSL for communications. If you don't satisfy these two requirements, things
 won't work. It also uses an Nginx server as a redirector but probably almost any other webserver/redirector can be used instead.
 
 We suggest you use the `postgres-formula <https://github.com/saltstack-formulas/postgres-formula/>`_,
 the `nginx-formula <https://github.com/saltstack-formulas/nginx-formula/>`_ and the
-`letsencrypt-formula <https://github.com/saltstack-formulas/letsencrypt-formula/>`_ to install satisfy these dependencies.
-In the FIXME directory there are some example pillar YAMLs to set up these packages as Arvados needs it.
+`letsencrypt-formula <https://github.com/saltstack-formulas/letsencrypt-formula/>`_ to satisfy these dependencies.
+In the **test/salt/pillar/examples/** directory there are example pillar YAMLs to set up these packages, using the mentioned formulas
+as Arvados needs them.
 
-Also, please note that the individual subcomponents `clean` states **won't remove the config**: as the config is common to all the suite
+Usage
+-----
+
+As Arvados is a *suite* of tools that can be installed in different hosts and configured to interact, this formula is split in
+those components, which can be installed or removed independently of the other components. This means that you'll get flexibility
+to install your cluster as you prefer at the expense of having to take care on some steps:
+
+The formula has the following components/submodules available:
+
+* `api <https://doc.arvados.org/install/install-api-server.html>`_: installs the Arvados API server packages. Requires a running
+  Postgres database and an Nginx+Passenger server.
+* `config <https://doc.arvados.org/v2.0/admin/config.html>`_: creates and deploys a valid Arvados config file. This state is automatically
+  include in all the components that require it (at the moment, all but `shell`), so you will rarely need to invoke this state manually.
+* `controller <https://doc.arvados.org/v2.0/install/install-api-server.html>`_: installs the Arvados API controller.
+* `keepproxy <https://doc.arvados.org/v2.0/install/install-keepproxy.html>`_: installs and configures the Arvados Keepproxy gateway
+  to the Keep storages.
+* `keepstore <https://doc.arvados.org/v2.0/install/install-keepstore.html>`_: installs and configures an Arvados Keep storages.
+* `keepweb <https://doc.arvados.org/v2.0/install/install-keep-web.html>`_: installs and configures the WebDAV access to the Keep storages.
+* `repo <https://doc.arvados.org/v2.0/install/packages.html>`_: configures the repositories to install arvados. It's enabled by default.
+* `shell <https://doc.arvados.org/v2.0/install/install-shell-server.html>`_: installs the user CLI apps to communicate with the cluster.
+* `websocket <https://doc.arvados.org/v2.0/install/install-ws.html>`_: installs the websocket notifcations gateway.
+* `workbench <https://doc.arvados.org/v2.0/install/install-workbench-app.html>`_: installs the webUI to communicate with the cluster.
+* `workbench2 <https://doc.arvados.org/v2.0/install/install-workbench2-app.html>`_: installs the next generation webUI for Arvados.
+
+If you just use the `arvados` meta-state, it will install all the components in a single host.
+
+Also, please note that the individual subcomponents' `clean` states **won't remove the config file**: as the config is common to all the suite
 components and they can be installed in the same host, removing it with a subcomponent might break others.
 
 If you want to remove the config in a host where you're removing a subcomponent, use the `arvados.config.clean` state after the
 `arvados.<subcomponent>.clean` state.
 
-The `arvados.clean` state will remove everything, config included, and can be used in any host to remove all of arvados files.
+Finally, the `arvados.clean` meta-state will remove everything, config included, and can be used in any host to remove all of arvados files.
 
 Available states
 ----------------
+
+For each of the components, there are *meta-states* named after the component that will include other states in the component subdir
+that perform the actual work.
+
+For example, using *arvados.keepstore* will include, in order:
+
+* arvados.keepstore.package.install
+* arvados.config.file
+* arvados.keepstore.service.running
+
+while using *arvados.keepstore.clean* will include, in order:
+
+* arvados.keepstore.service.clean
+* arvados.keepstore.package.clean
+
+Or you can use individual states, like
+
+* arvados.keepstore.package.install
+* arvados.keepstore.service.clean
+
+to get the *keepstore* package installed with the service stopped.
+
+The generic description for the states is
 
 .. contents::
    :local:
@@ -71,24 +121,30 @@ Available states
 
 *Meta-state (This is a state that includes other states)*.
 
-This installs the WHOLE arvados suite in a single host,
+This installs the *WHOLE* arvados suite in a single host,
 manages the arvados configuration file and then
 starts the associated arvados services.
 
 ``arvados.clean``
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-this state will undo everything performed in the ``arvados`` meta-state in reverse order, i.e.
+This state will undo everything performed in the ``arvados`` meta-state in reverse order, i.e.
 stops the services, removes the configuration file and then uninstalls the packages.
 
+
 ``arvados.config``
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 This state will configure the arvados cluster. As all the arvados components use the same config
 file, any of the following components will include this state and you will rarely need to call it
-independently. You can still do, as to get a parsed config file to use somewhere else.
+independently. You can still do, ie, to get a parsed config file to use somewhere else.
+
+``arvados.config.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This state will remove the configuration of the arvados node.
 
 ``arvados.repo``
 ^^^^^^^^^^^^^^^^
@@ -96,73 +152,48 @@ independently. You can still do, as to get a parsed config file to use somewhere
 This state will configure the arvados repository.
 
 ``arvados.repo.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove the arvados repository configuration.
 
-``arvados.shell``
-^^^^^^^^^^^^^^^^^
 
-*Meta-state (This is a state that includes other states)*.
-
-This state installs an `arvados shell node <https://doc.arvados.org/master/install/install-shell-server.html>`_.
-
-``arvados.shell.clean``
+``arvados.<component>``
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-this state will undo everything performed in the ``arvados.shell`` meta-state in reverse order, i.e.
-uninstalls the packages and gems.
+This state will install the package, configure the component (if applicable) and start the service (if applicable).
 
-``arvados.shell.package``
-^^^^^^^^^^^^^^^^^^^^^^^^^
+``arvados.<component>.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will install the arvados shell packages and gems only.
+*Meta-state (This is a state that includes other states)*.
 
-``arvados.shell.package.clean``
+This state will undo everything performed in the ``arvados.<component>`` meta-state in reverse order, i.e.
+stop the service and uninstall the package/s.
+
+``arvados.<component>.package``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will remove the packages and gems of the arvados shell node.
+This state will install the arvados <component> package/s only.
 
+``arvados.<component>.package.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+This state will remove the packages of the arvados <component> node and has a depency on
+``arvados.<component>.service.clean`` via include list (if applicable).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-``arvados.service``
-^^^^^^^^^^^^^^^^^^^^
+``arvados.<component>.service``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will start the arvados service and has a dependency on ``arvados.config``
 via include list.
 
-``arvados.service.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+``arvados.<component>.service.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will stop the arvados service and disable it at boot time.
 
-``arvados.config.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This state will remove the configuration of the arvados service and has a
-dependency on ``arvados.service.clean`` via include list.
-
-``arvados.package.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This state will remove the arvados package and has a depency on
-``arvados.config.clean`` via include list.
 
 Testing
 -------
