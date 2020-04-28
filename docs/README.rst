@@ -53,8 +53,8 @@ the `nginx-formula <https://github.com/saltstack-formulas/nginx-formula/>`_ and 
 In the **test/salt/pillar/examples/** directory there are example pillar YAMLs to set up these packages, using the mentioned formulas
 as Arvados needs them.
 
-Special notes (a.k.a. how to use this formula)
-----------------------------------------------
+Usage
+-----
 
 As Arvados is a *suite* of tools that can be installed in different hosts and configured to interact, this formula is split in
 those components, which can be installed or removed independently of the other components. This means that you'll get flexibility
