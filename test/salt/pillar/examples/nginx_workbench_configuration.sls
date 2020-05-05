@@ -66,6 +66,6 @@ nginx:
             - server_name: workbench
             - root: /var/www/arvados-workbench/current/public
             - index:  index.html index.htm
+            # yamllint disable-line rule:line-length
             - access_log: {{ nginx_log }}/workbench.example.net-upstream.access.log combined
             - error_log: {{ nginx_log }}/workbench.example.net-upstream.error.log
-
