@@ -11,14 +11,14 @@ driver:
 # Make sure the platforms listed below match up with
 # the `env.matrix` instances defined in `.travis.yml`
 platforms:
-  ## SALT `3000.1`
-  - name: debian-10-3000-1-py3
+  ## SALT `3000.2`
+  - name: debian-10-3000-2-py3
     driver:
-      image: netmanagers/salt-3000.1-py3:debian-10
+      image: netmanagers/salt-3000.2-py3:debian-10
 
-#   - name: ubuntu-1804-3000-1-py3
+#   - name: ubuntu-1804-3000-2-py3
 #     driver:
-#       image: netmanagers/salt-3000.1-py3:ubuntu-18.04
+#       image: netmanagers/salt-3000.2-py3:ubuntu-18.04
 
 #   ## SALT `2019.2`
 #   - name: centos-7-2019-2-py3
@@ -78,6 +78,7 @@ suites:
               # installing/testing it without an api server running will fail
               # - example_nginx_keepproxy
       pillars_from_files:
+        # yamllint disable rule:line-length
         arvados.sls: pillar.example
         example_postgres.sls: test/salt/pillar/examples/postgresql.sls
         example_nginx.sls: test/salt/pillar/examples/nginx_passenger.sls
@@ -86,6 +87,7 @@ suites:
         example_nginx_keepweb.sls: test/salt/pillar/examples/nginx_keepweb_configuration.sls
         # example_nginx_keepproxy.sls: test/salt/pillar/examples/nginx_keepproxy_configuration.sls
         example_nginx_controller.sls: test/salt/pillar/examples/nginx_controller_configuration.sls
+        # yamllint enable rule:line-length
       dependencies:
         - name: example_add_snakeoil_certs
           path: test/salt/states
@@ -125,10 +127,12 @@ suites:
               - example_nginx_workbench
               - example_nginx_workbench2
       pillars_from_files:
+        # yamllint disable rule:line-length
         arvados.sls: pillar.example
         example_nginx.sls: test/salt/pillar/examples/nginx_passenger.sls
         example_nginx_workbench.sls: test/salt/pillar/examples/nginx_workbench_configuration.sls
         example_nginx_workbench2.sls: test/salt/pillar/examples/nginx_workbench2_configuration.sls
+        # yamllint enable rule:line-length
       dependencies:
         - name: example_add_snakeoil_certs
           path: test/salt/states

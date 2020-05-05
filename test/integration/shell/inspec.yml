@@ -5,6 +5,7 @@ name: shell
 title: arvados formula shell submodule
 maintainer: SaltStack Formulas
 license: Apache-2.0
+# yamllint disable-line rule:line-length
 summary: Verify that the arvados formula shell submodule is setup and configured correctly
 supports:
   - platform-name: debian
