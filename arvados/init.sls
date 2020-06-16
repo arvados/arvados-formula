@@ -3,12 +3,12 @@
 
 include:
   - .repo
-  #- .config
-  #- .api
-  #- .keepstore
-  #- .websocket
-  #- .keepweb
-  #- .workbench2
-  #- .keepproxy
-  #- .shell
-  #- .workbench
+  - .config
+  - .api
+  - .keepstore
+  - .websocket
+  - .keepweb
+  - .workbench2
+  - .keepproxy
+  - .shell
+  - .workbench
