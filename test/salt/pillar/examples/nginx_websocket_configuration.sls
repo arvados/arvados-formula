@@ -38,12 +38,13 @@ nginx:
             - index: index.html index.htm
             - location /:
               - proxy_pass: 'http://websocket_upstream'
-              - proxy_read_timeout: 90
+              - proxy_read_timeout: 600
               - proxy_connect_timeout: 90
               - proxy_redirect: 'off'
-              - proxy_set_header: X-Forwarded-Proto https
-              - proxy_set_header: 'Host $http_host'
+              - proxy_set_header: 'Host $host'
               - proxy_set_header: 'X-Real-IP $remote_addr'
+              - proxy_set_header: 'Upgrade $http_upgrade'
+              - proxy_set_header: 'Connection "upgrade"'
               - proxy_set_header: 'X-Forwarded-For $proxy_add_x_forwarded_for'
               - proxy_buffering: 'off'
             - client_body_buffer_size: 64M
