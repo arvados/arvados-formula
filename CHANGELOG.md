@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.2.1](https://github.com/saltstack-formulas/arvados-formula/compare/v0.2.0...v0.2.1) (2020-06-16)
+
+
+### Bug Fixes
+
+* **init:** enable all sub-modules ([dd5b832](https://github.com/saltstack-formulas/arvados-formula/commit/dd5b832e0209950b97f3d84c1bce71e96a5cde41))
+
+
+### Continuous Integration
+
+* **kitchen:** use `saltimages` Docker Hub where available [skip ci] ([ffc372d](https://github.com/saltstack-formulas/arvados-formula/commit/ffc372d4134debada69126f178493e0e7d6b68b3))
+* **kitchen+travis:** adjust matrix to add `3000.3` [skip ci] ([34c3f28](https://github.com/saltstack-formulas/arvados-formula/commit/34c3f2889fd2f4d058c9c56972cc3b3fca28c417))
+* **travis:** add notifications => zulip [skip ci] ([71b9243](https://github.com/saltstack-formulas/arvados-formula/commit/71b9243248531e8180fb9918564b0fbd744b89c8))
+
+
+### Documentation
+
+* **examples:** fix websocket nginx example stanza ([f1f4904](https://github.com/saltstack-formulas/arvados-formula/commit/f1f4904bce70447c910b07ba8745f05be7e1d1ae))
+
 # [0.2.0](https://github.com/saltstack-formulas/arvados-formula/compare/v0.1.0...v0.2.0) (2020-05-05)
 
 

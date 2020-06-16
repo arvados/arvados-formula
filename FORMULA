@@ -1,7 +1,7 @@
 name: arvados
 os: Debian, Ubuntu, RedHat, CentOS
 os_family: Debian, RedHat
-version: 0.2.0
+version: 0.2.1
 release: 1
 minimum_version: 3000.1
 summary: arvados formula
