@@ -1,6 +1,4 @@
 ---
-{% set nginx_log = '/var/log/nginx' %}
-
 ### ARVADOS
 arvados:
   config:
@@ -15,7 +13,7 @@ nginx:
       ### STREAMS
       http:
         upstream workbench_upstream:
-          - server: '127.0.0.1:9000 fail_timeout=10s'
+          - server: '127.0.0.2:9000 fail_timeout=10s'
 
   ### SITES
   servers:
@@ -26,7 +24,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: workbench.example.net
+            - server_name: workbench.fixme.example.net
             - listen:
               - 80
             - location /.well-known:
@@ -39,7 +37,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: workbench.example.net
+            - server_name: workbench.fixme.example.net
             - listen:
               - 443 http2 ssl
             - index: index.html index.htm
@@ -54,18 +52,19 @@ nginx:
               - proxy_set_header: 'X-Forwarded-For $proxy_add_x_forwarded_for'
             # - include: 'snippets/letsencrypt.conf'
             - include: 'snippets/snakeoil.conf'
-            - access_log: {{ nginx_log }}/workbench.example.net.access.log combined
-            - error_log: {{ nginx_log }}/workbench.example.net.error.log
+            - access_log: /var/log/nginx/workbench.fixme.example.net.access.log combined
+            - error_log: /var/log/nginx/workbench.fixme.example.net.error.log
 
       arvados_workbench_upstream:
         enabled: true
         overwrite: true
         config:
           - server:
-            - listen: '127.0.0.1:9000'
+            - listen: '127.0.0.2:9000'
             - server_name: workbench
             - root: /var/www/arvados-workbench/current/public
             - index:  index.html index.htm
+            - passenger_enabled: 'on'
             # yamllint disable-line rule:line-length
-            - access_log: {{ nginx_log }}/workbench.example.net-upstream.access.log combined
-            - error_log: {{ nginx_log }}/workbench.example.net-upstream.error.log
+            - access_log: /var/log/nginx/workbench.fixme.example.net-upstream.access.log combined
+            - error_log: /var/log/nginx/workbench.fixme.example.net-upstream.error.log

@@ -1,6 +1,4 @@
 ---
-{% set nginx_log = '/var/log/nginx' %}
-
 ### NGINX
 nginx:
   ### SERVER
@@ -9,7 +7,7 @@ nginx:
       ### STREAMS
       http:
         upstream collections_downloads_upstream:
-          - server: '127.0.0.1:9002 fail_timeout=10s'
+          - server: '127.0.0.2:9002 fail_timeout=10s'
 
   servers:
     managed:
@@ -19,7 +17,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: collections.example.net download.example.net
+            - server_name: collections.fixme.example.net download.fixme.example.net
             - listen:
               - 80
             - location /.well-known:
@@ -33,7 +31,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: collections.example.net download.example.net
+            - server_name: collections.fixme.example.net download.fixme.example.net
             - listen:
               - 443 http2 ssl
             - index: index.html index.htm
@@ -52,5 +50,5 @@ nginx:
             - proxy_request_buffering: 'off'
             # - include: 'snippets/letsencrypt.conf'
             - include: 'snippets/snakeoil.conf'
-            - access_log: {{ nginx_log }}/collections.example.net.access.log combined
-            - error_log: {{ nginx_log }}/collections.example.net.error.log
+            - access_log: /var/log/nginx/collections.fixme.example.net.access.log combined
+            - error_log: /var/log/nginx/collections.fixme.example.net.error.log

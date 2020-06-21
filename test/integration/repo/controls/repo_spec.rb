@@ -3,6 +3,7 @@
 case os[:name]
 when 'centos'
   repo_file = '/etc/yum.repos.d/arvados.repo'
+
   repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
 when 'debian'
   repo_file = '/etc/apt/sources.list.d/arvados.list'

@@ -8,3 +8,4 @@
 arvados-keepweb-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.keepweb.pkg.name }}
+    - version: {{ arvados.version }}

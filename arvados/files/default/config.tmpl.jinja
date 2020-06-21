@@ -3,113 +3,112 @@
 # File managed by Salt at <{{ source }}>.
 # Your changes will be overwritten.
 #
-# Please check https://doc.arvados.org/master/admin/config.html for 
+# Please check https://doc.arvados.org/master/admin/config.html for
 # documentation about the parameters configured here.
 ########################################################################
+{%- if arvados.release == 'development' %}
+# (Experimental) Restart services automatically when config file
+# changes are detected. Only supported by `arvados-server boot` in
+# dev mode.
+AutoReloadConfig: {{ arvados.auto_reload_config }}
+{%- endif %}
+
 Clusters:
   {{ arvados.cluster.name }}:
-    SystemRootToken: "{{ arvados.cluster.tokens.system_root }}"
-    ManagementToken: "{{ arvados.cluster.tokens.management }}"
+
+    SystemRootToken: {{ arvados.cluster.tokens.system_root | yaml_encode }}
+    ManagementToken: {{ arvados.cluster.tokens.management | yaml_encode }}
+
+    ForceLegacyAPI14: {{ arvados.cluster.force_legacy_api14 }}
 
     API:
-      RailsSessionSecretToken: "{{ arvados.cluster.tokens.rails_secret }}"
+      RailsSessionSecretToken: {{ arvados.cluster.tokens.rails_secret | yaml_encode }}
+    {%- if 'API' in arvados.cluster %}
+      {{ arvados.cluster.API | default('') | yaml(False) | indent(6) }}
+    {%- endif %}
 
     Collections:
-      BlobSigningKey: "{{ arvados.cluster.secrets.blob_signing_key }}"
-      ForwardSlashNameSubstitution: "%2f"
-      DefaultReplication: 1
-      TrustAllContent: true
+      BlobSigningKey: {{ arvados.cluster.secrets.blob_signing_key | yaml_encode }}
+    {%- if 'Collections' in arvados.cluster %}
+      {{ arvados.cluster.Collections | yaml(False) | indent(6) }}
+    {%- endif %}
 
     Login:
-      ProviderAppSecret: "{{ arvados.cluster.tokens.provider_secret }}"
-      ProviderAppID: arvados-server
+      {{ arvados.cluster.Login | yaml(False) | indent(6) }}
 
     Users:
-      NewUsersAreActive: true
-      AutoAdminFirstUser: true
-      AutoSetupNewUsers: true
-      AutoSetupNewUsersWithVmUUID: x2jbo-2x53u-6maueyy9if4u7vq
-      AutoSetupNewUsersWithRepository: true
+      {{ arvados.cluster.Users | yaml(False) | indent(6) }}
 
     TLS:
-      Certificate: "{{ arvados.cluster.tls.certificate }}"
-      Key: "{{ arvados.cluster.tls.key }}"
+      Certificate: {{ arvados.cluster.tls.certificate | yaml_encode }}
+      Key: {{ arvados.cluster.tls.key | yaml_encode }}
       Insecure: {{ arvados.cluster.tls.insecure }}
 
     Workbench:
-      SecretKeyBase: {{ arvados.cluster.secrets.workbench_secret_key }}
-      SiteName:  {{ arvados.cluster.name | upper }}
+      SecretKeyBase: {{ arvados.cluster.secrets.workbench_secret_key | yaml_encode }}
+      SiteName: {{ arvados.cluster.name | upper }}
+    {%- if 'Workbench' in arvados.cluster %}
+      {{ arvados.cluster.Workbench | yaml(False) | indent(6) }}
+    {%- endif %}
 
-    # FIXME!!!!
-    # Git:
-    #   GitCommand: /usr/share/gitolite3/gitolite-shell
-    #   GitoliteHome: /var/lib/arvados/git
-    #   Repositories: /var/lib/arvados/git/repositories
-
-    Volumes:
-      {% for v, p in arvados.cluster.volumes.items() -%}
-      ### {{ v | upper }}
-      {{ p.cluster }}-nyw5e-{{ p.volume_id }}:
-        Driver: {{ p.driver }}
-        DriverParameters: {{ p.driver_parameters | yaml }}
-        AccessViaHosts: {{ p.access_via_hosts | yaml }}
-        Replication: {{ p.replication }}
-      {% endfor -%}
+    {%- for section in [
+        'AuditLogs',
+        'Containers',
+        'Git',
+        'InstanceTypes',
+        'Mail',
+        'RemoteClusters',
+        'SystemLogs',
+        'Volumes'
+      ]
+    %}
+      {%- if section in arvados.cluster %}
+    {{ section }}:
+      {{ arvados.cluster[section] | yaml(False) | indent(6) }}
+      {%- endif %}
+    {%- endfor %}
 
     ### DATABASE CONFIGURATION
     PostgreSQL:
+      # FIXME!!!!!! ALL as database or using Arvados' PostgreSQL ??
       ConnectionPool: {{ arvados.cluster.database.connection_pool_max }}
       Connection:
         # All parameters here are passed to the PG client library in a connection string;
         # see https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
         dbname: {{ arvados.cluster.database.name }}
         host: {{ arvados.cluster.database.host }}
-        password: {{ arvados.cluster.database.password }}
+        password: {{ arvados.cluster.database.password | yaml_encode }}
         user: {{ arvados.cluster.database.user }}
         client_encoding: {{ arvados.cluster.database.client_encoding }}
+    {%- if 'PostgreSQL' in arvados.cluster %}
+      {{ arvados.cluster.PostgreSQL | yaml(False) | indent(6) }}
+    {%- endif %}
 
     ### SERVICES URLs
-    # This could probably made into a loop, but some consistency check needs to be done
-    # on the arvados side before that's possible
     Services:
-      # Composer: FIXME!!!
-      Controller:
-        ExternalURL: "https://{{ arvados.cluster.domain }}"
-        InternalURLs:
-          "http://localhost:{{ arvados.controller.service.port }}": {}
-      DispatchCloud:
-        InternalURLs:
-          "http://localhost:{{ arvados.dispatcher.service.port }}": {}
-      # GitSSH: FIXME!!!
-      # Health: FIXME!!!
-      # Keepbalance: FIXME!!!
-      # Keepproxy: FIXME!!!
-      # Keepstore: FIXME!!!
-      # Nodemanager: FIXME!!!
-      RailsAPI:
-        InternalURLs:
-          "http://localhost:{{ arvados.api.service.port }}": {}
-      SSO:
-        ExternalURL: "https://sso.{{ arvados.cluster.domain }}"
-      WebDAV:
-        ExternalURL: https://collections.{{ arvados.cluster.domain }}
-        InternalURLs:
-          "http://localhost:{{ arvados.keepweb.service.port }}": {}
-      WebDAVDownload:
-        ExternalURL: https://download.{{ arvados.cluster.domain }}
-      # WebShell: FIXME!!!
-      Websocket:
-        ExternalURL: wss://ws.{{ arvados.cluster.domain }}/websocket
-        InternalURLs:
-          "http://localhost:{{ arvados.websocket.service.port }}": {}
-      Workbench1:
-        ExternalURL: "https://workbench.{{ arvados.cluster.domain }}"
-      Workbench2:
-        ExternalURL: "https://workbench2.{{ arvados.cluster.domain }}"
-      Keepproxy:
-        ExternalURL: https://keep.{{ arvados.cluster.domain }}
-        InternalURLs:
-          "http://localhost:{{ arvados.keepproxy.service.port }}": {}
-      Keepstore:
-        InternalURLs:
-          "http://keep0.{{ arvados.cluster.domain }}:{{ arvados.keepstore.service.port }}/": {}
+    {%- for service in [
+        'Composer',
+        'Controller',
+        'DispatchCloud',
+        'GitHTTP',
+        'GitSSH',
+        'Health',
+        'Keepbalance',
+        'Keepproxy',
+        'Keepstore',
+        'Nodemanager',
+        'RailsAPI',
+        'SSO',
+        'WebDAV',
+        'WebDAVDownload',
+        'WebShell',
+        'Websocket',
+        'Workbench1',
+        'Workbench2',
+      ]
+    %}
+      {%- if service in arvados.cluster.Services %}
+      {{ service }}:
+        {{ arvados.cluster.Services[service] | yaml(False) | indent(8) }}
+      {%- endif %}
+    {%- endfor %}

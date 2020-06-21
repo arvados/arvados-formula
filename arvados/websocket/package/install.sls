@@ -8,3 +8,4 @@
 arvados-websocket-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.websocket.pkg.name }}
+    - version: {{ arvados.version }}

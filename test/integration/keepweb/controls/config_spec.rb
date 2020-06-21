@@ -2,11 +2,11 @@
 
 keepweb_stanza = <<-KEEPWEB_STANZA
       WebDAV:
-        ExternalURL: https://collections.example.net
+        ExternalURL: https://collections.fixme.example.net
         InternalURLs:
-          "http://localhost:9002": {}
+          http://127.0.0.2:9002: {}
       WebDAVDownload:
-        ExternalURL: https://download.example.net
+        ExternalURL: https://download.fixme.example.net
 KEEPWEB_STANZA
 
 control 'arvados configuration' do

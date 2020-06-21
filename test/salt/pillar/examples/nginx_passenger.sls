@@ -1,9 +1,4 @@
 ---
-states:
-  - nginx.passenger
-
-{% set nginx_log = '/var/log/nginx' %}
-
 ### NGINX
 nginx:
   install_from_phusionpassenger: true

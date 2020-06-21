@@ -2,7 +2,7 @@
 
 workbench2_service = <<-WORKBENCH2_STANZA
       Workbench2:
-        ExternalURL: "https://workbench2.example.net"
+        ExternalURL: https://workbench2.fixme.example.net
 WORKBENCH2_STANZA
 
 control 'arvados configuration' do

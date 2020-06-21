@@ -31,6 +31,9 @@ jobs:
     # Run all of the linters in a single job
     - language: 'node_js'
       node_js: 'lts/*'
+      cache:
+        directories:
+          - $HOME/.cache/pre-commit
       env: 'Lint'
       name: 'Lint: salt-lint, yamllint, rubocop, shellcheck & commitlint'
       before_install: 'skip'
@@ -54,16 +57,87 @@ jobs:
         - npm i -D @commitlint/config-conventional
                    @commitlint/travis-cli
         - commitlint-travis
+        # Install and run `pre-commit`
+        - pip install pre-commit
+        - pre-commit run --all-files --verbose
+        - pre-commit run --hook-stage manual --verbose commitlint-travis
 
     ## Define the rest of the matrix based on Kitchen testing
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
-    - env: INSTANCE=api-debian-10-3000-3-py3
-    - env: INSTANCE=workbench-debian-10-3000-3-py3
-    - env: INSTANCE=shell-debian-10-3000-3-py3
-    - env: INSTANCE=keepstore-debian-10-3000-3-py3
-    # - env: INSTANCE=default-ubuntu-1804-3000-3-py3
-    # - env: INSTANCE=default-centos-7-2019-2-py3
+
+    # - env: INSTANCE=api-debian-10-tiamat-py3
+    # - env: INSTANCE=api-debian-9-tiamat-py3
+    # - env: INSTANCE=api-ubuntu-2004-tiamat-py3
+    # - env: INSTANCE=api-ubuntu-1804-tiamat-py3
+    # - env: INSTANCE=api-centos-7-tiamat-py3
+    # - env: INSTANCE=api-debian-10-master-py3
+    # - env: INSTANCE=api-ubuntu-2004-master-py3
+    # - env: INSTANCE=api-ubuntu-1804-master-py3
+    - env: INSTANCE=api-debian-10-3001-py3
+    # - env: INSTANCE=api-debian-9-3001-py3
+    # - env: INSTANCE=api-ubuntu-2004-3001-py3
+    # - env: INSTANCE=api-ubuntu-1804-3001-py3
+    # - env: INSTANCE=api-centos-7-3001-py3
+    # - env: INSTANCE=api-debian-10-3000-3-py3
+    # - env: INSTANCE=api-debian-9-3000-3-py3
+    # - env: INSTANCE=api-ubuntu-1804-3000-3-py3
+    # - env: INSTANCE=api-centos-7-3000-3-py3
+    # - env: INSTANCE=api-ubuntu-1804-3000-3-py2
+    # - env: INSTANCE=workbench-debian-10-tiamat-py3
+    # - env: INSTANCE=workbench-debian-9-tiamat-py3
+    # - env: INSTANCE=workbench-ubuntu-2004-tiamat-py3
+    # - env: INSTANCE=workbench-ubuntu-1804-tiamat-py3
+    # - env: INSTANCE=workbench-centos-7-tiamat-py3
+    # - env: INSTANCE=workbench-debian-10-master-py3
+    # - env: INSTANCE=workbench-ubuntu-2004-master-py3
+    - env: INSTANCE=workbench-ubuntu-1804-master-py3
+    # - env: INSTANCE=workbench-debian-10-3001-py3
+    # - env: INSTANCE=workbench-debian-9-3001-py3
+    # - env: INSTANCE=workbench-ubuntu-2004-3001-py3
+    # - env: INSTANCE=workbench-ubuntu-1804-3001-py3
+    # - env: INSTANCE=workbench-centos-7-3001-py3
+    # - env: INSTANCE=workbench-debian-10-3000-3-py3
+    # - env: INSTANCE=workbench-debian-9-3000-3-py3
+    # - env: INSTANCE=workbench-ubuntu-1804-3000-3-py3
+    # - env: INSTANCE=workbench-centos-7-3000-3-py3
+    # - env: INSTANCE=workbench-ubuntu-1804-3000-3-py2
+    # - env: INSTANCE=shell-debian-10-tiamat-py3
+    # - env: INSTANCE=shell-debian-9-tiamat-py3
+    # - env: INSTANCE=shell-ubuntu-2004-tiamat-py3
+    # - env: INSTANCE=shell-ubuntu-1804-tiamat-py3
+    # - env: INSTANCE=shell-centos-7-tiamat-py3
+    # - env: INSTANCE=shell-debian-10-master-py3
+    # - env: INSTANCE=shell-ubuntu-2004-master-py3
+    # - env: INSTANCE=shell-ubuntu-1804-master-py3
+    - env: INSTANCE=shell-debian-10-3001-py3
+    # - env: INSTANCE=shell-debian-9-3001-py3
+    # - env: INSTANCE=shell-ubuntu-2004-3001-py3
+    # - env: INSTANCE=shell-ubuntu-1804-3001-py3
+    # - env: INSTANCE=shell-centos-7-3001-py3
+    # - env: INSTANCE=shell-debian-10-3000-3-py3
+    # - env: INSTANCE=shell-debian-9-3000-3-py3
+    # - env: INSTANCE=shell-ubuntu-1804-3000-3-py3
+    # - env: INSTANCE=shell-centos-7-3000-3-py3
+    # - env: INSTANCE=shell-ubuntu-1804-3000-3-py2
+    # - env: INSTANCE=keepstore-debian-10-tiamat-py3
+    # - env: INSTANCE=keepstore-debian-9-tiamat-py3
+    # - env: INSTANCE=keepstore-ubuntu-2004-tiamat-py3
+    # - env: INSTANCE=keepstore-ubuntu-1804-tiamat-py3
+    # - env: INSTANCE=keepstore-centos-7-tiamat-py3
+    # - env: INSTANCE=keepstore-debian-10-master-py3
+    # - env: INSTANCE=keepstore-ubuntu-2004-master-py3
+    # - env: INSTANCE=keepstore-ubuntu-1804-master-py3
+    # - env: INSTANCE=keepstore-debian-10-3001-py3
+    # - env: INSTANCE=keepstore-debian-9-3001-py3
+    # - env: INSTANCE=keepstore-ubuntu-2004-3001-py3
+    # - env: INSTANCE=keepstore-ubuntu-1804-3001-py3
+    # - env: INSTANCE=keepstore-centos-7-3001-py3
+    # - env: INSTANCE=keepstore-debian-10-3000-3-py3
+    # - env: INSTANCE=keepstore-debian-9-3000-3-py3
+    # - env: INSTANCE=keepstore-ubuntu-1804-3000-3-py3
+    # - env: INSTANCE=keepstore-centos-7-3000-3-py3
+    - env: INSTANCE=keepstore-ubuntu-1804-3000-3-py2
 
     ## Define the release stage that runs `semantic-release`
     - stage: 'release'
@@ -90,15 +164,3 @@ jobs:
         edge: true
         # Run `semantic-release`
         script: 'npx semantic-release@15.14'
-
-# Notification options: `always`, `never` or `change`
-notifications:
-  webhooks:
-    if: 'repo = saltstack-formulas/arvados-formula'
-    urls:
-      - https://saltstack-formulas.zulipchat.com/api/v1/external/travis?api_key=HsIq3o5QmLxdnVCKF9is0FUIpkpAY79P&stream=CI&topic=saltstack-formulas%2Farvados-formula&ignore_pull_requests=true
-    on_success: always  # default: always
-    on_failure: always  # default: always
-    on_start: always    # default: never
-    on_cancel: always   # default: always
-    on_error: always    # default: always

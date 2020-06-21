@@ -16,7 +16,7 @@ arvados-api-package-clean-gem-{{ gm }}-removed:
 arvados-api-package-clean-gems-deps-pkg-removed:
   pkg.removed:
     - pkgs: {{ arvados.ruby.gems_deps | json }}
-    - only_if: {{ arvados.ruby.manage_gems_deps }}
+    - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
 arvados-api-package-clean-pkg-removed:
   pkg.removed:
@@ -25,4 +25,4 @@ arvados-api-package-clean-pkg-removed:
 arvados-api-package-clean-ruby-pkg-removed:
   pkg.removed:
     - name: {{ arvados.ruby.pkg }}
-    - only_if: {{ arvados.ruby.manage_ruby }}
+    - only_if: test "{{ arvados.ruby.manage_ruby | lower }}" = "true"

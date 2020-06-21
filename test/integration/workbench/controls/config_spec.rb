@@ -2,13 +2,13 @@
 
 workbench_config = <<-WORKBENCH_STANZA
     Workbench:
-      SecretKeyBase: changeme_workbench_secret_key
-      SiteName:  FIXME
+      SecretKeyBase: "changeme_workbench_secret_key"
+      SiteName: FIXME
 WORKBENCH_STANZA
 
 workbench_service = <<-WORKBENCH_SERVICE_STANZA
       Workbench1:
-        ExternalURL: "https://workbench.example.net"
+        ExternalURL: https://workbench.fixme.example.net
 WORKBENCH_SERVICE_STANZA
 
 control 'arvados configuration' do
