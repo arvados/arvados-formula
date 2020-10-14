@@ -4,7 +4,9 @@
 include:
   - .repo
   - .config
+  - .ruby
   - .api
+  - .controller
   - .keepstore
   - .websocket
   - .keepweb
@@ -12,3 +14,4 @@ include:
   - .keepproxy
   - .shell
   - .workbench
+  - .dispatcher

@@ -8,7 +8,7 @@ API_STANZA
 rails_stanza = <<-RAILS_STANZA
       RailsAPI:
         InternalURLs:
-          "http://localhost:8004": {}
+          http://127.0.0.2:8004: {}
 RAILS_STANZA
 
 control 'arvados configuration' do

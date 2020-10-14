@@ -3,16 +3,18 @@
 keepstore_stanza = <<-KEEPSTORE_STANZA
       Keepstore:
         InternalURLs:
-          "http://keep0.example.net:25107/": {}
+          http://keep0.fixme.example.net:25107: {}
 KEEPSTORE_STANZA
 
 volumes_stanza = <<-VOLUMES_STANZA
     Volumes:
-      ### VOLUME_ONE
       fixme-nyw5e-000000000000000:
+        AccessViaHosts:
+          http://keep0.fixme.example.net:25107:
+            ReadOnly: false
         Driver: Directory
-        DriverParameters: {Root: /tmp}
-        AccessViaHosts: {'http://keep0.example.net:25107/': {}}
+        DriverParameters:
+          Root: /tmp
         Replication: 2
 VOLUMES_STANZA
 

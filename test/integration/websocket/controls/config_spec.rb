@@ -2,9 +2,9 @@
 
 websocket_stanza = <<-WEBSOCKET_STANZA
       Websocket:
-        ExternalURL: wss://ws.example.net/websocket
+        ExternalURL: wss://ws.fixme.example.net/websocket
         InternalURLs:
-          "http://localhost:8005": {}
+          http://127.0.0.2:8005: {}
 WEBSOCKET_STANZA
 
 control 'arvados configuration' do

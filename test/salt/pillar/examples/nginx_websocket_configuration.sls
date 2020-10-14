@@ -1,6 +1,4 @@
 ---
-{% set nginx_log = '/var/log/nginx' %}
-
 ### NGINX
 nginx:
   ### SERVER
@@ -9,7 +7,7 @@ nginx:
       ### STREAMS
       http:
         upstream websocket_upstream:
-          - server: '127.0.0.1:8005 fail_timeout=10s'
+          - server: '127.0.0.2:8005 fail_timeout=10s'
 
   servers:
     managed:
@@ -19,7 +17,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: ws.example.net
+            - server_name: ws.fixme.example.net
             - listen:
               - 80
             - location /.well-known:
@@ -32,7 +30,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: ws.example.net
+            - server_name: ws.fixme.example.net
             - listen:
               - 443 http2 ssl
             - index: index.html index.htm
@@ -53,5 +51,5 @@ nginx:
             - proxy_request_buffering: 'off'
             # - include: 'snippets/letsencrypt.conf'
             - include: 'snippets/snakeoil.conf'
-            - access_log: {{ nginx_log }}/ws.example.net.access.log combined
-            - error_log: {{ nginx_log }}/ws.example.net.error.log
+            - access_log: /var/log/nginx/ws.fixme.example.net.access.log combined
+            - error_log: /var/log/nginx/ws.fixme.example.net.error.log

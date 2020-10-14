@@ -21,3 +21,23 @@ RedHat:
     url_base: 'http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
     file: /etc/yum.repos.d/arvados.repo
     key_url: 'http://rpm.arvados.org/CentOS/RPM-GPG-KEY-curoverse'
+
+  ruby:
+    manage_ruby: true
+
+    pkg: ruby-2.5.7
+    gems_deps:
+      - rubygem-bundler
+      - curl
+      - gcc
+      - git
+      - libcurl
+      - libcurl-devel
+      - pam-devel
+      - postgresql-devel
+      - libxml2
+      - libxml2-devel
+      - make
+      - python3-devel
+      - ruby-devel
+      - zlib-devel

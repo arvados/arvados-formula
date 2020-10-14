@@ -2,7 +2,10 @@
 # vim: ft=yaml
 ---
 arvados:
-  version: '2.0.2'
+  version: 'latest'
+  # Release: one of production, testing, development
+  # Used to select the repository to use
+  release: production     # defaults to production
   use_upstream_repo: true
   repo:
     humanname: Arvados Official Repository
@@ -10,6 +13,7 @@ arvados:
     manage_ruby: false
     pkg: ruby
     manage_gems_deps: false
+
     gems_deps:
       - bundler
       - curl
@@ -23,7 +27,7 @@ arvados:
       - libxml2
       - libxml2-dev
       - make
-      - python-dev
+      - python3-dev
       - ruby-dev
       - zlib1g-dev
 
@@ -33,7 +37,13 @@ arvados:
     group: root
     mode: 640
 
+  # Experimental feature
+  # only available when 'release: development'
+  auto_reload_config: false
+
   cluster:
+    force_legacy_api14: false
+
     database:
       connection_pool_max: 32
 
@@ -42,12 +52,19 @@ arvados:
       key: ''
       insecure: false
 
-  ### SERVICES
+    Login:
+      # Google:
+      #   ClientID: 94....apps.googleusercontent.com
+      #   ClientSecret: FL....r
+
+      PAM:
+        Enable: true
+
+  ### THESE ARE THE PACKAGES AND DAEMONS BASIC CONFIGS
   ##### API
   api:
     pkg:
-      name:
-        - arvados-api-server
+      name: arvados-api-server
     gem:
       name:
         - arvados-cli
@@ -64,20 +81,20 @@ arvados:
   ##### DISPATCHER
   dispatcher:
     pkg:
-      name:
-        - crunch-dispatch-local
-        # - arvados-dispatch-cloud
-        # - crunch-dispatch-slurm
-    service:
       name: crunch-dispatch-local
-      port: 9006
+      # alternative dispatchers:
+      # arvados-dispatch-cloud
+      # crunch-dispatch-slurm
+    service:
+      name: ''
+      port: ''
   ##### KEEPPROXY
   keepproxy:
     pkg:
       name: keepproxy
     service:
       name: keepproxy
-      port: 25107
+      port: 25100
   ##### KEEPWEB
   keepweb:
     pkg:
@@ -85,7 +102,7 @@ arvados:
     service:
       name: keep-web
       # webdav
-      port: 9002
+      port: 9003
   ##### KEEPSTORE
   keepstore:
     pkg:
@@ -106,14 +123,23 @@ arvados:
       name:
         - arvados-client
         - arvados-src
-        - libpam-arvados
-        - python-arvados-fuse
-        - python-arvados-python-client
+        - libpam-arvados-go
+        - python3-arvados-fuse
+        - python3-arvados-python-client
         - python3-arvados-cwl-runner
+        - shellinabox
     gem:
       name:
         - arvados-cli
         - arvados-login-sync
+    shellinabox:
+      config: /etc/default/shellinabox
+      service:
+        name: shellinabox
+        port: 4200
+    libpam_arvados:
+      config: /etc/pam.d/arvados
+
   ##### WORKBENCH
   workbench:
     pkg:
@@ -135,10 +161,3 @@ arvados:
     service:
       name: arvados-ws
       port: 8005
-  ##### SSO
-  sso:
-    pkg:
-      name: arvados-sso
-    service:
-      name: arvados-sso
-      port: 8900

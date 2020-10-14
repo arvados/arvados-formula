@@ -16,7 +16,6 @@ arvados-repo-clean-repo-absent:
 arvados-repo-clean-repo-absent:
   pkgrepo.absent:
     - file: {{ arvados.repo.file }}
-    - gpgkey: {{ arvados.repo.gpgkey }}
 
   {%- else %}
 arvados_repo-clean-repo-absent: {}

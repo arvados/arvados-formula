@@ -8,3 +8,4 @@
 arvados-keepstore-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.keepstore.pkg.name }}
+    - version: {{ arvados.version }}

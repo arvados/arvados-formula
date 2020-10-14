@@ -6,6 +6,9 @@
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
+include:
+  - .package
+
 arvados-config-file-file-managed:
   file.managed:
     - name: {{ arvados.config.file }}
@@ -20,3 +23,6 @@ arvados-config-file-file-managed:
     - template: jinja
     - context:
         arvados: {{ arvados | json }}
+    - check_cmd: /usr/bin/arvados-server config-dump -config
+    - require:
+      - pkg: arvados-config-package-install-pkg-installed

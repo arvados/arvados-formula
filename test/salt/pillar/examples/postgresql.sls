@@ -1,7 +1,4 @@
 ---
-states:
-  - postgres
-
 ### POSTGRESQL
 postgres:
   use_upstream_repo: false

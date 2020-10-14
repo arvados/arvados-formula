@@ -3,10 +3,11 @@
 packages_list = %w[
   arvados-client
   arvados-src
-  libpam-arvados
-  python-arvados-fuse
-  python-arvados-python-client
+  libpam-arvados-go
+  python3-arvados-fuse
+  python3-arvados-python-client
   python3-arvados-cwl-runner
+  shellinabox
 ]
 
 gems_list = %w[

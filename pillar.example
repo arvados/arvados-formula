@@ -6,7 +6,8 @@
 # this formula will fail.
 arvados:
   ### GENERAL CONFIG
-  # version: '2.0.2'
+  # version: '2.1.0'
+  # release: production
   ## It makes little sense to disable this flag, but you can, if you want :)
   # use_upstream_repo: true
 
@@ -38,7 +39,7 @@ arvados:
     #     - libxml2
     #     - libxml2-dev
     #     - make
-    #     - python-dev
+    #     - python3-dev
     #     - ruby-dev
     #     - zlib1g-dev
 
@@ -78,7 +79,6 @@ arvados:
       management: changeme_management_token
       rails_secret: changeme_rails_secret_token
       anonymous_user: changeme_anonymous_user_token
-      provider_secret: changeme_provider_secret_token
 
     ### KEYS
     secrets:
@@ -89,22 +89,69 @@ arvados:
       keep_access_key: changeme_keep_access_key
       keep_secret_key: changeme_keep_secret_key
 
+    AuditLogs:
+      Section_to_ignore:
+        - some_random_value
+
     ### VOLUMES
     ## This should usually match all your `keepstore` instances
-    volumes:
-      volume_one:
-        # the volume name will be composed with
-        # <cluster>-nyw5e-<volume>
-        cluster: fixme
-        volume_id: '000000000000000'
-        access_via_hosts:
-          "http://keep0.example.net:25107/": {}
-        replication: 2
-        driver: Directory
-        driver_parameters:
+    Volumes:
+      # the volume name will be composed with
+      # <cluster>-nyw5e-<volume>
+      fixme-nyw5e-000000000000000:
+        AccessViaHosts:
+          http://keep0.fixme.example.net:25107:
+            ReadOnly: false
+        Replication: 2
+        Driver: Directory
+        DriverParameters:
           Root: /tmp
 
-#  ## SERVICES
+    Users:
+      NewUsersAreActive: true
+      AutoAdminFirstUser: true
+      AutoSetupNewUsers: true
+      AutoSetupNewUsersWithRepository: true
+
+    Services:
+      Controller:
+        ExternalURL: https://fixme.example.net
+        InternalURLs:
+          http://localhost:8003: {}
+      DispatchCloud:
+        InternalURLs:
+          http://fixme.example.net:9006: {}
+      Keepbalance:
+        InternalURLs:
+          http://fixme.example.net:9005: {}
+      Keepproxy:
+        ExternalURL: https://keep.fixme.example.net
+        InternalURLs:
+          http://localhost:25100: {}
+      Keepstore:
+        InternalURLs:
+          http://keep0.fixme.example.net:25107: {}
+      RailsAPI:
+        InternalURLs:
+          http://localhost:8004: {}
+      WebDAV:
+        ExternalURL: https://collections.fixme.example.net
+        InternalURLs:
+          http://localhost:9002: {}
+      WebDAVDownload:
+        ExternalURL: https://download.fixme.example.net
+      WebShell:
+        ExternalURL: https://webshell.fixme.example.net
+      Websocket:
+        ExternalURL: wss://ws.fixme.example.net/websocket
+        InternalURLs:
+          http://localhost:8005: {}
+      Workbench1:
+        ExternalURL: https://workbench.fixme.example.net
+      Workbench2:
+        ExternalURL: https://workbench2.fixme.example.net
+
+#  ### THESE ARE THE PACKAGES AND DAEMONS BASIC CONFIGS
 #  #### API
 #   api:
 #     pkg:
@@ -170,14 +217,21 @@ arvados:
 #       name:
 #         - arvados-client
 #         - arvados-src
-#         - libpam-arvados
-#         - python-arvados-fuse
-#         - python-arvados-python-client
+#         - libpam-arvados-go
+#         - python3-arvados-fuse
+#         - python3-arvados-python-client
 #         - python3-arvados-cwl-runner
 #     gem:
 #       name:
 #         - arvados-cli
 #         - arvados-login-sync
+#     shellinabox:
+#       config: /etc/default/shellinabox
+#       service:
+#         name: shellinabox
+#         port: 4200
+#     libpam_arvados:
+#       config: /etc/pam.d/arvados
 #  #### WORKBENCH
 #   workbench:
 #     pkg:

@@ -8,7 +8,7 @@
 arvados-workbench-package-clean-gems-deps-pkg-removed:
   pkg.removed:
     - pkgs: {{ arvados.ruby.gems_deps | json }}
-    - only_if: {{ arvados.ruby.manage_gems_deps }}
+    - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
 arvados-workbench-package-clean-pkg-removed:
   pkg.removed:
@@ -17,4 +17,4 @@ arvados-workbench-package-clean-pkg-removed:
 arvados-workbench-package-clean-ruby-pkg-removed:
   pkg.removed:
     - name: {{ arvados.ruby.pkg }}
-    - only_if: {{ arvados.ruby.manage_ruby }}
+    - only_if: test "{{ arvados.ruby.manage_ruby | lower }}" = "true"

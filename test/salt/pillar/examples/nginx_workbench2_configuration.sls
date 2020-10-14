@@ -1,6 +1,4 @@
 ---
-{% set nginx_log = '/var/log/nginx' %}
-
 ### ARVADOS
 arvados:
   config:
@@ -17,7 +15,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: workbench2.example.net
+            - server_name: workbench2.fixme.example.net
             - listen:
               - 80
             - location /.well-known:
@@ -30,7 +28,7 @@ nginx:
         overwrite: true
         config:
           - server:
-            - server_name: workbench2.example.net
+            - server_name: workbench2.fixme.example.net
             - listen:
               - 443 http2 ssl
             - index: index.html index.htm
@@ -39,7 +37,9 @@ nginx:
               - try_files: '$uri $uri/ /index.html'
               - 'if (-f $document_root/maintenance.html)':
                 - return: 503
+            - location /config.json:
+              - return: {{ "200 '" ~ '{"API_HOST":"fixme.example.net"}' ~ "'" }}
             # - include: 'snippets/letsencrypt.conf'
             - include: 'snippets/snakeoil.conf'
-            - access_log: {{ nginx_log }}/workbench2.example.net.access.log combined
-            - error_log: {{ nginx_log }}/workbench2.example.net.error.log
+            - access_log: /var/log/nginx/workbench2.fixme.example.net.access.log combined
+            - error_log: /var/log/nginx/workbench2.fixme.example.net.error.log

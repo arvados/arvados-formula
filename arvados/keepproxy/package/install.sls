@@ -8,3 +8,4 @@
 arvados-keepproxy-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.keepproxy.pkg.name }}
+    - version: {{ arvados.version }}
