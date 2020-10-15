@@ -23,7 +23,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_workbench2:
+      arvados_workbench2_ssl:
         enabled: true
         overwrite: true
         config:

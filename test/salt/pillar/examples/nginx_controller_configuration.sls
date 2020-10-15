@@ -29,7 +29,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_controller:
+      arvados_controller_ssl:
         enabled: true
         overwrite: true
         config:

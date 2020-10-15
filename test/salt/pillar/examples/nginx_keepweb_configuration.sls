@@ -12,7 +12,7 @@ nginx:
   servers:
     managed:
       ### DEFAULT
-      arvados_collections_default:
+      arvados_collections_download_default:
         enabled: true
         overwrite: true
         config:
@@ -26,7 +26,7 @@ nginx:
               - return: '301 https://$host$request_uri'
 
       ### COLLECTIONS / DOWNLOAD
-      arvados_collections_downloads:
+      arvados_collections_download_ssl:
         enabled: true
         overwrite: true
         config:

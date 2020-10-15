@@ -12,7 +12,7 @@ nginx:
   servers:
     managed:
       ### DEFAULT
-      arvados_keep_default:
+      arvados_keepproxy_default:
         enabled: true
         overwrite: true
         config:
@@ -25,7 +25,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_keepproxy:
+      arvados_keepproxy_default:
         enabled: true
         overwrite: true
         config:

@@ -13,7 +13,7 @@ nginx:
   ### SITES
   servers:
     managed:
-      arvados_webshell:
+      arvados_webshell_default:
         enabled: true
         overwrite: true
         config:
@@ -26,7 +26,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_webshell-ssl:
+      arvados_webshell_ssl:
         enabled: true
         overwrite: true
         config:
