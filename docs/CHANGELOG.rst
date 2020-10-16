@@ -2,6 +2,21 @@
 Changelog
 =========
 
+`1.0.1 <https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.0...v1.0.1>`_ (2020-10-16)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **config:** prevent duplicated, undesired entries (\ `d9ede82 <https://github.com/saltstack-formulas/arvados-formula/commit/d9ede8264d9a9cbbd6eab15f98abc2326488bc7b>`_\ )
+
+Documentation
+^^^^^^^^^^^^^
+
+
+* **examples:** improve consistency in naming (\ `73a0b42 <https://github.com/saltstack-formulas/arvados-formula/commit/73a0b42b03c3a8c247712ce5e64b7215686e9cef>`_\ )
+
 `1.0.0 <https://github.com/saltstack-formulas/arvados-formula/compare/v0.3.0...v1.0.0>`_ (2020-10-15)
 ---------------------------------------------------------------------------------------------------------
 
