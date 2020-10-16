@@ -33,12 +33,6 @@ Clusters:
       {{ arvados.cluster.Collections | yaml(False) | indent(6) }}
     {%- endif %}
 
-    Login:
-      {{ arvados.cluster.Login | yaml(False) | indent(6) }}
-
-    Users:
-      {{ arvados.cluster.Users | yaml(False) | indent(6) }}
-
     TLS:
       Certificate: {{ arvados.cluster.tls.certificate | yaml_encode }}
       Key: {{ arvados.cluster.tls.key | yaml_encode }}
@@ -56,9 +50,11 @@ Clusters:
         'Containers',
         'Git',
         'InstanceTypes',
+        'Login',
         'Mail',
         'RemoteClusters',
         'SystemLogs',
+        'Users',
         'Volumes'
       ]
     %}

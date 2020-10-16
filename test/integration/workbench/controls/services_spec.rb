@@ -4,7 +4,7 @@ control 'arvados workbench service' do
   impact 0.5
   title 'should be running and enabled'
 
-  describe service('ssh') do
+  describe service('nginx') do
     it { should be_enabled }
     it { should be_running }
   end

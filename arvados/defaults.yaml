@@ -52,14 +52,6 @@ arvados:
       key: ''
       insecure: false
 
-    Login:
-      # Google:
-      #   ClientID: 94....apps.googleusercontent.com
-      #   ClientSecret: FL....r
-
-      PAM:
-        Enable: true
-
   ### THESE ARE THE PACKAGES AND DAEMONS BASIC CONFIGS
   ##### API
   api:
