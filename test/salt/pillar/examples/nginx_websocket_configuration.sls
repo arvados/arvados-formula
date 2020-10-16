@@ -12,7 +12,7 @@ nginx:
   servers:
     managed:
       ### DEFAULT
-      arvados_ws_default:
+      arvados_websocket_default:
         enabled: true
         overwrite: true
         config:
@@ -25,7 +25,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_websocket:
+      arvados_websocket_ssl:
         enabled: true
         overwrite: true
         config:

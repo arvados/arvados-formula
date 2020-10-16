@@ -32,7 +32,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_workbench:
+      arvados_workbench_ssl:
         enabled: true
         overwrite: true
         config:
