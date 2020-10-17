@@ -78,7 +78,7 @@ arvados:
       # arvados-dispatch-cloud
       # crunch-dispatch-slurm
     service:
-      name: ''
+      name: crunch-dispatch-local
       port: ''
   ##### KEEPPROXY
   keepproxy:
