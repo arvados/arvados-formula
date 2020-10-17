@@ -20,9 +20,9 @@ control 'shellinabox configuration' do
     its('mode') { should cmp '0644' }
     its('content') do
       should include(
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         'File managed by Salt at <salt://arvados/shell/config/files/default/shell-shellinabox.tmpl.jinja>.'
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       )
     end
     its('content') { should include(siab_stanza) }
@@ -39,9 +39,9 @@ control 'libpam-arvados configuration' do
     its('mode') { should cmp '0644' }
     its('content') do
       should include(
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         'File managed by Salt at <salt://arvados/shell/config/files/default/shell-libpam-arvados.tmpl.jinja>.'
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       )
     end
     its('content') { should include(libpam_stanza) }
