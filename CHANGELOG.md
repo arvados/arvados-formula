@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.1...v1.0.2) (2020-10-17)
+
+
+### Bug Fixes
+
+* **dispatcher:** add missing files for local dispatcher ([eb73d56](https://github.com/saltstack-formulas/arvados-formula/commit/eb73d564b0b36810c56a39bbb2e75267521bfe5c))
+
 ## [1.0.1](https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.0...v1.0.1) (2020-10-16)
 
 
