@@ -6,6 +6,10 @@
 {%- set sls_ruby_install = tplroot ~ '.ruby.package.install' %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
+{%- if arvados.ruby.manage_ruby %}
+  {%- set ruby_dep = 'rvm' if arvados.ruby.use_rvm else 'pkg' %}
+{%- endif %}
+
 include:
   - {{ sls_ruby_install }}
 
@@ -38,15 +42,8 @@ arvados-shell-package-install-gem-{{ gm }}-installed:
   gem.installed:
     - name: {{ gm }}
     - require:
-      - pkg: arvados-shell-package-install-gems-deps-pkg-installed
       {%- if arvados.ruby.manage_ruby %}
-        {%- if salt['grains.get']('osfinger') != 'CentOS Linux-7' %}
-      - pkg: arvados-ruby-package-install-ruby-pkg-installed
-        {%- else %}
-      # - rvm: arvados-ruby-package-install-ruby-gemset-present
-      - rvm: arvados-ruby-package-install-ruby-rvm-installed
-      # - rvm: gemset_present
-    # - ruby: ruby-2.5.7@arvados
-        {%- endif %}
+      - {{ ruby_dep }}: arvados-ruby-package-install-ruby-{{ ruby_dep }}-installed
       {%- endif %}
+      - pkg: arvados-shell-package-install-gems-deps-pkg-installed
 {% endfor %}

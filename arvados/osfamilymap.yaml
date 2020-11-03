@@ -24,6 +24,7 @@ RedHat:
 
   ruby:
     manage_ruby: true
+    use_rvm: true
 
     pkg: ruby-2.5.7
     gems_deps:
@@ -41,3 +42,9 @@ RedHat:
       - python3-devel
       - ruby-devel
       - zlib-devel
+  ##### SHELL
+  shell:
+    shellinabox:
+      config: /etc/sysconfig/shellinaboxd
+      service:
+        name: shellinaboxd

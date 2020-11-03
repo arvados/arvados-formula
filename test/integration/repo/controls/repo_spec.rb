@@ -3,9 +3,8 @@
 case os[:name]
 when 'centos'
   repo_file = '/etc/yum.repos.d/arvados.repo'
-
   repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
-when 'debian'
+when 'debian', 'ubuntu'
   repo_file = '/etc/apt/sources.list.d/arvados.list'
   repo_url = 'deb http://apt.arvados.org buster main'
 end
@@ -15,6 +14,6 @@ control 'arvados repository' do
   title 'should be configured'
   desc 'Ensures arvados source is correctly configured'
   describe file(repo_file) do
-    its('content') { should match repo_url }
+    its('content') { should include repo_url }
   end
 end

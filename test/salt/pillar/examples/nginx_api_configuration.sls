@@ -1,15 +1,21 @@
 ---
+{%- if grains.os_family in ('RedHat',) %}
+  {%- set group = 'nginx' %}
+{%- else %}
+  {%- set group = 'www-data' %}
+{%- endif %}
+
 ### ARVADOS
 arvados:
   config:
-    group: www-data
+    group: {{ group }}
 
 ### NGINX
 nginx:
   ### SITES
   servers:
     managed:
-      arvados_api:
+      arvados_api.conf:
         enabled: true
         overwrite: true
         config:

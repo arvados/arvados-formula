@@ -6,6 +6,9 @@ postgres:
     - postgresql-contrib
   postgresconf: |-
     listen_addresses = '*'  # listen on all interfaces
+    #ssl = on
+    #ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+    #ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
   acls:
     - ['local', 'all', 'postgres', 'peer']
     - ['local', 'all', 'all', 'peer']

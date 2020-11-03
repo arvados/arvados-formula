@@ -66,7 +66,6 @@ Clusters:
 
     ### DATABASE CONFIGURATION
     PostgreSQL:
-      # FIXME!!!!!! ALL as database or using Arvados' PostgreSQL ??
       ConnectionPool: {{ arvados.cluster.database.connection_pool_max }}
       Connection:
         # All parameters here are passed to the PG client library in a connection string;
@@ -76,9 +75,9 @@ Clusters:
         password: {{ arvados.cluster.database.password | yaml_encode }}
         user: {{ arvados.cluster.database.user }}
         client_encoding: {{ arvados.cluster.database.client_encoding }}
-    {%- if 'PostgreSQL' in arvados.cluster %}
-      {{ arvados.cluster.PostgreSQL | yaml(False) | indent(6) }}
-    {%- endif %}
+        {%- if arvados.cluster.database.extra_conn_params is defined %}
+        {{ arvados.cluster.database.extra_conn_params | yaml(False) | indent(8) }}
+        {%- endif %}
 
     ### SERVICES URLs
     Services:

@@ -11,9 +11,9 @@ control 'arvados dispatcher service' do
     its('mode') { should cmp '0755' }
     its('content') do
       should include(
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         'File managed by Salt at <salt://arvados/dispatcher/service/files/default/crunch-run-sh.tmpl>.'
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       )
     end
   end
@@ -24,9 +24,9 @@ control 'arvados dispatcher service' do
     its('mode') { should cmp '0644' }
     its('content') do
       should include(
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         'File managed by Salt at <salt://arvados/dispatcher/service/files/default/crunch-dispatch-local-service.tmpl>.'
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       )
     end
   end

@@ -12,6 +12,7 @@ arvados:
   ruby:
     manage_ruby: false
     pkg: ruby
+    use_rvm: false
     manage_gems_deps: false
 
     gems_deps:
@@ -140,6 +141,7 @@ arvados:
       name: nginx
       # just for reference, is where the upstream is configured
       port: 9000
+
   ##### WORKBENCH2
   workbench2:
     pkg:

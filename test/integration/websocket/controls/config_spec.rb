@@ -7,6 +7,13 @@ websocket_stanza = <<-WEBSOCKET_STANZA
           http://127.0.0.2:8005: {}
 WEBSOCKET_STANZA
 
+group = case os[:name]
+        when 'centos'
+          'nginx'
+        when 'debian', 'ubuntu'
+          'www-data'
+        end
+
 control 'arvados configuration' do
   title 'should match desired websocket lines'
 
@@ -14,7 +21,7 @@ control 'arvados configuration' do
     it { should be_file }
     it { should be_owned_by 'root' }
     # We're testing it in the API instance, so group will be nginx's
-    it { should be_grouped_into 'www-data' }
+    it { should be_grouped_into group }
     its('mode') { should cmp '0640' }
     its('content') do
       should include(
