@@ -16,7 +16,7 @@ nginx:
   servers:
     managed:
       ### DEFAULT
-      arvados_controller_default:
+      arvados_controller_default.conf:
         enabled: true
         overwrite: true
         config:
@@ -29,7 +29,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_controller_ssl:
+      arvados_controller_ssl.conf:
         enabled: true
         overwrite: true
         config:
@@ -48,8 +48,9 @@ nginx:
               - proxy_set_header: 'X-Real-IP $remote_addr'
               - proxy_set_header: 'X-Forwarded-For $proxy_add_x_forwarded_for'
               - proxy_set_header: 'X-External-Client $external_client'
+            - include: 'snippets/ssl_hardening_default.conf'
             # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/snakeoil.conf'
+            - include: 'snippets/ssl_snakeoil.conf'
             - access_log: /var/log/nginx/fixme.example.net.access.log combined
             - error_log: /var/log/nginx/fixme.example.net.error.log
             - client_max_body_size: 128m

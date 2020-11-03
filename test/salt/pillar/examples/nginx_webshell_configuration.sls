@@ -13,7 +13,7 @@ nginx:
   ### SITES
   servers:
     managed:
-      arvados_webshell_default:
+      arvados_webshell_default.conf:
         enabled: true
         overwrite: true
         config:
@@ -26,7 +26,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_webshell_ssl:
+      arvados_webshell_ssl.conf:
         enabled: true
         overwrite: true
         config:
@@ -63,9 +63,9 @@ nginx:
                 - add_header: "'Access-Control-Allow-Origin' '*'"
                 - add_header: "'Access-Control-Allow-Methods' 'GET, POST, OPTIONS'"
                 - add_header: "'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type'"
-
+            - include: 'snippets/ssl_hardening_default.conf'
             # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/snakeoil.conf'
+            - include: 'snippets/ssl_snakeoil.conf'
             - access_log: /var/log/nginx/webshell.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/webshell.fixme.example.net.error.log
 

@@ -26,8 +26,9 @@ arvados:
     ## We set these to `true` here for testing purposes.
     ## They both default to `false`.
     manage_ruby: true
+    use_rvm: false     # If you want to use rvm. Defaults to true for centos-7
+    # pkg: ruby        # Can specify a version like ruby-2.5.7 for rvm
     manage_gems_deps: true
-    # pkg: ruby
     # gems_deps:
     #     - curl
     #     - g++
@@ -66,6 +67,12 @@ arvados:
       user: arvados
       encoding: en_US.utf8
       client_encoding: UTF8
+      # You can pass extra database connections parameters here,
+      # which will be rendered as yaml.
+      # extra_conn_params:
+      #  sslmode: prefer
+      #  verify-ca: false
+
 
     tls:
       # certificate: ''

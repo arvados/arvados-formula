@@ -10,7 +10,16 @@ control 'arvados api service' do
   end
 
   describe port(8004) do
+    proc = case os[:name]
+           when 'centos'
+             # Centos ps adds an extra colon and the end of the process
+             # probably a bug
+             'nginx:'
+           when 'debian', 'ubuntu'
+             'nginx'
+           end
+
     it { should be_listening }
-    its('processes') { should include 'nginx' }
+    its('processes') { should cmp proc }
   end
 end

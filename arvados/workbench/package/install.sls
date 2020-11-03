@@ -4,16 +4,17 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
+{%- set sls_ruby_install = tplroot ~ '.ruby.package.install' %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
-# The workbench server requires a valid config BEFORE installing...
-include:
-  - {{ sls_config_file }}
+{%- if arvados.ruby.manage_ruby %}
+  {%- set ruby_dep = 'rvm' if arvados.ruby.use_rvm else 'pkg' %}
+{%- endif %}
 
-arvados-workbench-package-install-ruby-pkg-installed:
-  pkg.installed:
-    - name: {{ arvados.ruby.pkg }}
-    - only_if: test "{{ arvados.ruby.manage_ruby | lower }}" = "true"
+include:
+  # The workbench server requires a valid config BEFORE installing...
+  - {{ sls_config_file }}
+  - {{ sls_ruby_install }}
 
 arvados-workbench-package-install-gems-deps-pkg-installed:
   pkg.installed:

@@ -8,8 +8,8 @@ control 'arvados keepproxy service' do
     it { should be_enabled }
     it { should be_running }
   end
-  describe port(25_107) do
+  describe port(25_100) do
     it { should be_listening }
-    its('processes') { should include 'keepproxy' }
+    its('processes') { should cmp 'keepproxy' }
   end
 end

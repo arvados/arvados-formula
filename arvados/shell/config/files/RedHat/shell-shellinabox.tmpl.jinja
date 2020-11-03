@@ -1,0 +1,11 @@
+########################################################################
+# File managed by Salt at <{{ source }}>.
+# Your changes will be overwritten.
+########################################################################
+USER=shellinabox
+GROUP=shellinabox
+CERTDIR=/var/lib/shellinabox
+# TCP port that shellinboxd's webserver listens on
+PORT={{ arvados.shell.shellinabox.service.port }}
+# SSL is disabled because it is terminated in Nginx. Adjust as needed.
+OPTS="--disable-ssl --no-beep --service=/shell.{{ arvados.cluster.name }}.{{ arvados.cluster.domain }}:SSH"

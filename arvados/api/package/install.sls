@@ -4,16 +4,17 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
+{%- set sls_ruby_install = tplroot ~ '.ruby.package.install' %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
-# The API server requires a valid config BEFORE installing...
-include:
-  - {{ sls_config_file }}
+{%- if arvados.ruby.manage_ruby %}
+  {%- set ruby_dep = 'rvm' if arvados.ruby.use_rvm else 'pkg' %}
+{%- endif %}
 
-arvados-api-package-install-ruby-pkg-installed:
-  pkg.installed:
-    - name: {{ arvados.ruby.pkg }}
-    - only_if: test "{{ arvados.ruby.manage_ruby | lower }}" = "true"
+include:
+  # The API server requires a valid config BEFORE installing...
+  - {{ sls_config_file }}
+  - {{ sls_ruby_install }}
 
 arvados-api-package-install-gems-deps-pkg-installed:
   pkg.installed:
@@ -26,6 +27,9 @@ arvados-api-package-install-gem-{{ gm }}-installed:
     - name: {{ gm }}
     - require:
       - pkg: arvados-api-package-install-gems-deps-pkg-installed
+      {%- if arvados.ruby.manage_ruby %}
+      - {{ ruby_dep }}: arvados-ruby-package-install-ruby-{{ ruby_dep }}-installed
+      {%- endif %}
     - require_in:
       - pkg: arvados-api-package-install-pkg-installed
 {% endfor %}

@@ -1,8 +1,14 @@
 ---
+{%- if grains.os_family in ('RedHat',) %}
+  {%- set group = 'nginx' %}
+{%- else %}
+  {%- set group = 'www-data' %}
+{%- endif %}
+
 ### ARVADOS
 arvados:
   config:
-    group: www-data
+    group: {{ group }}
 
 ### NGINX
 nginx:
@@ -10,7 +16,7 @@ nginx:
   servers:
     managed:
       ### DEFAULT
-      arvados_workbench2_default:
+      arvados_workbench2_default.conf:
         enabled: true
         overwrite: true
         config:
@@ -23,7 +29,7 @@ nginx:
             - location /:
               - return: '301 https://$host$request_uri'
 
-      arvados_workbench2_ssl:
+      arvados_workbench2_ssl.conf:
         enabled: true
         overwrite: true
         config:
@@ -39,7 +45,8 @@ nginx:
                 - return: 503
             - location /config.json:
               - return: {{ "200 '" ~ '{"API_HOST":"fixme.example.net"}' ~ "'" }}
+            - include: 'snippets/ssl_hardening_default.conf'
             # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/snakeoil.conf'
+            - include: 'snippets/ssl_snakeoil.conf'
             - access_log: /var/log/nginx/workbench2.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/workbench2.fixme.example.net.error.log

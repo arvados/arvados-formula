@@ -11,6 +11,6 @@ control 'arvados websocket service' do
 
   describe port(8005) do
     it { should be_listening }
-    its('processes') { should include 'arvados-ws' }
+    its('processes') { should cmp 'arvados-ws' }
   end
 end

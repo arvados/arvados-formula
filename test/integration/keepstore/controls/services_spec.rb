@@ -10,6 +10,6 @@ control 'arvados keepstore service' do
   end
   describe port(25_107) do
     it { should be_listening }
-    its('processes') { should include 'keepstore' }
+    its('processes') { should cmp 'keepstore' }
   end
 end

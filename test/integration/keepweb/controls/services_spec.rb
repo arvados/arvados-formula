@@ -10,6 +10,6 @@ control 'arvados keepweb service' do
   end
   describe port(9002) do
     it { should be_listening }
-    its('processes') { should include 'keep-web' }
+    its('processes') { should cmp 'keep-web' }
   end
 end
