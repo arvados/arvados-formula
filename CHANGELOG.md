@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.1.0](https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.2...v1.1.0) (2020-11-03)
+
+
+### Features
+
+* **distro:** add centos-7 support ([ba5e37e](https://github.com/saltstack-formulas/arvados-formula/commit/ba5e37ebc18049d4340388fc0c19dcb2a78d6a86))
+
 ## [1.0.2](https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.1...v1.0.2) (2020-10-17)
 
 
