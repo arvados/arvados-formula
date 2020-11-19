@@ -39,8 +39,9 @@ nginx:
       - add_header: 'Strict-Transport-Security "max-age=63072000" always'
 
       # OCSP stapling
-      - ssl_stapling: 'on'
-      - ssl_stapling_verify: 'on'
+      # FIXME! Stapling does not work with self-signed certificates, so disabling for tests
+      # - ssl_stapling: 'on'
+      # - ssl_stapling_verify: 'on'
 
       # verify chain of trust of OCSP response using Root CA and Intermediate certs
       # - ssl_trusted_certificate /path/to/root_CA_cert_plus_intermediates
