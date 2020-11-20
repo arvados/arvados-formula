@@ -13,6 +13,23 @@ include:
   - .running
 
 {%- if arvados.dispatcher.pkg.name == 'crunch-dispatch-local' %}
+arvados-dispatcher-service-file-file-managed-crunch-run-sh:
+  file.managed:
+    - name: /usr/local/bin/crunch-run.sh
+    - source: {{ files_switch(['crunch-run-sh.tmpl'],
+                              lookup='arvados-dispatcher-service-file-file-managed-crunch-run-sh',
+                              use_subpath=True
+                 )
+              }}
+    - mode: '0755'
+    - user: root
+    - group: root
+    - makedirs: True
+    - context:
+        arvados: {{ arvados | json }}
+    - require:
+      - pkg: arvados-dispatcher-package-install-pkg-installed
+
 arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-credentials:
   file.managed:
     - name: /etc/arvados/crunch-dispatch-local-credentials
@@ -47,6 +64,7 @@ arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-service:
     - context:
         arvados: {{ arvados | json }}
     - require:
+      - file: arvados-dispatcher-service-file-file-managed-crunch-run-sh
       - file: arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-credentials
       - pkg: arvados-dispatcher-package-install-pkg-installed
   cmd.run:
