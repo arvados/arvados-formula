@@ -21,7 +21,7 @@ arvados-api-package-install-gems-deps-pkg-installed:
     - pkgs: {{ arvados.ruby.gems_deps | unique | json }}
     - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
-{% for gm in arvados.api.gem.name | unique %}
+{%- for gm in arvados.api.gem.name | unique %}
 arvados-api-package-install-gem-{{ gm }}-installed:
   gem.installed:
     - name: {{ gm }}
@@ -32,7 +32,7 @@ arvados-api-package-install-gem-{{ gm }}-installed:
       {%- endif %}
     - require_in:
       - pkg: arvados-api-package-install-pkg-installed
-{% endfor %}
+{%- endfor %}
 
 arvados-api-package-install-pkg-installed:
   pkg.installed:

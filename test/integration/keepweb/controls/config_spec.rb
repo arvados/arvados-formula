@@ -4,7 +4,7 @@ keepweb_stanza = <<-KEEPWEB_STANZA
       WebDAV:
         ExternalURL: https://collections.fixme.example.net
         InternalURLs:
-          http://127.0.0.2:9002: {}
+          http://collections.internal:9002: {}
       WebDAVDownload:
         ExternalURL: https://download.fixme.example.net
 KEEPWEB_STANZA

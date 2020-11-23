@@ -1,7 +1,7 @@
-{% set curr_tpldir = tpldir %}
-{% set tpldir = 'arvados' %}
-{% from "arvados/map.jinja" import arvados with context %}
-{% set tpldir = curr_tpldir %}
+{%- set curr_tpldir = tpldir %}
+{%- set tpldir = 'arvados' %}
+{%- from "arvados/map.jinja" import arvados with context %}
+{%- set tpldir = curr_tpldir %}
 
 arvados_hosts_entries:
   host.present:
@@ -11,15 +11,18 @@ arvados_hosts_entries:
       # FIXME! This just works for our testings.
       # Won't work if the cluster name != host name
       {%- for entry in [
+          'api',
+          'collections',
+          'controller',
+          'download',
           'keep',
           'keep0',
-          'collections',
-          'download',
-          'ws',
+          'shell',
           'workbench',
-          'workbench2'
+          'workbench2',
+          'ws',
         ]
       %}
-      - {{ entry }}
+      - {{ entry }}.internal
       - {{ entry }}.{{ arvados.cluster.name }}.{{ arvados.cluster.domain }}
       {%- endfor %}

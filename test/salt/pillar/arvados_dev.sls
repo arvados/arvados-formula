@@ -118,7 +118,7 @@ arvados:
       Controller:
         ExternalURL: https://fixme.example.net
         InternalURLs:
-          http://127.0.0.2:8003: {}
+          http://controller.internal:8003: {}
       DispatchCloud:
         InternalURLs:
           http://fixme.example.net:9006: {}
@@ -128,17 +128,17 @@ arvados:
       Keepproxy:
         ExternalURL: https://keep.fixme.example.net
         InternalURLs:
-          http://127.0.0.2:25100: {}
+          http://keep.internal:25100: {}
       Keepstore:
         InternalURLs:
           http://keep0.fixme.example.net:25107: {}
       RailsAPI:
         InternalURLs:
-          http://127.0.0.2:8004: {}
+          http://api.internal:8004: {}
       WebDAV:
         ExternalURL: https://collections.fixme.example.net
         InternalURLs:
-          http://127.0.0.2:9002: {}
+          http://collections.internal:9002: {}
       WebDAVDownload:
         ExternalURL: https://download.fixme.example.net
       WebShell:
@@ -146,7 +146,7 @@ arvados:
       Websocket:
         ExternalURL: wss://ws.fixme.example.net/websocket
         InternalURLs:
-          http://127.0.0.2:8005: {}
+          http://ws.internal:8005: {}
       Workbench1:
         ExternalURL: https://workbench.fixme.example.net
       Workbench2:

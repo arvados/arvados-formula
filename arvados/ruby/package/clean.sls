@@ -5,13 +5,13 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
-{% for gm in arvados.shell.gem.name %}
+{%- for gm in arvados.shell.gem.name %}
 arvados-shell-package-clean-gem-{{ gm }}-removed:
   gem.removed:
     - name: {{ gm }}
     - require_in:
       - pkg: arvados-shell-package-clean-gems-deps-pkg-removed
-{% endfor %}
+{%- endfor %}
 
 arvados-shell-package-clean-gems-deps-pkg-removed:
   pkg.removed:

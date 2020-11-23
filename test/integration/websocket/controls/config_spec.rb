@@ -4,7 +4,7 @@ websocket_stanza = <<-WEBSOCKET_STANZA
       Websocket:
         ExternalURL: wss://ws.fixme.example.net/websocket
         InternalURLs:
-          http://127.0.0.2:8005: {}
+          http://ws.internal:8005: {}
 WEBSOCKET_STANZA
 
 group = case os[:name]
