@@ -2,6 +2,30 @@
 Changelog
 =========
 
+`1.1.1 <https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.0...v1.1.1>`_ (2020-11-24)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **creds:** remove underscores (\ `64c887c <https://github.com/saltstack-formulas/arvados-formula/commit/64c887ce15cd538dc1cc003d2cde2773cd1d291e>`_\ )
+* **crunch-dispatch-local:** re-enable crunch-run.sh to tune docker call (\ `0fdc919 <https://github.com/saltstack-formulas/arvados-formula/commit/0fdc919736977fbffdd4ba76ef0f41c67f279842>`_\ )
+* **dispatcher:** add missing crunch-dispatch-local config file (\ `91e5896 <https://github.com/saltstack-formulas/arvados-formula/commit/91e5896ec5fad6edbb8cc2574cd02f6ddd5f3a1c>`_\ )
+
+Documentation
+^^^^^^^^^^^^^
+
+
+* **single_host:** fix hostnames and tests (\ `6c52de7 <https://github.com/saltstack-formulas/arvados-formula/commit/6c52de7c70c90784df58e6dbc6c43a71b9cc7e7c>`_\ )
+
+Tests
+^^^^^
+
+
+* **dispatcher:** add helper state (\ `1bddf7e <https://github.com/saltstack-formulas/arvados-formula/commit/1bddf7efba4c6abeaa1a530664672bffa965998d>`_\ )
+* **dispatcher:** cert needs to match each hostname (\ `2ac8a85 <https://github.com/saltstack-formulas/arvados-formula/commit/2ac8a85f91b60ebe5fb337bfcbeb09836842ed85>`_\ )
+
 `1.1.0 <https://github.com/saltstack-formulas/arvados-formula/compare/v1.0.2...v1.1.0>`_ (2020-11-03)
 ---------------------------------------------------------------------------------------------------------
 
