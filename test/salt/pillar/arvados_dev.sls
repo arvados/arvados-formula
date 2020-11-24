@@ -76,19 +76,19 @@ arvados:
 
     ### TOKENS
     tokens:
-      system_root: changeme_system_root_token
-      management: changeme_management_token
-      rails_secret: changeme_rails_secret_token
-      anonymous_user: changeme_anonymous_user_token
+      system_root: changemesystemroottoken
+      management: changememanagementtoken
+      rails_secret: changemerailssecrettoken
+      anonymous_user: changemeanonymoususertoken
 
     ### KEYS
     secrets:
-      blob_signing_key: changeme_blob_signing_key
-      workbench_secret_key: changeme_workbench_secret_key
-      dispatcher_access_key: changeme_dispatcher_access_key
-      dispatcher_secret_key: changeme_dispatcher_secret_key
-      keep_access_key: changeme_keep_access_key
-      keep_secret_key: changeme_keep_secret_key
+      blob_signing_key: changemeblobsigningkey
+      workbench_secret_key: changemeworkbenchsecretkey
+      dispatcher_access_key: changemedispatcheraccesskey
+      dispatcher_secret_key: changemedispatchersecretkey
+      keep_access_key: changemekeepaccesskey
+      keep_secret_key: changemekeepsecretkey
 
     AuditLogs:
       Section_to_ignore:
@@ -118,7 +118,7 @@ arvados:
       Controller:
         ExternalURL: https://fixme.example.net
         InternalURLs:
-          http://127.0.0.2:8003: {}
+          http://controller.internal:8003: {}
       DispatchCloud:
         InternalURLs:
           http://fixme.example.net:9006: {}
@@ -128,17 +128,17 @@ arvados:
       Keepproxy:
         ExternalURL: https://keep.fixme.example.net
         InternalURLs:
-          http://127.0.0.2:25100: {}
+          http://keep.internal:25100: {}
       Keepstore:
         InternalURLs:
           http://keep0.fixme.example.net:25107: {}
       RailsAPI:
         InternalURLs:
-          http://127.0.0.2:8004: {}
+          http://api.internal:8004: {}
       WebDAV:
         ExternalURL: https://collections.fixme.example.net
         InternalURLs:
-          http://127.0.0.2:9002: {}
+          http://collections.internal:9002: {}
       WebDAVDownload:
         ExternalURL: https://download.fixme.example.net
       WebShell:
@@ -146,7 +146,7 @@ arvados:
       Websocket:
         ExternalURL: wss://ws.fixme.example.net/websocket
         InternalURLs:
-          http://127.0.0.2:8005: {}
+          http://ws.internal:8005: {}
       Workbench1:
         ExternalURL: https://workbench.fixme.example.net
       Workbench2:

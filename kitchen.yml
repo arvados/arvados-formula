@@ -104,6 +104,7 @@ suites:
       state_top:
         base:
           '*':
+            - example_single_host_host_entries
             - example_add_snakeoil_certs
             - locale
             - nginx.passenger
@@ -145,6 +146,8 @@ suites:
         example_nginx_controller.sls: test/salt/pillar/examples/nginx_controller_configuration.sls
         # yamllint enable rule:line-length
       dependencies:
+        - name: example_single_host_host_entries
+          path: test/salt/states
         - name: example_add_snakeoil_certs
           path: test/salt/states
         - name: locale
@@ -172,6 +175,7 @@ suites:
       state_top:
         base:
           '*':
+            - example_single_host_host_entries
             - example_add_snakeoil_certs
             - nginx.passenger
             - arvados.repo
@@ -193,6 +197,8 @@ suites:
         example_nginx_workbench2.sls: test/salt/pillar/examples/nginx_workbench2_configuration.sls
         # yamllint enable rule:line-length
       dependencies:
+        - name: example_single_host_host_entries
+          path: test/salt/states
         - name: example_add_snakeoil_certs
           path: test/salt/states
         - name: nginx

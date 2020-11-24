@@ -2,13 +2,13 @@
 
 api_stanza = <<-API_STANZA
     API:
-      RailsSessionSecretToken: "changeme_rails_secret_token"
+      RailsSessionSecretToken: "changemerailssecrettoken"
 API_STANZA
 
 rails_stanza = <<-RAILS_STANZA
       RailsAPI:
         InternalURLs:
-          http://127.0.0.2:8004: {}
+          http://api.internal:8004: {}
 RAILS_STANZA
 
 group = case os[:name]

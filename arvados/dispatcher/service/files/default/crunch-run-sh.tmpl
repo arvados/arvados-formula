@@ -1,6 +1,6 @@
+#!/bin/sh
 ########################################################################
 # File managed by Salt at <{{ source }}>.
 # Your changes will be overwritten.
 ########################################################################
-#!/bin/sh
-exec /usr/bin/crunch-run -container-enable-networking=default -container-network-mode=host $@
+exec /usr/bin/crunch-run -container-enable-networking=default -container-network-mode=host ${@}
