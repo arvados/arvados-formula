@@ -44,7 +44,7 @@ Please see `How to contribute <https://github.com/saltstack-formulas/.github/blo
 Special notes
 -------------
 
-In the `Arvados repository <https://github.com/arvados/arvados/>`_ you can find `a provision script <https://github.com/arvados/arvados/tree/master/tools/salt-install>`_ 
+In the `Arvados repository <https://github.com/arvados/arvados/>`_ you can find `a provision script <https://github.com/arvados/arvados/tree/master/tools/salt-install>`_
 to deploy a single-node, all-in-one Arvados cluster (The script uses this formula to get a cluster up and running in Saltstack's master-less mode).
 
 The `single-node` install does not include SLURM: it is intended for an `all-in-one-host` installation,
