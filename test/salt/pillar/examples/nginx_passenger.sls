@@ -53,8 +53,8 @@ nginx:
       # - resolver: 127.0.0.1
 
     ssl_snakeoil.conf:
-      - ssl_certificate: /etc/ssl/certs/ssl-cert-snakeoil.pem
-      - ssl_certificate_key: /etc/ssl/private/ssl-cert-snakeoil.key
+      - ssl_certificate: /etc/ssl/certs/arvados-snakeoil-cert.pem
+      - ssl_certificate_key: /etc/ssl/private/arvados-snakeoil-cert.key
 
   ### SITES
   servers:
