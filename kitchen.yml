@@ -104,16 +104,14 @@ suites:
       state_top:
         base:
           '*':
-            - example_single_host_host_entries
-            - example_add_snakeoil_certs
+            - single_host.host_entries
+            - single_host.snakeoil_certs
             - locale
             - nginx.passenger
             - postgres
             - arvados.repo
             - arvados.api
             - arvados.websocket
-            # keepproxy complains when using snakeoil certs, so we can't
-            # properly test it here until next version removes this limitation
             - arvados.keepproxy
             - arvados.keepweb
             - arvados.controller
@@ -146,10 +144,8 @@ suites:
         example_nginx_controller.sls: test/salt/pillar/examples/nginx_controller_configuration.sls
         # yamllint enable rule:line-length
       dependencies:
-        - name: example_single_host_host_entries
-          path: test/salt/states
-        - name: example_add_snakeoil_certs
-          path: test/salt/states
+        - name: single_host
+          path: test/salt/states/examples
         - name: locale
           repo: git
           source: https://github.com/saltstack-formulas/locale-formula.git
@@ -175,8 +171,8 @@ suites:
       state_top:
         base:
           '*':
-            - example_single_host_host_entries
-            - example_add_snakeoil_certs
+            - single_host.host_entries
+            - single_host.snakeoil_certs
             - nginx.passenger
             - arvados.repo
             - arvados.workbench
@@ -197,10 +193,8 @@ suites:
         example_nginx_workbench2.sls: test/salt/pillar/examples/nginx_workbench2_configuration.sls
         # yamllint enable rule:line-length
       dependencies:
-        - name: example_single_host_host_entries
-          path: test/salt/states
-        - name: example_add_snakeoil_certs
-          path: test/salt/states
+        - name: single_host
+          path: test/salt/states/examples
         - name: nginx
           repo: git
           source: https://github.com/netmanagers/nginx-formula.git

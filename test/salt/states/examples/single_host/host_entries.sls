@@ -3,7 +3,7 @@
 {%- from "arvados/map.jinja" import arvados with context %}
 {%- set tpldir = curr_tpldir %}
 
-arvados_hosts_entries:
+arvados_test_salt_states_examples_single_host_etc_hosts_host_present:
   host.present:
     - ip: {{ grains.get('ipv4')[0] }}
     - names:

@@ -7,8 +7,8 @@ postgres:
   postgresconf: |-
     listen_addresses = '*'  # listen on all interfaces
     #ssl = on
-    #ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
-    #ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
+    #ssl_cert_file = '/etc/ssl/certs/arvados-snakeoil-cert.pem'
+    #ssl_key_file = '/etc/ssl/private/arvados-snakeoil-cert.key'
   acls:
     - ['local', 'all', 'postgres', 'peer']
     - ['local', 'all', 'all', 'peer']

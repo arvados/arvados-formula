@@ -44,7 +44,22 @@ Please see `How to contribute <https://github.com/saltstack-formulas/.github/blo
 Special notes
 -------------
 
-None.
+In the `Arvados repository <https://github.com/arvados/arvados/>`_ you can find `a provision script <https://github.com/arvados/arvados/tree/master/tools/salt-install>`_
+to deploy a single-node, all-in-one Arvados cluster (The script uses this formula to get a cluster up and running in Saltstack's master-less mode).
+
+The `single-node` install does not include SLURM: it is intended for an `all-in-one-host` installation,
+so it uses `crunch-dispatch-local` to run containers in the same instance.
+
+The provision script can be run anywhere, so you can run it in an AWS instance and you'll get a `single-node` Arvados cluster there.
+
+The Arvados formula allows you to `install any dispatcher available <https://github.com/saltstack-formulas/arvados-formula/blob/master/pillar.example#L182-L191>`_,
+provided you configure the pillars the way you need them.
+
+Arvados currently has three dispatchers:
+
+* **crunch-dispatch-local** (for single node installations),
+* **arvados-dispatch-cloud** (for dynamic compute on AWS or Azure) and
+* **crunch-dispatch-slurm** (for SLURM integration).
 
 Requisites
 ----------
@@ -56,7 +71,10 @@ We suggest you use the `postgres-formula <https://github.com/saltstack-formulas/
 the `nginx-formula <https://github.com/saltstack-formulas/nginx-formula/>`_ and the
 `letsencrypt-formula <https://github.com/saltstack-formulas/letsencrypt-formula/>`_ to satisfy these dependencies.
 In the **test/salt/pillar/examples/** directory there are example pillar YAMLs to set up these packages, using the mentioned formulas
-as Arvados needs them.
+as Arvados needs them.a
+
+In the **test/salt/states/examples/** directory there are some example helper states to set up a few requirements for single-node
+(all-in-one) Arvados host.
 
 Usage
 -----
