@@ -90,6 +90,7 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_c
         %}
         DNS.{{ loop.index }} = {{ entry }}.{{ arvados.cluster.name }}.{{ arvados.cluster.domain }}
         {%- endfor %}
+        DNS.7 = {{ arvados.cluster.name }}.{{ arvados.cluster.domain }}
         CNF
 
         # The req
