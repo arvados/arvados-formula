@@ -46,7 +46,7 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_c
                   <(printf "\n[x509_ext]\nbasicConstraints=critical,CA:true,pathlen:0\nkeyUsage=critical,keyCertSign,cRLSign")) \
           -out {{ arvados_ca_cert_file }} \
           -keyout {{ arvados_ca_key_file }} \
-          -days 3650 && \
+          -days 365 && \
         cp {{ arvados_ca_cert_file }} {{ arvados_ca_cert_dest }} && \
         {{ update_ca_cert }}
     - unless:
@@ -104,7 +104,7 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_c
         # The cert
         openssl x509 \
           -req \
-          -days 3650 \
+          -days 365 \
           -in {{ arvados_csr_file }} \
           -out {{ arvados_cert_file }} \
           -extfile /tmp/openssl.cnf \
