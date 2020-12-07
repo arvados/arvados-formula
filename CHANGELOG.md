@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.2...v1.1.3) (2020-12-07)
+
+
+### Documentation
+
+* **examples:** reduce snakeoil cert days to 1yr ([0bc7de5](https://github.com/saltstack-formulas/arvados-formula/commit/0bc7de5ca4bf431ddebcedd6a38fb911a2234fdf))
+
 ## [1.1.2](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.1...v1.1.2) (2020-12-07)
 
 
