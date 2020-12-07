@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.2](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.1...v1.1.2) (2020-12-07)
+
+
+### Documentation
+
+* **examples:** add missing SAN to snakeoil ssl cert ([a68f6fa](https://github.com/saltstack-formulas/arvados-formula/commit/a68f6fa7e39be665dcea0becc7dad2628e715b29))
+* **examples:** better organization and naming ([fa49dbe](https://github.com/saltstack-formulas/arvados-formula/commit/fa49dbe833c7867ac95da84f9b36c8114cd89039))
+* **examples:** improve helper snakeoil ssl certs ([fcec3ef](https://github.com/saltstack-formulas/arvados-formula/commit/fcec3ef0a2623e8d51def868ccf4622b7c200be4))
+
 ## [1.1.1](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.0...v1.1.1) (2020-11-24)
 
 
