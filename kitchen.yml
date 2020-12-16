@@ -39,10 +39,6 @@ platforms:
     driver:
       image: saltimages/salt-master-py3:ubuntu-18.04
 
-  - name: amazonlinux-2-3001-py3
-    driver:
-      image: saltimages/salt-3001-py3:amazonlinux-2
-
   ## SALT `3001`
   - name: debian-10-3001-py3
     driver:
@@ -59,6 +55,9 @@ platforms:
   - name: centos-7-3001-py3
     driver:
       image: saltimages/salt-3001-py3:centos-7
+  - name: amazonlinux-2-3001-py3
+    driver:
+      image: saltimages/salt-3001-py3:amazonlinux-2
 
   ## SALT `3000.3`
   - name: debian-10-3000-3-py3
