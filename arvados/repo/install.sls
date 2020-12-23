@@ -17,7 +17,7 @@
 arvados-repo-install-pkgrepo-managed:
   pkgrepo.managed:
     - humanname: {{ arvados.repo.humanname }}
-    - name: deb {{ arvados.repo.url_base }}/ {{ release }} main
+    - name: deb {{ arvados.repo.url_base }}/{{ release }} {{ release }} main
     - file: {{ arvados.repo.file }}
     - key_url: {{ arvados.repo.key_url }}
 
