@@ -6,7 +6,7 @@ when 'centos'
   repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
 when 'debian', 'ubuntu'
   repo_file = '/etc/apt/sources.list.d/arvados.list'
-  repo_url = 'deb http://apt.arvados.org buster main'
+  repo_url = 'deb http://apt.arvados.org/buster buster main'
 end
 
 control 'arvados repository' do
