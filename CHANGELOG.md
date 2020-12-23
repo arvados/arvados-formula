@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.4](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.3...v1.1.4) (2020-12-23)
+
+
+### Bug Fixes
+
+* **apt:** update repository URL ([b1b06f9](https://github.com/saltstack-formulas/arvados-formula/commit/b1b06f9d72917d55a6622eddf43a896432ffd8c4))
+
+
+### Continuous Integration
+
+* **commitlint:** ensure `upstream/master` uses main repo URL [skip ci] ([24c9b5d](https://github.com/saltstack-formulas/arvados-formula/commit/24c9b5d1e79a22189c93902ec7099dd9dc656f71))
+* **gitlab-ci:** add `rubocop` linter (with `allow_failure`) [skip ci] ([7a3adcc](https://github.com/saltstack-formulas/arvados-formula/commit/7a3adcc682b1c9f5a4a44a34306425484a843799))
+* **gitlab-ci:** use GitLab CI as Travis CI replacement ([e3ad2e8](https://github.com/saltstack-formulas/arvados-formula/commit/e3ad2e84ade6d1c3112e5f278b71b065f6cc7a66))
+
 ## [1.1.3](https://github.com/saltstack-formulas/arvados-formula/compare/v1.1.2...v1.1.3) (2020-12-07)
 
 
