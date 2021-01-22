@@ -7,17 +7,19 @@
 
 {%- if arvados.use_upstream_repo %}
   {%- if grains.get('os_family') == 'Debian' %}
+    {%- set distro = grains.get('lsb_distrib_codename') %}
+
     {%- if arvados.release == 'testing' %}
-      {%- set release = grains.get('lsb_distrib_codename') ~ '-testing' %}
+      {%- set release = distro ~ '-testing' %}
     {%- elif arvados.release == 'development' %}
-      {%- set release = grains.get('lsb_distrib_codename') ~ '-dev' %}
+      {%- set release = distro ~ '-dev' %}
     {%- else %}
-      {%- set release = grains.get('lsb_distrib_codename') %}
+      {%- set release = distro %}
     {%- endif %}
 arvados-repo-install-pkgrepo-managed:
   pkgrepo.managed:
     - humanname: {{ arvados.repo.humanname }}
-    - name: deb {{ arvados.repo.url_base }}/{{ release }} {{ release }} main
+    - name: deb {{ arvados.repo.url_base }}/{{ distro }} {{ release }} main
     - file: {{ arvados.repo.file }}
     - key_url: {{ arvados.repo.key_url }}
 
