@@ -82,12 +82,11 @@ arvados:
 
     ### TOKENS
     tokens:
-      # SystemRootToken has to be alphanumeric, it does not accept underscores
-      # or special characters. See
-      # https://dev.arvados.org/issues/17150
+      # Secrets and tokens have to be +32 alphanumeric,
+      # it does not accept underscores or special characters.
+      # See https://dev.arvados.org/issues/17150
       system_root: changemesystemroottoken
       management: changememanagementtoken
-      rails_secret: changemerailssecrettoken
       anonymous_user: changemeanonymoususertoken
 
     ### KEYS

@@ -60,7 +60,6 @@ arvados:
     tokens:
       system_root: changemesystemroottoken
       management: changememanagementtoken
-      rails_secret: changemerailssecrettoken
       anonymous_user: changemeanonymoususertoken
 
     ### KEYS

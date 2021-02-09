@@ -2,7 +2,6 @@
 
 api_stanza = <<-API_STANZA
     API:
-      RailsSessionSecretToken: "changemerailssecrettoken"
 API_STANZA
 
 rails_stanza = <<-RAILS_STANZA

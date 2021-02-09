@@ -22,7 +22,6 @@ Clusters:
     ForceLegacyAPI14: {{ arvados.cluster.force_legacy_api14 }}
 
     API:
-      RailsSessionSecretToken: {{ arvados.cluster.tokens.rails_secret | yaml_encode }}
     {%- if 'API' in arvados.cluster %}
       {{ arvados.cluster.API | default('') | yaml(False) | indent(6) }}
     {%- endif %}
