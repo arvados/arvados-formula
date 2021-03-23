@@ -211,6 +211,7 @@ suites:
       state_top:
         base:
           '*':
+            - arvados._mapdata
             - single_host.host_entries
             - single_host.snakeoil_certs
             - locale
@@ -271,6 +272,7 @@ suites:
       state_top:
         base:
           '*':
+            - arvados._mapdata
             - single_host.host_entries
             - single_host.snakeoil_certs
             - nginx.passenger
@@ -304,6 +306,7 @@ suites:
       state_top:
         base:
           '*':
+            - arvados._mapdata
             # We also test repo here. No sense for a whole separate suite
             - arvados.repo
             - arvados.shell
@@ -325,6 +328,7 @@ suites:
       state_top:
         base:
           '*':
+            - arvados._mapdata
             - arvados.repo
             - arvados.keepstore
             # - arvados.clean
