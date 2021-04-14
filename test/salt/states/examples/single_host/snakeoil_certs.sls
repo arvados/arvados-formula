@@ -4,6 +4,8 @@
 {%- set tpldir = curr_tpldir %}
 
 include:
+  - nginx.passenger
+  - nginx.config
   - nginx.service
 
 {%- set arvados_ca_cert_file = '/etc/ssl/certs/arvados-snakeoil-ca.pem' %}
@@ -145,5 +147,8 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_nginx_snakeoil_file
         ssl_certificate_key {{ arvados_key_file }};
     - watch_in:
       - service: nginx_service
-
-
+    - require:
+      - pkg: passenger_install
+      - cmd: arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_cmd_run
+    - require_in:
+      - file: nginx_config

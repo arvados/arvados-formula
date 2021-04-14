@@ -236,7 +236,7 @@ suites:
           source: https://github.com/saltstack-formulas/postgres-formula.git
         - name: nginx
           repo: git
-          source: https://github.com/netmanagers/nginx-formula.git
+          source: https://github.com/saltstack-formulas/nginx-formula.git
       state_top:
         base:
           '*':
@@ -297,7 +297,7 @@ suites:
           path: test/salt/states/examples
         - name: nginx
           repo: git
-          source: https://github.com/netmanagers/nginx-formula.git
+          source: https://github.com/saltstack-formulas/nginx-formula.git
       state_top:
         base:
           '*':
