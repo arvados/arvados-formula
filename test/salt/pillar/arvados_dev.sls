@@ -65,8 +65,8 @@ arvados:
       host: 127.0.0.1
       password: changeme_arvados
       user: arvados
-      encoding: en_US.utf8
-      client_encoding: UTF8
+      extra_conn_params:
+        client_encoding: UTF8
 
     tls:
       # certificate: ''

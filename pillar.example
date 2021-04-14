@@ -65,13 +65,12 @@ arvados:
       host: 127.0.0.1
       password: changeme_arvados
       user: arvados
-      encoding: en_US.utf8
-      client_encoding: UTF8
       # You can pass extra database connections parameters here,
       # which will be rendered as yaml.
       # extra_conn_params:
       #  sslmode: prefer
       #  verify-ca: false
+      #  client_encoding: UTF8
 
 
     tls:

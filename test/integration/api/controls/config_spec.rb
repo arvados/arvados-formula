@@ -10,6 +10,20 @@ rails_stanza = <<-RAILS_STANZA
           http://api.internal:8004: {}
 RAILS_STANZA
 
+database_stanza = <<-DATABASE_STANZA
+    ### DATABASE CONFIGURATION
+    PostgreSQL:
+      ConnectionPool: 32
+      Connection:
+        # All parameters here are passed to the PG client library in a connection string;
+        # see https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+        dbname: arvados
+        host: 127.0.0.1
+        password: "changeme_arvados"
+        user: arvados
+        client_encoding: UTF8
+DATABASE_STANZA
+
 group = case os[:name]
         when 'centos'
           'nginx'
@@ -32,5 +46,6 @@ control 'arvados configuration' do
     end
     its('content') { should include(api_stanza) }
     its('content') { should include(rails_stanza) }
+    its('content') { should include(database_stanza) }
   end
 end

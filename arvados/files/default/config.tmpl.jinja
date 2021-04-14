@@ -73,7 +73,6 @@ Clusters:
         host: {{ arvados.cluster.database.host }}
         password: {{ arvados.cluster.database.password | yaml_encode }}
         user: {{ arvados.cluster.database.user }}
-        client_encoding: {{ arvados.cluster.database.client_encoding }}
         {%- if arvados.cluster.database.extra_conn_params is defined %}
         {{ arvados.cluster.database.extra_conn_params | yaml(False) | indent(8) }}
         {%- endif %}
