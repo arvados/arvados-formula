@@ -3,9 +3,6 @@
 {%- from "arvados/map.jinja" import arvados with context %}
 {%- set tpldir = curr_tpldir %}
 
-include:
-  - nginx.config
-
 arvados_test_salt_states_examples_single_host_etc_hosts_host_present:
   host.present:
     - ip: {{ grains.get('ipv4')[0] }}
@@ -19,6 +16,7 @@ arvados_test_salt_states_examples_single_host_etc_hosts_host_present:
           'controller',
           'download',
           'keep',
+          'keepweb',
           'keep0',
           'shell',
           'workbench',
@@ -26,8 +24,10 @@ arvados_test_salt_states_examples_single_host_etc_hosts_host_present:
           'ws',
         ]
       %}
+      - {{ entry }}
       - {{ entry }}.internal
       - {{ entry }}.{{ arvados.cluster.name }}.{{ arvados.cluster.domain }}
       {%- endfor %}
     - require_in:
       - file: nginx_config
+      - service: nginx_service
