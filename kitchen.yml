@@ -325,6 +325,7 @@ suites:
         # yamllint enable rule:line-length
     verifier:
       inspec_tests:
+        - path: test/integration/repo
         - path: test/integration/workbench
         - path: test/integration/workbench2
   #### shell
@@ -360,15 +361,13 @@ suites:
             - arvados._mapdata
             - arvados.repo
             - arvados.keepstore
-            # - arvados.clean
       pillars:
         top.sls:
           base:
             '*':
               - arvados
       pillars_from_files:
-        arvados.sls: test/salt/pillar/arvados.sls
+        arvados.sls: test/salt/pillar/arvados_dev.sls
     verifier:
       inspec_tests:
-        - path: test/integration/repo
         - path: test/integration/keepstore

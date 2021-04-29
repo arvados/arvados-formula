@@ -59,7 +59,7 @@ arvados:
     tokens:
       system_root: changemesystemroottoken
       management: changememanagementtoken
-      anonymous_user: changemeanonymoususertoken
+      anonymous_user: anonymoususertokensetinthetokensdict
 
     ### KEYS
     secrets:

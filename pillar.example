@@ -86,6 +86,8 @@ arvados:
       # See https://dev.arvados.org/issues/17150
       system_root: changemesystemroottoken
       management: changememanagementtoken
+      # The AnonymousUserToken can be set here or in the
+      # USers dictionary below. The latter will be used if set.
       anonymous_user: changemeanonymoususertoken
 
     ### KEYS

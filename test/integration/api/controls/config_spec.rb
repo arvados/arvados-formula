@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+users_stanza = <<-USERS_STANZA
+    Users:
+      AnonymousUserToken: anonymoususertokensetinthetokensdict
+USERS_STANZA
+
 api_stanza = <<-API_STANZA
     API:
 API_STANZA
@@ -47,5 +52,6 @@ control 'arvados configuration' do
     its('content') { should include(api_stanza) }
     its('content') { should include(rails_stanza) }
     its('content') { should include(database_stanza) }
+    its('content') { should include(users_stanza) }
   end
 end

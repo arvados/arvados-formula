@@ -6,6 +6,8 @@
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
+{%- do arvados.cluster.Users.update({'AnonymousUserToken': arvados.cluster.tokens.anonymous_user }) if arvados.cluster.Users.AnonymousUserToken is not defined %}
+
 include:
   - .package
 

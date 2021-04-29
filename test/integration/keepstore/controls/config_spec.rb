@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+users_stanza = <<-USERS_STANZA
+    Users:
+      AnonymousUserToken: anonymoususertokensetintheusersdict
+USERS_STANZA
+
 keepstore_stanza = <<-KEEPSTORE_STANZA
       Keepstore:
         InternalURLs:
@@ -33,5 +38,6 @@ control 'arvados configuration' do
     end
     its('content') { should include(keepstore_stanza) }
     its('content') { should include(volumes_stanza) }
+    its('content') { should include(users_stanza) }
   end
 end
