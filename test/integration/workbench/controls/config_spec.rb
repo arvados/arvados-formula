@@ -2,7 +2,7 @@
 
 workbench_config = <<-WORKBENCH_STANZA
     Workbench:
-      SecretKeyBase: "changemeworkbenchsecretkey"
+      SecretKeyBase: "workbenchsecretkeymushaveatleast32characters"
       SiteName: FIXME
 WORKBENCH_STANZA
 

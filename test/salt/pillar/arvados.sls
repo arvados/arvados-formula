@@ -57,22 +57,18 @@ arvados:
 
     ### TOKENS
     tokens:
-      system_root: changemesystemroottoken
-      management: changememanagementtoken
+      system_root: systemroottokenmushaveatleast32characters
+      management: managementtokenmushaveatleast32characters
       anonymous_user: anonymoususertokensetinthetokensdict
 
     ### KEYS
     secrets:
-      blob_signing_key: changemeblobsigningkey
-      workbench_secret_key: changemeworkbenchsecretkey
+      blob_signing_key: blobsigningkeymushaveatleast32characters
+      workbench_secret_key: workbenchsecretkeymushaveatleast32characters
       dispatcher_access_key: changemedispatcheraccesskey
       dispatcher_secret_key: changemedispatchersecretkey
       keep_access_key: changemekeepaccesskey
       keep_secret_key: changemekeepsecretkey
-
-    AuditLogs:
-      Section_to_ignore:
-        - some_random_value
 
     ### VOLUMES
     ## This should usually match all your `keepstore` instances

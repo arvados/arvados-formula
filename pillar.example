@@ -8,23 +8,23 @@ arvados:
   ### GENERAL CONFIG
   # version: '2.1.0'
   # release: production
-  ## It makes little sense to disable this flag, but you can, if you want :)
+  ### It makes little sense to disable this flag, but you can, if you want :)
   # use_upstream_repo: true
 
-  ## Repo URL is built with grains values. If desired, it can be completely
-  ## overwritten with the pillar parameter 'repo_url'
+  ### Repo URL is built with grains values. If desired, it can be completely
+  ### overwritten with the pillar parameter 'repo_url'
   # repo:
   #   humanname: Arvados Official Repository
 
-  ## IMPORTANT!!!!!
-  ## api, workbench and shell require some gems, so you need to make sure ruby
-  ## and deps are installed in order to install and compile the gems.
-  ## We default to `false` in these two variables as it's expected you already
-  ## manage OS packages with some other tool and you don't want us messing up
-  ## with your setup.
+  # IMPORTANT!!!!!
+  # api, workbench and shell require some gems, so you need to make sure ruby
+  # and deps are installed in order to install and compile the gems.
+  # We default to `false` in these two variables as it's expected you already
+  # manage OS packages with some other tool and you don't want us messing up
+  # with your setup.
   ruby:
-    ## We set these to `true` here for testing purposes.
-    ## They both default to `false`.
+    # We set these to `true` here for testing purposes.
+    # They both default to `false`.
     manage_ruby: true
     use_rvm: false     # If you want to use rvm. Defaults to true for centos-7
     # pkg: ruby        # Can specify a version like ruby-2.5.7 for rvm
@@ -47,11 +47,26 @@ arvados:
   # config:
   #   file: /etc/arvados/config.yml
   #   user: root
-  ## IMPORTANT!!!!!
-  ## If you're intalling any of the rails apps (api, workbench), the group
-  ## should be set to that of the web server, usually `www-data`
+  ### IMPORTANT!!!!!
+  ### If you're intalling any of the rails apps (api, workbench), the group
+  ### should be set to that of the web server, usually `www-data`
   #   group: root
   #   mode: 640
+  #
+  ### This is the command run to verify the configuration is correct before
+  ### deploying it. By default it uses `-strict=true`, so it will error on
+  ### warnings (ie, unknown/deprecated parameters)
+  #
+  #   check_command: /usr/bin/arvados-server config-check -config
+  #
+  ### To fail only on errors, you can use
+  #
+  #   check_command: /usr/bin/arvados-server config-check -strict=false -config
+  #
+  ### and to disable configuration checking (not recommended), just set it to
+  ### any command that returns true
+  #
+  #   check_command: /bin/true
 
   ### ARVADOS CLUSTER CONFIG
   cluster:
@@ -68,9 +83,9 @@ arvados:
       # You can pass extra database connections parameters here,
       # which will be rendered as yaml.
       # extra_conn_params:
-      #  sslmode: prefer
-      #  verify-ca: false
-      #  client_encoding: UTF8
+      #   sslmode: prefer
+      #   verify-ca: false
+      #   client_encoding: UTF8
 
 
     tls:
@@ -84,24 +99,20 @@ arvados:
       # Secrets and tokens have to be +32 alphanumeric,
       # it does not accept underscores or special characters.
       # See https://dev.arvados.org/issues/17150
-      system_root: changemesystemroottoken
-      management: changememanagementtoken
+      system_root: systemroottokenmushaveatleast32characters
+      management: managementtokenmushaveatleast32characters
       # The AnonymousUserToken can be set here or in the
-      # USers dictionary below. The latter will be used if set.
-      anonymous_user: changemeanonymoususertoken
+      # Users dictionary below. The latter will be used if set.
+      anonymous_user: anonymoususertokenmushaveatleast32characters
 
     ### KEYS
     secrets:
-      blob_signing_key: changemeblobsigningkey
-      workbench_secret_key: changemeworkbenchsecretkey
+      blob_signing_key: blobsigningkeymushaveatleast32characters
+      workbench_secret_key: workbenchsecretkeymushaveatleast32characters
       dispatcher_access_key: changemedispatcheraccesskey
       dispatcher_secret_key: changemedispatchersecretkey
       keep_access_key: changemekeepaccesskey
       keep_secret_key: changemekeepsecretkey
-
-    AuditLogs:
-      Section_to_ignore:
-        - some_random_value
 
     ### VOLUMES
     ## This should usually match all your `keepstore` instances

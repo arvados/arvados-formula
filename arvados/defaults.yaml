@@ -37,14 +37,13 @@ arvados:
     user: root
     group: root
     mode: 640
+    check_command: /usr/bin/arvados-server config-check -config
 
   # Experimental feature
   # only available when 'release: development'
   auto_reload_config: false
 
   cluster:
-    force_legacy_api14: false
-
     database:
       connection_pool_max: 32
 

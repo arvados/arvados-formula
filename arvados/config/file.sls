@@ -25,6 +25,6 @@ arvados-config-file-file-managed:
     - template: jinja
     - context:
         arvados: {{ arvados | json }}
-    - check_cmd: /usr/bin/arvados-server config-dump -config
+    - check_cmd: {{ arvados.config.check_command }}
     - require:
       - pkg: arvados-config-package-install-pkg-installed
