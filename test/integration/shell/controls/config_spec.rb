@@ -45,14 +45,14 @@ control 'shellinabox configuration' do
   end
 end
 
-control 'libpam-arvados configuration' do
+control 'pam-shellinabox-arvados configuration' do
   title 'should match desired lines'
 
-  libpam_stanza = <<~LIBPAM_STANZA
+  pamshellinabox_stanza = <<~PAMSHELLINABOX_STANZA
     auth [success=1 default=ignore] /usr/lib/pam_arvados.so fixme.example.net shell.fixme.example.net
-  LIBPAM_STANZA
+  PAMSHELLINABOX_STANZA
 
-  describe file('/etc/pam.d/arvados') do
+  describe file('/etc/pam.d/shellinabox') do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
@@ -60,10 +60,10 @@ control 'libpam-arvados configuration' do
     its('content') do
       should include(
         # rubocop:disable Layout/LineLength
-        'File managed by Salt at <salt://arvados/shell/config/files/default/shell-libpam-arvados.tmpl.jinja>.'
+        'File managed by Salt at <salt://arvados/shell/config/files/default/shell-pam-shellinabox.tmpl.jinja>.'
         # rubocop:enable Layout/LineLength
       )
     end
-    its('content') { should include(libpam_stanza) }
+    its('content') { should include(pamshellinabox_stanza) }
   end
 end

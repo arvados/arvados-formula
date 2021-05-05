@@ -28,11 +28,11 @@ arvados-shell-config-file-shellinabox-file-managed:
     - context:
         arvados: {{ arvados | json }}
 
-arvados-shell-config-file-libpam-arvados-file-managed:
+arvados-shell-config-file-pam-shellinabox-file-managed:
   file.managed:
-    - name: {{ arvados.shell.libpam_arvados.config }}
-    - source: {{ files_switch(['shell-libpam-arvados.tmpl.jinja'],
-                              lookup='arvados-shell-config-file-libpam-arvados-file-managed',
+    - name: /etc/pam.d/shellinabox
+    - source: {{ files_switch(['shell-pam-shellinabox.tmpl.jinja'],
+                              lookup='arvados-shell-config-file-pam-shellinabox-file-managed',
                               use_subpath=True
                  )
               }}

@@ -21,7 +21,6 @@ arvados-shell-package-install-pkg-installed:
         {%- if package in [
           'arvados-client',
           'arvados-src',
-          'libpam-arvados-go',
           'python3-arvados-fuse',
           'python3-arvados-python-client',
           'python3-arvados-cwl-runner',

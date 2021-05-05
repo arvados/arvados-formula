@@ -11,8 +11,8 @@ arvados-shell-config-clean-file-shellinabox-absent:
     - watch_in:
         - sls: {{ sls_service_clean }}
 
-arvados-shell-config-clean-file-libpam-arvados-absent:
+arvados-shell-config-clean-file-pam-shellinabox-absent:
   file.absent:
-    - name: {{ arvados.shell.libpam-arvados.config }}
+    - name: /etc/pam.d/shellinabox
     - watch_in:
         - sls: {{ sls_service_clean }}
