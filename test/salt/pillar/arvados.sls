@@ -55,6 +55,14 @@ arvados:
       # required to test with snakeoil certs
       insecure: true
 
+    resources:
+      virtual_machines:
+        shell1:
+          name: webshell1
+          backend: 1.2.3.4
+          port: 4200
+        webshell2: {}
+
     ### TOKENS
     tokens:
       system_root: systemroottokenmushaveatleast32characters
