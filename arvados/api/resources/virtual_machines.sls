@@ -31,13 +31,12 @@ arvados-api-resources-virtual-machines-{{ vm }}-record-cmd-run:
           virtual_machine \
           create \
           --virtual-machine '{"hostname":"{{ vm_name }}" }'
-    - onlyif: |
+    - unless: |
         ARVADOS_API_TOKEN={{ api_token }} \
-        ARVADOS_API_HOST={{ api_host }} \
+        ARVADOS_API_HOST="{{ api_host }}" \
         arv --short \
           virtual_machine \
           list \
           --filters '[["hostname", "=", "{{ vm_name }}"]]' | \
-          /bin/grep -qE "fixme-2x53u-[a-z0-9_]{15}" && \
-          false
+          /bin/grep -qE "fixme-2x53u-[a-z0-9_]{15}"
 {%- endfor %}
