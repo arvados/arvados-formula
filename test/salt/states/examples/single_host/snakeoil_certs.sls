@@ -131,9 +131,10 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_ssl_cert_pkg_instal
       - sls: postgres
 
 arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_cmd_run:
-  cmd.run:
-    - name: |
-        chown root:ssl-cert {{ arvados_key_file }}
+  file.managed:
+    - name: {{ arvados_key_file }}
+    - owner: root
+    - group: ssl-cert
     - require:
       - cmd: arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_cert_cmd_run
       - pkg: arvados_test_salt_states_examples_single_host_snakeoil_certs_ssl_cert_pkg_installed
@@ -149,6 +150,6 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_nginx_snakeoil_file
       - service: nginx_service
     - require:
       - pkg: passenger_install
-      - cmd: arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_cmd_run
+      - file: arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_cmd_run
     - require_in:
       - file: nginx_config
