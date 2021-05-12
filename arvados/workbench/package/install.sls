@@ -19,7 +19,7 @@ include:
 arvados-workbench-package-install-gems-deps-pkg-installed:
   pkg.installed:
     - pkgs: {{ arvados.ruby.gems_deps | json }}
-    - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
+    - onlyif: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
 arvados-workbench-package-install-pkg-installed:
   pkg.installed:
