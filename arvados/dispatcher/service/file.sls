@@ -73,4 +73,6 @@ arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-service:
       - service: arvados-dispatcher-service-running-service-running
     - require:
       - file: arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-service
+    - onchanges:
+      - file: arvados-dispatcher-service-file-file-managed-crunch-dispatch-local-service
 {%- endif %}
