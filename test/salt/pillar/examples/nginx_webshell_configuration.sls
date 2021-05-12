@@ -7,6 +7,7 @@ nginx:
 
       ### STREAMS
       http:
+        {%- for shell_node, params in %}
         upstream webshell_upstream:
           - server: 'shell.internal:4200 fail_timeout=10s'
 

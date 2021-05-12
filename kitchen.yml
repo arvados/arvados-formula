@@ -287,7 +287,7 @@ suites:
         - path: test/integration/keepproxy
         - path: test/integration/keepweb
         - path: test/integration/controller
-  #### workbench,workbench2
+  #### workbench,workbench2,webshell
   - name: workbench
     driver:
       hostname: workbench.fixme.example.net
@@ -316,12 +316,14 @@ suites:
               - example_nginx
               - example_nginx_workbench
               - example_nginx_workbench2
+              - example_nginx_webshell
       pillars_from_files:
         # yamllint disable rule:line-length
         arvados.sls: test/salt/pillar/arvados.sls
         example_nginx.sls: test/salt/pillar/examples/nginx_passenger.sls
         example_nginx_workbench.sls: test/salt/pillar/examples/nginx_workbench_configuration.sls
         example_nginx_workbench2.sls: test/salt/pillar/examples/nginx_workbench2_configuration.sls
+        example_nginx_webshell.sls: test/salt/pillar/examples/nginx_webshell_configuration.sls
         # yamllint enable rule:line-length
     verifier:
       inspec_tests:

@@ -87,7 +87,6 @@ arvados:
       #   verify-ca: false
       #   client_encoding: UTF8
 
-
     tls:
       # certificate: ''
       # key: ''
@@ -113,6 +112,35 @@ arvados:
       dispatcher_secret_key: changemedispatchersecretkey
       keep_access_key: changemekeepaccesskey
       keep_secret_key: changemekeepsecretkey
+
+    ### ARVADOS RESOURCES
+    # This dict allows you to create various resources in the Arvados
+    # database so they're ready to use.
+    # Check the `arvados.api.resources.* states to see which can be
+    # currently managed
+
+    ### SHELL / WEBSHELL REGISTRATION
+    # In order to use shell nodes via webshell, Arvados needs to know of
+    # their existence and they need to be configured as upstreams in nginx
+    # (see https://doc.arvados.org/v2.0/install/install-webshell.html)
+    # This could be achieved in various ways (ie, through salt mine if you
+    # want them to be dinamically created), but that's outside the scope of
+    # this formula. The following dict is just an example that will be used
+    # by the `arvados.api.resources.virtual_machines` state to add entries
+    # in Arvados' database of the cluster's resources'
+    # It's additionally used in the `test/salt/pillar/examples/nginx_webshell_configuration.sls`
+    # pillar to add the corresponding `location` entries in nginx's webshell vhosts & upstreams
+    resources:
+      virtual_machines:
+        shell1:
+          name: webshell1      # if not set, will match the one of the dict key above
+          backend: 1.2.3.4     # upstream host ip/name that has the shell role
+          port: 4200           # port where shellinabox is listening
+        # when no other parameter is set:
+        # `name` will match the name of the key
+        # backend` will match `name`
+        # `port` will default to shellinabox's 4200
+        webshell2: {}
 
     ### VOLUMES
     ## This should usually match all your `keepstore` instances
@@ -225,13 +253,6 @@ arvados:
 #     service:
 #       name: keepstore
 #       port: 25107
-#  #### GIT-HTTPD
-#   githttpd:
-#     pkg:
-#       name: arvados-git-httpd
-#     service:
-#       name: arvados-git-httpd
-#       port: 9001
 #  #### SHELL
 #   shell:
 #     pkg:
@@ -269,13 +290,6 @@ arvados:
 #     service:
 #       name: arvados-ws
 #       port: 8005
-#  #### SSO
-#   sso:
-#     pkg:
-#       name: arvados-sso
-#     service:
-#       name: arvados-sso
-#       port: 8900
 
 #  ## SALTSTACK FORMULAS TOFS configuration
 #   https://template-formula.readthedocs.io/en/latest/TOFS_pattern.html
