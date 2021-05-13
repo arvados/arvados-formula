@@ -16,11 +16,20 @@ include:
   - {{ sls_config_file }}
   - ..service
 
+arvados-api-resources-virtual-machines-jq-pkg-installed:
+  pkg.installed:
+    - name: jq
+
 {%- for vm, vm_params in virtual_machines.items() %}
   {%- set vm_name = vm_params.name | default(vm) %}
-  {%- set vm_backend = vm_params.backend | default(vm_name) %}
-  {%- set vm_port = vm_params.port | default(4200) %}
 
+  {%- set cmd_query_vm_uuid = 'ARVADOS_API_TOKEN=' ~ api_token ~
+                              ' ARVADOS_API_HOST=' ~ api_host ~
+                              ' arv --short virtual_machine list' ~
+                              ' --filters \'[["hostname", "=", "' ~ vm_name ~ '"]]\''
+  %}
+
+# Create the virtual machine record
 arvados-api-resources-virtual-machines-{{ vm }}-record-cmd-run:
   cmd.run:
     - env:
@@ -32,11 +41,36 @@ arvados-api-resources-virtual-machines-{{ vm }}-record-cmd-run:
           create \
           --virtual-machine '{"hostname":"{{ vm_name }}" }'
     - unless: |
-        ARVADOS_API_TOKEN={{ api_token }} \
-        ARVADOS_API_HOST="{{ api_host }}" \
-        arv --short \
-          virtual_machine \
-          list \
-          --filters '[["hostname", "=", "{{ vm_name }}"]]' | \
-          /bin/grep -qE "fixme-2x53u-[a-z0-9_]{15}"
+          {{ cmd_query_vm_uuid }} | \
+          /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}"
+
+  # As we need the UUID generated in the previous command, we need to
+  # iterate again in order to get them
+  {% set vm_uuid = salt['cmd.shell'](cmd_query_vm_uuid) %}
+
+  {%- set scoped_token_url = '/arvados/v1/virtual_machines/' ~ vm_uuid ~ '/logins' %}
+
+  # There's no direct way to query the scoped_token for a given virtual_machine
+  # so we need to parse the api_client_authorization list through some jq
+  {%- set cmd_query_scoped_token_url = 'ARVADOS_API_TOKEN=' ~ api_token ~
+                                       ' ARVADOS_API_HOST=' ~ api_host ~
+                                       ' arv api_client_authorization list |' ~
+                                       ' jq -e \'.items[].scopes[] | select(. == "GET ' ~
+                                       scoped_token_url ~ '")\''
+  %}
+# Create the VM scoped tokens
+arvados-api-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
+  cmd.run:
+    - env:
+      - ARVADOS_API_TOKEN: {{ api_token }}
+      - ARVADOS_API_HOST: {{ api_host }}
+    - name: |
+        arv --format=uuid \
+          api_client_authorization \
+          create \
+          --api-client-authorization '{"scopes":["GET {{ scoped_token_url }}"]}'
+    - require:
+      - pkg: arvados-api-resources-virtual-machines-jq-pkg-installed
+    - unless: {{ cmd_query_scoped_token_url }}
+
 {%- endfor %}

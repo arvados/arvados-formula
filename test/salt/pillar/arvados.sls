@@ -62,6 +62,9 @@ arvados:
           backend: 1.2.3.4
           port: 4200
         webshell2: {}
+        webshell3:
+          backend: 4.3.2.1
+          port: 4500
 
     ### TOKENS
     tokens:
