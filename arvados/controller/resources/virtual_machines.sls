@@ -16,7 +16,7 @@ include:
   - {{ sls_config_file }}
   - ..service
 
-arvados-api-resources-virtual-machines-jq-pkg-installed:
+arvados-controller-resources-virtual-machines-jq-pkg-installed:
   pkg.installed:
     - name: jq
 
@@ -30,7 +30,7 @@ arvados-api-resources-virtual-machines-jq-pkg-installed:
   %}
 
 # Create the virtual machine record
-arvados-api-resources-virtual-machines-{{ vm }}-record-cmd-run:
+arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run:
   cmd.run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
@@ -43,34 +43,50 @@ arvados-api-resources-virtual-machines-{{ vm }}-record-cmd-run:
     - unless: |
           {{ cmd_query_vm_uuid }} | \
           /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}"
+    - require:
+      - pkg: arvados-controller-package-install-pkg-installed
+      - cmd: arvados-controller-service-running-service-ready-cmd-run
 
-  # As we need the UUID generated in the previous command, we need to
-  # iterate again in order to get them
-  {% set vm_uuid = salt['cmd.shell'](cmd_query_vm_uuid) %}
-
-  {%- set scoped_token_url = '/arvados/v1/virtual_machines/' ~ vm_uuid ~ '/logins' %}
+# We need to use the UUID generated in the previous command to see if there's a
+# scoped token for it. There's no easy way to pass the value from a shellout
+# to another state, so we store it in a temp file and use that in the next
+# command. Flaky, mostly because the `unless` clause is just checking thatg
+# the file content is a token uuid :|
+arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
+  cmd.run:
+    - name: {{ cmd_query_vm_uuid }} | head -1 | tee /tmp/{{ vm }}
+    - require:
+      - cmd: arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run
+    - unless:
+      - /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
 
   # There's no direct way to query the scoped_token for a given virtual_machine
   # so we need to parse the api_client_authorization list through some jq
-  {%- set cmd_query_scoped_token_url = 'ARVADOS_API_TOKEN=' ~ api_token ~
+  {%- set cmd_query_scoped_token_url = 'VM_UUID=$(cat /tmp/' ~ vm ~ ') && ' ~
+                                       ' ARVADOS_API_TOKEN=' ~ api_token ~
                                        ' ARVADOS_API_HOST=' ~ api_host ~
                                        ' arv api_client_authorization list |' ~
-                                       ' jq -e \'.items[].scopes[] | select(. == "GET ' ~
-                                       scoped_token_url ~ '")\''
+                                       ' /usr/bin/jq -e \'.items[].scopes[] | select(. == "GET ' ~
+                                       '/arvados/v1/virtual_machines/\'${VM_UUID}\'/logins")\' && ' ~
+                                       'unset VM_UUID'
   %}
+
 # Create the VM scoped tokens
-arvados-api-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
+arvados-controller-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
   cmd.run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
       - ARVADOS_API_HOST: {{ api_host }}
     - name: |
+        VM_UUID=$(cat /tmp/{{ vm }}) &&
         arv --format=uuid \
           api_client_authorization \
           create \
-          --api-client-authorization '{"scopes":["GET {{ scoped_token_url }}"]}'
-    - require:
-      - pkg: arvados-api-resources-virtual-machines-jq-pkg-installed
+          --api-client-authorization '{"scopes":["GET /arvados/v1/virtual_machines/'${VM_UUID}'/logins"]}'
     - unless: {{ cmd_query_scoped_token_url }}
+    - require:
+      - pkg: arvados-controller-package-install-pkg-installed
+      - pkg: arvados-controller-resources-virtual-machines-jq-pkg-installed
+      - cmd: arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run
 
 {%- endfor %}
