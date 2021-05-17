@@ -5,7 +5,7 @@
 
 arvados_test_salt_states_examples_single_host_etc_hosts_host_present:
   host.present:
-    - ip: {{ grains['ipv4'][0] }}
+    - ip: {{ grains['ipv4'][1] }}
     - names:
       - {{ arvados.cluster.name }}.{{ arvados.cluster.domain }}
       # FIXME! This just works for our testings.
