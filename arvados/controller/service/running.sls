@@ -30,7 +30,7 @@ arvados-controller-service-running-service-ready-cmd-run:
           echo 'waiting for API to be ready...'
           sleep 1
         done
-    - timeout: 520
+    - timeout: 120
     - unless: |
         curl -s {{  arvados.cluster.Services.Controller.ExternalURL }} | \
         grep -qE "req-[a-z0-9]{20}.{5}error_token"
