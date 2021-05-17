@@ -37,10 +37,9 @@ nginx:
             - server_name: workbench.fixme.example.net
             - listen:
               - 443 http2 ssl
-            - index: index.html index.htm
-            - location /:
             - root: /var/www/arvados-workbench/current/public
             - passenger_enabled: 'on'
+            - index: index.html index.htm
             - include: 'snippets/ssl_hardening_default.conf'
             # - include: 'snippets/letsencrypt.conf'
             - include: 'snippets/ssl_snakeoil.conf'

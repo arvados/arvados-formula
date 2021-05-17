@@ -61,7 +61,7 @@ arvados:
           name: webshell1
           backend: 1.2.3.4
           port: 4200
-        webshell2: {}
+        shell.internal: {}
         webshell3:
           backend: 4.3.2.1
           port: 4500

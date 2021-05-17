@@ -20,7 +20,7 @@ control 'arvados api resources' do
 
   %w[
     webshell1
-    webshell2
+    shell.internal
     webshell3
   ].each do |vm|
     describe "virtual machine #{vm}" do
