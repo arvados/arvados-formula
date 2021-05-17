@@ -42,7 +42,7 @@ arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run:
           --virtual-machine '{"hostname":"{{ vm_name }}" }'
     - unless: |
           {{ cmd_query_vm_uuid }} | \
-          /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}"
+          /bin/grep -qE "[a-z0-9]{5}-2x53u-[a-z0-9]{15}"
     - require:
       - pkg: arvados-controller-package-install-pkg-installed
       - cmd: arvados-controller-service-running-service-ready-cmd-run
@@ -58,7 +58,7 @@ arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
     - require:
       - cmd: arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run
     - unless:
-      - /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
+      - /bin/grep -qE "[a-z0-9]{5}-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
 
   # There's no direct way to query the scoped_token for a given virtual_machine
   # so we need to parse the api_client_authorization list through some jq
