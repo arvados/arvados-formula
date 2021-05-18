@@ -68,7 +68,7 @@ examples-arvados-shell-cron-add-login-sync-add-{{ vm }}-get-scoped_token-cmd-run
     - require:
       - cmd: examples-arvados-shell-cron-add-login-sync-add-{{ vm }}-get-vm_uuid-cmd-run
     - unless:
-      - test -s /tmp/sctk-{{ vm }}
+      - test -s /tmp/sctk{{ vm }}
 
 examples-arvados-shell-cron-add-login-sync-add-{{ vm }}-arvados-host-cron-env-present:
   cron.env_present:
