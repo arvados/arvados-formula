@@ -47,7 +47,7 @@ examples-arvados-shell-cron-add-login-sync-add-{{ vm }}-get-vm_uuid-cmd-run:
     - require:
       - cmd: examples-arvados-shell-cron-add-login-sync-add-resources-virtual-machines-{{ vm }}-record-cmd-run
     - unless:
-      - /bin/grep -qE "fixme-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
+      - /bin/grep -qE "[a-z0-9]{5}-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
 
   # There's no direct way to query the scoped_token for a given virtual_machine
   # so we need to parse the api_client_authorization list through some jq
