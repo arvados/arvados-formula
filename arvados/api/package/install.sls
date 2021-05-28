@@ -19,7 +19,7 @@ include:
 arvados-api-package-install-gems-deps-pkg-installed:
   pkg.installed:
     - pkgs: {{ arvados.ruby.gems_deps | unique | json }}
-    - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
+    - onlyif: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
 {%- for gm in arvados.api.gem.name | unique %}
 arvados-api-package-install-gem-{{ gm }}-installed:

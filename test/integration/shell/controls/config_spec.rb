@@ -4,7 +4,7 @@ control 'arvados configuration file' do
   title 'should not exist'
 
   describe file('/etc/arvados/config.yml') do
-    it { should_not exist}
+    it { should_not exist }
   end
 end
 
