@@ -16,6 +16,8 @@ arvados:
     manage_ruby: false
     pkg: ruby
     use_rvm: false
+    # Only used if using RVM
+    rvm_gemset: arvados
     manage_gems_deps: false
 
     gems_deps:

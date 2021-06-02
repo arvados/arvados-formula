@@ -29,6 +29,9 @@ arvados-api-package-install-gems-deps-pkg-installed:
 arvados-api-package-install-gem-{{ gm }}-installed:
   gem.installed:
     - name: {{ gm }}
+    {%- if arvados.ruby.use_rvm %}
+    - ruby: {{ arvados.ruby.pkg }}
+    {%- endif %}
     - require:
       - pkg: arvados-api-package-install-gems-deps-pkg-installed
       {%- if arvados.ruby.manage_ruby %}
