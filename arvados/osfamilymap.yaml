@@ -30,7 +30,7 @@ RedHat:
     manage_ruby: true
     use_rvm: true
 
-    pkg: ruby-2.5.7
+    pkg: ruby-2.5.8
     gems_deps:
       - rubygem-bundler
       - curl
