@@ -222,6 +222,9 @@ arvados:
 #   controller:
 #     pkg:
 #       name: arvados-controller
+#     gem:
+#       name:
+#         - arvados-cli
 #     service:
 #       name: arvados-controller
 #       port: 8003
