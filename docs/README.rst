@@ -1,18 +1,12 @@
 .. _readme:
 
+..
+   # Copyright (C) The Arvados Authors. All rights reserved.
+   #
+   # SPDX-License-Identifier: Apache-2.0
+
 arvados-formula
 ================
-
-|img_travis| |img_sr|
-
-.. |img_travis| image:: https://travis-ci.com/saltstack-formulas/arvados-formula.svg?branch=master
-   :alt: Travis CI Build Status
-   :scale: 100%
-   :target: https://travis-ci.com/saltstack-formulas/arvados-formula
-.. |img_sr| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-   :alt: Semantic Release
-   :scale: 100%
-   :target: https://github.com/semantic-release/semantic-release
 
 A SaltStack formula to install and configure an `Arvados cluster <https://arvados.org>`_.
 
@@ -23,14 +17,6 @@ General notes
 
 See the full `SaltStack Formulas installation and usage instructions
 <https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
-
-If you are interested in writing or contributing to formulas, please pay attention to the `Writing Formula Section
-<https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html#writing-formulas>`_.
-
-If you want to use this formula, please pay attention to the ``FORMULA`` file and/or ``git tag``,
-which contains the currently released version. This formula is versioned according to `Semantic Versioning <http://semver.org/>`_.
-
-See `Formula Versioning Section <https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html#versioning>`_ for more details.
 
 If you need (non-default) configuration, please pay attention to the ``pillar.example`` file and/or `Special notes`_ section.
 
@@ -57,7 +43,7 @@ provided you configure the pillars the way you need them.
 
 Arvados currently has three dispatchers:
 
-* **crunch-dispatch-local** (for single node installations),
+* **crunch-dispatch-local** (for single node installations and testing purposes, not suitable for production),
 * **arvados-dispatch-cloud** (for dynamic compute on AWS or Azure) and
 * **crunch-dispatch-slurm** (for SLURM integration).
 

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 ---
 name: keepstore
 title: arvados formula keepstore submodule
@@ -13,13 +16,3 @@ supports:
   - platform-name: debian
   - platform-name: ubuntu
   - platform-name: centos
-  - platform-name: fedora
-  - platform-name: opensuse
-  - platform-name: suse
-  - platform-name: freebsd
-  - platform-name: openbsd
-  - platform-name: amazon
-  - platform-name: oracle
-  - platform-name: arch
-  - platform-name: gentoo
-  - platform: windows
