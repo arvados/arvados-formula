@@ -1,3 +1,6 @@
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 # frozen_string_literal: true
 
 packages_list = %w[
@@ -6,6 +9,7 @@ packages_list = %w[
   python3-arvados-fuse
   python3-arvados-python-client
   python3-arvados-cwl-runner
+  python3-crunchstat-summary
   shellinabox
 ]
 
