@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 ---
 arvados:
   version: 'latest'
@@ -120,6 +123,7 @@ arvados:
         - python3-arvados-fuse
         - python3-arvados-python-client
         - python3-arvados-cwl-runner
+        - python3-crunchstat-summary
         - shellinabox
     gem:
       name:
