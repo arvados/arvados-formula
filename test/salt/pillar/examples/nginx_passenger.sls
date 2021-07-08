@@ -16,6 +16,10 @@ nginx:
   install_from_phusionpassenger: true
   lookup:
     passenger_package: {{ passenger_pkg }}
+  ### PASSENGER
+  passenger:
+    passenger_ruby: /usr/local/rvm/rubies/ruby-2.5.8/bin/ruby
+
   ### SERVER
   server:
     config:
