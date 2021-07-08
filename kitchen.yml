@@ -53,22 +53,22 @@ platforms:
     driver:
       image: saltimages/salt-master-py3:centos-7
 
-  ## SALT `3003.0`
-  - name: debian-10-3003-0-py3
+  ## SALT `3003.1`
+  - name: debian-10-3003-1-py3
     driver:
-      image: saltimages/salt-3003.0-py3:debian-10
-  - name: debian-9-3003-0-py3
+      image: saltimages/salt-3003.1-py3:debian-10
+  - name: debian-9-3003-1-py3
     driver:
-      image: saltimages/salt-3003.0-py3:debian-9
-  - name: ubuntu-2004-3003-0-py3
+      image: saltimages/salt-3003.1-py3:debian-9
+  - name: ubuntu-2004-3003-1-py3
     driver:
-      image: saltimages/salt-3003.0-py3:ubuntu-20.04
-  - name: ubuntu-1804-3003-0-py3
+      image: saltimages/salt-3003.1-py3:ubuntu-20.04
+  - name: ubuntu-1804-3003-1-py3
     driver:
-      image: saltimages/salt-3003.0-py3:ubuntu-18.04
-  - name: centos-7-3003-0-py3
+      image: saltimages/salt-3003.1-py3:ubuntu-18.04
+  - name: centos-7-3003-1-py3
     driver:
-      image: saltimages/salt-3003.0-py3:centos-7
+      image: saltimages/salt-3003.1-py3:centos-7
 
   ## SALT `3002.6`
   - name: debian-10-3002-6-py3
@@ -173,11 +173,11 @@ suites:
         base:
           '*':
             - arvados._mapdata
+            - postgres
             - single_host.host_entries
             - single_host.snakeoil_certs
             - locale
             - nginx.passenger
-            - postgres
             - arvados.repo
             - arvados.api
             - arvados.websocket
