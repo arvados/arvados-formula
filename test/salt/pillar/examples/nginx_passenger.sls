@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 {%- if grains.os_family in ('RedHat',) %}
   {%- set passenger_pkg = 'nginx-mod-http-passenger' %}
   {%- set passenger_mod = '/usr/lib64/nginx/modules/ngx_http_passenger_module.so' %}

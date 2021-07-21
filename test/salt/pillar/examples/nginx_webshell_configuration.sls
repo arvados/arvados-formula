@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # This parameter will be used here to generate a list of upstreams and vhosts.
 # This dict is here for convenience and should be managed some other way, but the
 # different ways of orchestration that can be used for this are outside the scope

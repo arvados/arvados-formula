@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 {%- if grains.os_family in ('RedHat',) %}
   {%- set group = 'nginx' %}
 {%- else %}

@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 control 'arvados api package' do
   title 'should be installed'

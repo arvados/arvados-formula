@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # The variables commented out are the default values that the formula uses.
 # The uncommented values are REQUIRED values. If you don't set them, running
 # this formula will fail.
