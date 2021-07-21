@@ -12,6 +12,22 @@
 {%- if arvados.ruby.manage_ruby %}
 
   {%- if arvados.ruby.use_rvm %}
+
+    # Centos 7 has a too old postgresql package and we need a newer one
+    {%- if grains.os_family in ('RedHat',) %}
+arvados-ruby-package-install-ruby-rvm-deps-centos-scl-release-pkg-installed:
+  pkg.installed:
+    - name: centos-release-scl
+    - require_in:
+
+arvados-ruby-package-install-ruby-rvm-deps-rh-postgres11-libs-pkg-installed:
+  pkg.installed:
+    - name: rh-postgresql{{ arvados.api.postgresql_version }}-postgresql-libs
+    - unless: rpm -q postgresql{{ arvados.api.postgresql_version }}-libs
+    - require_in:
+      - cmd: arvados-ruby-package-install-rvm-cmd-run-curl
+    {%- endif %}
+
   # Centos 7 has no python3-gnupg package, so using gpg.present
   # will fail when it can't list the existing keys.
   # Doing it the hard way
