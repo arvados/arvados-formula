@@ -12,9 +12,11 @@ include:
   - nginx.config
   - nginx.service
 
-{%- set arvados_ca_cert_file = '/etc/ssl/certs/arvados-snakeoil-ca.pem' %}
+# Debian uses different dirs for certs and keys, but being a Snake Oil example,
+# we'll keep it simple here.
+{%- set arvados_ca_cert_file = '/etc/ssl/private/arvados-snakeoil-ca.pem' %}
 {%- set arvados_ca_key_file = '/etc/ssl/private/arvados-snakeoil-ca.key' %}
-{%- set arvados_cert_file = '/etc/ssl/certs/arvados-snakeoil-cert.pem' %}
+{%- set arvados_cert_file = '/etc/ssl/private/arvados-snakeoil-cert.pem' %}
 {%- set arvados_csr_file = '/etc/ssl/private/arvados-snakeoil-cert.csr' %}
 {%- set arvados_key_file = '/etc/ssl/private/arvados-snakeoil-cert.key' %}
 
@@ -126,6 +128,9 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_c
     - require:
       - pkg: arvados_test_salt_states_examples_single_host_snakeoil_certs_dependencies_pkg_installed
       - cmd: arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_ca_cmd_run
+    # We need this before we can add the nginx's snippet
+    - require_in:
+      - file: nginx_snippet_arvados-snakeoil.conf
 
 {%- if grains.get('os_family') == 'Debian' %}
 arvados_test_salt_states_examples_single_host_snakeoil_certs_ssl_cert_pkg_installed:
@@ -142,18 +147,6 @@ arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_c
     - require:
       - cmd: arvados_test_salt_states_examples_single_host_snakeoil_certs_arvados_snake_oil_cert_cmd_run
       - pkg: arvados_test_salt_states_examples_single_host_snakeoil_certs_ssl_cert_pkg_installed
-{%- endif %}
-
-arvados_test_salt_states_examples_single_host_snakeoil_certs_nginx_snakeoil_file_managed:
-  file.managed:
-    - name: /etc/nginx/snippets/arvados-snakeoil.conf
-    - contents: |
-        ssl_certificate {{ arvados_cert_file }};
-        ssl_certificate_key {{ arvados_key_file }};
-    - watch_in:
-      - service: nginx_service
-    - require:
-      - pkg: passenger_install
-      - file: arvados_test_salt_states_examples_single_host_snakeoil_certs_certs_permissions_cmd_run
     - require_in:
-      - file: nginx_config
+      - file: nginx_snippet_arvados-snakeoil.conf
+{%- endif %}
