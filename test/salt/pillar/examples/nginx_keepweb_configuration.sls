@@ -33,6 +33,8 @@ nginx:
       arvados_collections_download_ssl.conf:
         enabled: true
         overwrite: true
+        requires:
+          file: nginx_snippet_arvados-snakeoil.conf
         config:
           - server:
             - server_name: collections.fixme.example.net download.fixme.example.net
@@ -53,7 +55,6 @@ nginx:
             - proxy_http_version: '1.1'
             - proxy_request_buffering: 'off'
             - include: 'snippets/ssl_hardening_default.conf'
-            # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/ssl_snakeoil.conf'
+            - include: 'snippets/arvados-snakeoil.conf'
             - access_log: /var/log/nginx/collections.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/collections.fixme.example.net.error.log

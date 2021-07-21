@@ -36,6 +36,8 @@ nginx:
       arvados_workbench2_ssl.conf:
         enabled: true
         overwrite: true
+        requires:
+          file: nginx_snippet_arvados-snakeoil.conf
         config:
           - server:
             - server_name: workbench2.fixme.example.net
@@ -50,7 +52,6 @@ nginx:
             - location /config.json:
               - return: {{ "200 '" ~ '{"API_HOST":"fixme.example.net"}' ~ "'" }}
             - include: 'snippets/ssl_hardening_default.conf'
-            # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/ssl_snakeoil.conf'
+            - include: 'snippets/arvados-snakeoil.conf'
             - access_log: /var/log/nginx/workbench2.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/workbench2.fixme.example.net.error.log
