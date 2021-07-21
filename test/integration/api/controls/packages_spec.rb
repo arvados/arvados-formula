@@ -27,23 +27,27 @@ control 'RVM and dependencies' do
   end
 
   %w[
-    rubygem-bundler
+    centos-release-scl
     curl
     gcc
     git
     libcurl
     libcurl-devel
-    pam-devel
-    postgresql-devel
     libxml2
     libxml2-devel
     make
+    pam-devel
+    postgresql12-libs
     python3-devel
-    ruby-devel
+    rubygem-bundler
     zlib-devel
   ].each do |p|
     describe package(p) do
       it { should be_installed }
     end
+  end
+  describe command('/usr/local/rvm/bin/rvm list') do
+    its(:exit_status) { should eq 0 }
+    its('stdout') { should match (/ruby-2.5.8/) }
   end
 end

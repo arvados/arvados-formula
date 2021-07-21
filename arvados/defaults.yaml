@@ -67,6 +67,10 @@ arvados:
     gem:
       name:
         - arvados-cli
+    # Arvados API needs postgresql libs and cli to connect to the database
+    # and populate it. Please specify the postgresql version that you expect
+    # to use here
+    postgresql_version: 12
     service:
       name: nginx
       port: 8004

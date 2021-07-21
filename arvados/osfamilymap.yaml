@@ -39,12 +39,11 @@ RedHat:
       - libcurl
       - libcurl-devel
       - pam-devel
-      - postgresql-devel
+      - centos-release-scl
       - libxml2
       - libxml2-devel
       - make
       - python3-devel
-      - ruby-devel
       - zlib-devel
   ##### SHELL
   shell:
