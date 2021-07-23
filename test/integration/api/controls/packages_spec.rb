@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Copyright (C) The Arvados Authors. All rights reserved.
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -48,6 +49,6 @@ control 'RVM and dependencies' do
   end
   describe command('/usr/local/rvm/bin/rvm list') do
     its(:exit_status) { should eq 0 }
-    its('stdout') { should match (/ruby-2.5.8/) }
+    its('stdout') { should match(/ruby-2.5.8/) }
   end
 end
