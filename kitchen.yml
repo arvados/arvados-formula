@@ -12,23 +12,27 @@ driver:
   privileged: true
   run_command: /lib/systemd/systemd
 
+provisioner:
+  name: salt_solo
+  log_level: debug
+  salt_install: none
+  require_chef: false
+  formula: arvados
+  salt_copy_filter:
+    - .kitchen
+    - .git
+
 platforms:
   ## SALT `tiamat`
   - name: debian-10-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:debian-10
-  - name: debian-9-tiamat-py3
-    driver:
-      image: saltimages/salt-tiamat-py3:debian-9
   - name: ubuntu-2004-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:ubuntu-20.04
   - name: ubuntu-1804-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:ubuntu-18.04
-  - name: ubuntu-1604-tiamat-py3
-    driver:
-      image: saltimages/salt-tiamat-py3:ubuntu-16.04
   - name: centos-7-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:centos-7
@@ -37,18 +41,12 @@ platforms:
   - name: debian-10-master-py3
     driver:
       image: saltimages/salt-master-py3:debian-10
-  - name: debian-9-master-py3
-    driver:
-      image: saltimages/salt-master-py3:debian-9
   - name: ubuntu-2004-master-py3
     driver:
       image: saltimages/salt-master-py3:ubuntu-20.04
   - name: ubuntu-1804-master-py3
     driver:
       image: saltimages/salt-master-py3:ubuntu-18.04
-  - name: ubuntu-1604-master-py3
-    driver:
-      image: saltimages/salt-master-py3:ubuntu-16.04
   - name: centos-7-master-py3
     driver:
       image: saltimages/salt-master-py3:centos-7
@@ -57,9 +55,6 @@ platforms:
   - name: debian-10-3003-1-py3
     driver:
       image: saltimages/salt-3003.1-py3:debian-10
-  - name: debian-9-3003-1-py3
-    driver:
-      image: saltimages/salt-3003.1-py3:debian-9
   - name: ubuntu-2004-3003-1-py3
     driver:
       image: saltimages/salt-3003.1-py3:ubuntu-20.04
@@ -74,18 +69,12 @@ platforms:
   - name: debian-10-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:debian-10
-  - name: debian-9-3002-6-py3
-    driver:
-      image: saltimages/salt-3002.6-py3:debian-9
   - name: ubuntu-2004-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:ubuntu-20.04
   - name: ubuntu-1804-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:ubuntu-18.04
-  - name: ubuntu-1604-3002-6-py3
-    driver:
-      image: saltimages/salt-3002.6-py3:ubuntu-16.04
   - name: centos-7-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:centos-7
@@ -94,18 +83,12 @@ platforms:
   - name: debian-10-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:debian-10
-  - name: debian-9-3001-7-py3
-    driver:
-      image: saltimages/salt-3001.7-py3:debian-9
   - name: ubuntu-2004-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:ubuntu-20.04
   - name: ubuntu-1804-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:ubuntu-18.04
-  - name: ubuntu-1604-3001-7-py3
-    driver:
-      image: saltimages/salt-3001.7-py3:ubuntu-16.04
   - name: centos-7-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:centos-7
@@ -114,34 +97,15 @@ platforms:
   - name: debian-10-3000-9-py3
     driver:
       image: saltimages/salt-3000.9-py3:debian-10
-  - name: debian-9-3000-9-py3
-    driver:
-      image: saltimages/salt-3000.9-py3:debian-9
   - name: ubuntu-1804-3000-9-py3
     driver:
       image: saltimages/salt-3000.9-py3:ubuntu-18.04
-  - name: ubuntu-1604-3000-9-py3
-    driver:
-      image: saltimages/salt-3000.9-py3:ubuntu-16.04
   - name: centos-7-3000-9-py3
     driver:
       image: saltimages/salt-3000.9-py3:centos-7
   - name: ubuntu-1804-3000-9-py2
     driver:
       image: saltimages/salt-3000.9-py2:ubuntu-18.04
-  - name: ubuntu-1604-3000-9-py2
-    driver:
-      image: saltimages/salt-3000.9-py2:ubuntu-16.04
-
-provisioner:
-  name: salt_solo
-  log_level: debug
-  salt_install: none
-  require_chef: false
-  formula: arvados
-  salt_copy_filter:
-    - .kitchen
-    - .git
 
 verifier:
   # https://www.inspec.io/
@@ -173,11 +137,11 @@ suites:
         base:
           '*':
             - arvados._mapdata
-            - postgres
             - single_host.host_entries
             - single_host.snakeoil_certs
             - locale
             - nginx.passenger
+            - postgres
             - arvados.repo
             - arvados.api
             - arvados.websocket
