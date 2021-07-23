@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 {%- if grains.os_family in ('RedHat',) %}
   {%- set group = 'nginx' %}
 {%- else %}
@@ -32,6 +36,8 @@ nginx:
       arvados_workbench_ssl.conf:
         enabled: true
         overwrite: true
+        requires:
+          file: nginx_snippet_arvados-snakeoil.conf
         config:
           - server:
             - server_name: workbench.fixme.example.net
@@ -41,8 +47,7 @@ nginx:
             - passenger_enabled: 'on'
             - index: index.html index.htm
             - include: 'snippets/ssl_hardening_default.conf'
-            # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/ssl_snakeoil.conf'
+            - include: 'snippets/arvados-snakeoil.conf'
             # yamllint disable-line rule:line-length
             - access_log: /var/log/nginx/workbench.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/workbench.fixme.example.net.error.log

@@ -1,9 +1,28 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: AGPL-3.0
+
 ### POSTGRESQL
 postgres:
-  use_upstream_repo: false
+  # Centos-7's postgres package is too old, so we need to force using upstream's
+  # This is not required in Debian's family as they already ship with PG +11
+  {%- if salt['grains.get']('os_family') == 'RedHat' %}
+  use_upstream_repo: true
+  version: '12'
+
+  pkgs_deps:
+    - libicu
+    - libxslt
+    - systemd-sysv
+
+  pkgs_extra:
+    - postgresql12-contrib
+
+  {%- else %}
   pkgs_extra:
     - postgresql-contrib
+  {%- endif %}
   postgresconf: |-
     listen_addresses = '*'  # listen on all interfaces
     #ssl = on

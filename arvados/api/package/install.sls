@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
@@ -25,6 +29,9 @@ arvados-api-package-install-gems-deps-pkg-installed:
 arvados-api-package-install-gem-{{ gm }}-installed:
   gem.installed:
     - name: {{ gm }}
+    {%- if arvados.ruby.use_rvm %}
+    - ruby: {{ arvados.ruby.pkg }}
+    {%- endif %}
     - require:
       - pkg: arvados-api-package-install-gems-deps-pkg-installed
       {%- if arvados.ruby.manage_ruby %}

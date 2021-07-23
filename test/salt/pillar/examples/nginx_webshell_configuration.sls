@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # This parameter will be used here to generate a list of upstreams and vhosts.
 # This dict is here for convenience and should be managed some other way, but the
 # different ways of orchestration that can be used for this are outside the scope
@@ -54,6 +58,8 @@ nginx:
       arvados_webshell_ssl.conf:
         enabled: true
         overwrite: true
+        requires:
+          file: nginx_snippet_arvados-snakeoil.conf
         config:
           - server:
             - server_name: webshell.fixme.example.net
@@ -92,8 +98,7 @@ nginx:
                 - add_header: "'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type'"
             {%- endfor %}
             - include: 'snippets/ssl_hardening_default.conf'
-            # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/ssl_snakeoil.conf'
+            - include: 'snippets/arvados-snakeoil.conf'
             - access_log: /var/log/nginx/webshell.fixme.example.net.access.log combined
             - error_log: /var/log/nginx/webshell.fixme.example.net.error.log
 

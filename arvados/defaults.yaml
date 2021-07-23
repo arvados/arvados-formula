@@ -16,6 +16,8 @@ arvados:
     manage_ruby: false
     pkg: ruby
     use_rvm: false
+    # Only used if using RVM
+    rvm_gemset: arvados
     manage_gems_deps: false
 
     gems_deps:
@@ -65,6 +67,10 @@ arvados:
     gem:
       name:
         - arvados-cli
+    # Arvados API needs postgresql libs and cli to connect to the database
+    # and populate it. Please specify the postgresql version that you expect
+    # to use here
+    postgresql_version: 12
     service:
       name: nginx
       port: 8004
@@ -72,6 +78,9 @@ arvados:
   controller:
     pkg:
       name: arvados-controller
+    gem:
+      name:
+        - arvados-cli
     service:
       name: arvados-controller
       port: 8003
@@ -120,6 +129,7 @@ arvados:
       name:
         - arvados-client
         - arvados-src
+        - libpam-arvados-go
         - python3-arvados-fuse
         - python3-arvados-python-client
         - python3-arvados-cwl-runner
