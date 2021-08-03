@@ -18,9 +18,8 @@
 arvados-ruby-package-install-ruby-rvm-deps-centos-scl-release-pkg-installed:
   pkg.installed:
     - name: centos-release-scl
-    - require_in:
 
-arvados-ruby-package-install-ruby-rvm-deps-rh-postgres11-libs-pkg-installed:
+arvados-ruby-package-install-ruby-rvm-deps-rh-postgres-libs-pkg-installed:
   pkg.installed:
     - name: rh-postgresql{{ arvados.api.postgresql_version }}-postgresql-libs
     - unless: rpm -q postgresql{{ arvados.api.postgresql_version }}-libs
@@ -63,5 +62,6 @@ arvados-ruby-package-install-ruby-rvm-installed:
 arvados-ruby-package-install-ruby-pkg-installed:
   pkg.installed:
     - name: {{ arvados.ruby.pkg }}
+
   {%- endif %}
 {%- endif %}
