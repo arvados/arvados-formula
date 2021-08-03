@@ -6,7 +6,7 @@
 {%- if grains.os_family in ('RedHat',) %}
   {%- set passenger_pkg = 'nginx-mod-http-passenger' %}
   {%- set passenger_mod = '/usr/lib64/nginx/modules/ngx_http_passenger_module.so' %}
-  {%- set passenger_ruby = '/usr/local/rvm/rubies/ruby-2.5.8/bin/ruby' %}
+  {%- set passenger_ruby = '/usr/local/rvm/rubies/ruby-2.7.2/bin/ruby' %}
 {%- else %}
   {%- set passenger_pkg = 'libnginx-mod-http-passenger' %}
   {%- set passenger_mod = '/usr/lib/nginx/modules/ngx_http_passenger_module.so' %}
