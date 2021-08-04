@@ -6,6 +6,7 @@ rules:
   204:  # Lines should be no longer that 160 chars
     ignore: |
       arvados/shell/config/files/default/shell-libpam-arvados.tmpl.jinja
+      arvados/shell/config/files/default/shell-pam-shellinabox.tmpl.jinja
       test/salt/pillar/examples/nginx_webshell_configuration.sls
       test/salt/pillar/examples/nginx_passenger.sls
 skip_list:
