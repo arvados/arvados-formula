@@ -8,19 +8,22 @@ case os[:name]
 when 'centos'
   repo_file = '/etc/yum.repos.d/arvados.repo'
   repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
-when 'debian'
+when 'debian', 'ubuntu'
+  # Inspec does not provide a `codename` matcher, so we add ours
+  case os[:release]
+  # ubuntu
+  when '18.04'
+    codename = 'bionic'
+  when '20.04'
+    codename = 'focal'
+  # debian
+  when '10'
+    codename = 'buster'
+  when '11'
+    codename = 'bullseye'
+  end
   repo_file = '/etc/apt/sources.list.d/arvados.list'
-  repo_url = 'deb http://apt.arvados.org/buster buster main'
-when 'ubuntu'
-  repo_file = '/etc/apt/sources.list.d/arvados.list'
-  repo_url = case platform[:release].to_f.truncate
-             when 20
-               'focal'
-             when 18
-               'bionic'
-             when 16
-               'xenial'
-             end
+  repo_url = "deb http://apt.arvados.org/#{codename} #{codename} main"
 end
 
 control 'arvados repository' do
