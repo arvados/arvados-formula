@@ -32,15 +32,15 @@ arvados-ruby-package-install-ruby-rvm-deps-rh-postgres-libs-pkg-installed:
   # Doing it the hard way
 arvados-ruby-package-install-gpg-cmd-run-gpg-michal-papis:
   cmd.run:
-    - name: /bin/gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    - name: gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
     - unless:
-      - /bin/gpg --list-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+      - gpg --list-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
 arvados-ruby-package-install-gpg-cmd-run-gpg-piotr-kuczynski:
   cmd.run:
-    - name: /bin/gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    - name: gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     - unless:
-      - /bin/gpg --list-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+      - gpg --list-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
 arvados-ruby-package-install-rvm-cmd-run-curl:
   cmd.run:
