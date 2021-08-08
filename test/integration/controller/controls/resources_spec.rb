@@ -1,3 +1,6 @@
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 # frozen_string_literal: true
 
 query_virtual_machines = <<~TEST_VM_CMD
@@ -29,7 +32,6 @@ control 'arvados api resources' do
       end
       its('stdout') { should match(/"uuid":"fixme-2x53u-[a-z0-9_]{15}"/) }
       its('stdout') { should match(/"hostname":"#{vm}"/) }
-      its('stderr') { should eq '' }
       its('exit_status') { should eq 0 }
     end
 
@@ -42,7 +44,6 @@ control 'arvados api resources' do
           %r{"GET /arvados/v1/virtual_machines/fixme-2x53u-[a-z0-9]{15}/logins"}
         )
       end
-      its('stderr') { should eq '' }
       its('exit_status') { should eq 0 }
     end
   end
