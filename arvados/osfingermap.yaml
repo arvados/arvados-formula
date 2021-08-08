@@ -1,0 +1,10 @@
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+Ubuntu-18.04:
+  ruby:
+    manage_ruby: true
+    use_rvm: true
+
+    pkg: ruby-2.7.2
