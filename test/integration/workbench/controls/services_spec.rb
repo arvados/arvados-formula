@@ -9,7 +9,7 @@ control 'arvados workbench service' do
     it { should be_running }
   end
 
-  describe port(9000) do
+  describe port(443) do
     proc = case os[:name]
            when 'centos'
              # Centos ps adds an extra colon and the end of the process

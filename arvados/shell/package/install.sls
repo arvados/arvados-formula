@@ -34,7 +34,7 @@ arvados-shell-package-install-pkg-installed:
 arvados-shell-package-install-gems-deps-pkg-installed:
   pkg.installed:
     - pkgs: {{ arvados.ruby.gems_deps | json }}
-    - only_if: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
+    - onlyif: test "{{ arvados.ruby.manage_gems_deps | lower }}" = "true"
 
 {%- for gm in arvados.shell.gem.name %}
 arvados-shell-package-install-gem-{{ gm }}-installed:

@@ -3,10 +3,10 @@
 case os[:name]
 when 'centos'
   repo_file = '/etc/yum.repos.d/arvados.repo'
-  repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/dev/$basearch/'
+  repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
 when 'debian', 'ubuntu'
   repo_file = '/etc/apt/sources.list.d/arvados.list'
-  repo_url = 'deb http://apt.arvados.org/buster buster-dev main'
+  repo_url = 'deb http://apt.arvados.org/buster buster main'
 end
 
 control 'arvados repository' do

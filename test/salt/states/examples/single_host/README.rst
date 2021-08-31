@@ -1,6 +1,11 @@
 Helper states for all-in-one setup
 ==================================
 
+..
+   # Copyright (C) The Arvados Authors. All rights reserved.
+   #
+   # SPDX-License-Identifier: Apache-2.0
+
 These states are helpful for setting up an all-in-one Arvados host.
 
 * `host_entries.sls`: adds a bunch of host entries in the `/etc/hosts` file of
@@ -9,7 +14,7 @@ These states are helpful for setting up an all-in-one Arvados host.
 
 * `snakeoil_certs.sls`: Arvados uses SSL/TLS for communications, so you'll need
   certificates for the different hosts. If you can't provide valid certificates
-  issued by a recognized CA, this state will create a SnakeOil CA and issue 
+  issued by a recognized CA, this state will create a SnakeOil CA and issue
   certificates signed by it.
 
   The certs can't be self-signed because some of the libraries that Arvados

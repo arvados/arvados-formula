@@ -1,17 +1,27 @@
 ---
-{%- if grains.os_family in ('RedHat',) %}
-  {%- set passenger_pkg = 'nginx-mod-http-passenger' %}
-  {%- set passenger_mod = '/usr/lib64/nginx/modules/ngx_http_passenger_module.so' %}
-{%- else %}
-  {%- set passenger_pkg = 'libnginx-mod-http-passenger' %}
-  {%- set passenger_mod = '/usr/lib/nginx/modules/ngx_http_passenger_module.so' %}
-{%- endif %}
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+{%- set passenger_pkg = 'nginx-mod-http-passenger'
+                          if grains.osfinger in ('CentOS Linux-7') else
+                        'libnginx-mod-http-passenger' %}
+{%- set passenger_mod = '/usr/lib64/nginx/modules/ngx_http_passenger_module.so'
+                          if grains.osfinger in ('CentOS Linux-7',) else
+                        '/usr/lib/nginx/modules/ngx_http_passenger_module.so' %}
+{%- set passenger_ruby = '/usr/local/rvm/rubies/ruby-2.7.2/bin/ruby'
+                           if grains.osfinger in ('CentOS Linux-7', 'Ubuntu-18.04',) else
+                         '/usr/bin/ruby' %}
 
 ### NGINX
 nginx:
   install_from_phusionpassenger: true
   lookup:
     passenger_package: {{ passenger_pkg }}
+  ### PASSENGER
+  passenger:
+    passenger_ruby: {{ passenger_ruby }}
+
   ### SERVER
   server:
     config:
@@ -52,8 +62,8 @@ nginx:
       # replace with the IP address of your resolver
       # - resolver: 127.0.0.1
 
-    ssl_snakeoil.conf:
-      - ssl_certificate: /etc/ssl/certs/arvados-snakeoil-cert.pem
+    arvados-snakeoil.conf:
+      - ssl_certificate: /etc/ssl/private/arvados-snakeoil-cert.pem
       - ssl_certificate_key: /etc/ssl/private/arvados-snakeoil-cert.key
 
   ### SITES

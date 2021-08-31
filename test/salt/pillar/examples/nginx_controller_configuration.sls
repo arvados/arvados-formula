@@ -1,4 +1,8 @@
 ---
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 ### NGINX
 nginx:
   ### SERVER
@@ -32,6 +36,8 @@ nginx:
       arvados_controller_ssl.conf:
         enabled: true
         overwrite: true
+        requires:
+          file: nginx_snippet_arvados-snakeoil.conf
         config:
           - server:
             - server_name: fixme.example.net
@@ -49,8 +55,7 @@ nginx:
               - proxy_set_header: 'X-Forwarded-For $proxy_add_x_forwarded_for'
               - proxy_set_header: 'X-External-Client $external_client'
             - include: 'snippets/ssl_hardening_default.conf'
-            # - include: 'snippets/letsencrypt.conf'
-            - include: 'snippets/ssl_snakeoil.conf'
+            - include: 'snippets/arvados-snakeoil.conf'
             - access_log: /var/log/nginx/fixme.example.net.access.log combined
             - error_log: /var/log/nginx/fixme.example.net.error.log
             - client_max_body_size: 128m
