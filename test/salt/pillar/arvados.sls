@@ -6,7 +6,7 @@
 # this formula will fail.
 arvados:
   ### GENERAL CONFIG
-  # version: '2.0.4'
+  version: '2.2.1-1'
   ## It makes little sense to disable this flag, but you can, if you want :)
   # use_upstream_repo: true
 
@@ -14,6 +14,8 @@ arvados:
   ## overwritten with the pillar parameter 'repo_url'
   # repo:
   #   humanname: Arvados Official Repository
+
+  release: production
 
   ## IMPORTANT!!!!!
   ## api, workbench and shell require some gems, so you need to make sure ruby
