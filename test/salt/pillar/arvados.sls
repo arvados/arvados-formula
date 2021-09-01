@@ -6,7 +6,7 @@
 # this formula will fail.
 arvados:
   ### GENERAL CONFIG
-  version: '2.2.1-1'
+  version: '2.2.2-1'
   ## It makes little sense to disable this flag, but you can, if you want :)
   # use_upstream_repo: true
 
