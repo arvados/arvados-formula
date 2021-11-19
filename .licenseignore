@@ -5,3 +5,4 @@
 
 arvados/ruby/package/files/default/gpg-michal-papis-409B6B1796C275462A1703113804BB82D39DC0E3.key
 arvados/ruby/package/files/default/gpg-piotr-kuczynski-7D2BAF1CF37B13E2069D6956105BD0E739499BDB.key
+Gemfile*

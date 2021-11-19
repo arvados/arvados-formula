@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 ---
 ###############################################################################
 # Define all YAML node anchors
