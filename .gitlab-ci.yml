@@ -130,123 +130,103 @@ rubocop:
 
 workbench-ubuntu-2004-tiamat-py3: {extends: .test_instance}
 # workbench-ubuntu-2004-master-py3: {extends: .test_instance}
-# workbench-ubuntu-2004-3003-1-py3: {extends: .test_instance}
-# workbench-ubuntu-2004-3002-6-py3: {extends: .test_instance}
-# workbench-ubuntu-2004-3001-7-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3001.8-py3: {extends: .test_instance}
 # workbench-ubuntu-1804-tiamat-py3: {extends: .test_instance}
 workbench-ubuntu-1804-master-py3: {extends: .test_instance}
-# workbench-ubuntu-1804-3003-1-py3: {extends: .test_instance}
-# workbench-ubuntu-1804-3002-6-py3: {extends: .test_instance}
-# workbench-ubuntu-1804-3001-7-py3: {extends: .test_instance}
-# workbench-ubuntu-1804-3000-9-py3: {extends: .test_instance}
-# workbench-ubuntu-1804-3000-9-py2: {extends: .test_instance}
+# workbench-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-3001.8-py3: {extends: .test_instance}
 # workbench-debian-11-tiamat-py3: {extends: .test_instance}
 # workbench-debian-11-master-py3: {extends: .test_instance}
-# Not supported by nginx/passenger repos
-# workbench-debian-11-3003-1-py3: {extends: .test_instance}
-# workbench-debian-11-3002-6-py3: {extends: .test_instance}
+workbench-debian-11-3003.3-py3: {extends: .test_instance}
+# workbench-debian-11-3002.7-py3: {extends: .test_instance}
 # workbench-debian-10-tiamat-py3: {extends: .test_instance}
 # workbench-debian-10-master-py3: {extends: .test_instance}
-# workbench-debian-10-3003-1-py3: {extends: .test_instance}
-workbench-debian-10-3002-6-py3: {extends: .test_instance}
-# workbench-debian-10-3001-7-py3: {extends: .test_instance}
-# workbench-debian-10-3000-9-py3: {extends: .test_instance}
+# workbench-debian-10-3003.3-py3: {extends: .test_instance}
+workbench-debian-10-3002.7-py3: {extends: .test_instance}
+# workbench-debian-10-3001.8-py3: {extends: .test_instance}
 # workbench-centos-7-tiamat-py3: {extends: .test_instance}
 # workbench-centos-7-master-py3: {extends: .test_instance}
-# workbench-centos-7-3003-1-py3: {extends: .test_instance}
-# workbench-centos-7-3002-6-py3: {extends: .test_instance}
-workbench-centos-7-3001-7-py3: {extends: .test_instance}
-# workbench-centos-7-3000-9-py3: {extends: .test_instance}
+# workbench-centos-7-3003.3-py3: {extends: .test_instance}
+# workbench-centos-7-3002.7-py3: {extends: .test_instance}
+workbench-centos-7-3001.8-py3: {extends: .test_instance}
 
 # shell-ubuntu-2004-tiamat-py3: {extends: .test_instance}
 shell-ubuntu-2004-master-py3: {extends: .test_instance}
-# shell-ubuntu-2004-3003-1-py3: {extends: .test_instance}
-# shell-ubuntu-2004-3002-6-py3: {extends: .test_instance}
-# shell-ubuntu-2004-3001-7-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3001.8-py3: {extends: .test_instance}
 # shell-ubuntu-1804-tiamat-py3: {extends: .test_instance}
 # shell-ubuntu-1804-master-py3: {extends: .test_instance}
-shell-ubuntu-1804-3003-1-py3: {extends: .test_instance}
-# shell-ubuntu-1804-3002-6-py3: {extends: .test_instance}
-# shell-ubuntu-1804-3001-7-py3: {extends: .test_instance}
-# shell-ubuntu-1804-3000-9-py3: {extends: .test_instance}
-# shell-ubuntu-1804-3000-9-py2: {extends: .test_instance}
+shell-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# shell-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# shell-ubuntu-1804-3001.8-py3: {extends: .test_instance}
 # shell-debian-11-tiamat-py3: {extends: .test_instance}
 # shell-debian-11-master-py3: {extends: .test_instance}
-# shell-debian-11-3003-1-py3: {extends: .test_instance}
-# Not supported by nginx/passenger repos
-# shell-debian-11-3002-6-py3: {extends: .test_instance}
+# shell-debian-11-3003.3-py3: {extends: .test_instance}
+shell-debian-11-3002.7-py3: {extends: .test_instance}
 # shell-debian-10-tiamat-py3: {extends: .test_instance}
 # shell-debian-10-master-py3: {extends: .test_instance}
-# shell-debian-10-3003-1-py3: {extends: .test_instance}
-# shell-debian-10-3002-6-py3: {extends: .test_instance}
-shell-debian-10-3001-7-py3: {extends: .test_instance}
-# shell-debian-10-3000-9-py3: {extends: .test_instance}
+# shell-debian-10-3003.3-py3: {extends: .test_instance}
+# shell-debian-10-3002.7-py3: {extends: .test_instance}
+shell-debian-10-3001.8-py3: {extends: .test_instance}
 shell-centos-7-tiamat-py3: {extends: .test_instance}
 # shell-centos-7-master-py3: {extends: .test_instance}
-# shell-centos-7-3003-1-py3: {extends: .test_instance}
-# shell-centos-7-3002-6-py3: {extends: .test_instance}
-# shell-centos-7-3001-7-py3: {extends: .test_instance}
-# shell-centos-7-3000-9-py3: {extends: .test_instance}
+# shell-centos-7-3003.3-py3: {extends: .test_instance}
+# shell-centos-7-3002.7-py3: {extends: .test_instance}
+# shell-centos-7-3001.8-py3: {extends: .test_instance}
 
 # keepstore-ubuntu-2004-tiamat-py3: {extends: .test_instance}
 # keepstore-ubuntu-2004-master-py3: {extends: .test_instance}
-keepstore-ubuntu-2004-3003-1-py3: {extends: .test_instance}
-# keepstore-ubuntu-2004-3002-6-py3: {extends: .test_instance}
-# keepstore-ubuntu-2004-3001-7-py3: {extends: .test_instance}
+keepstore-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# keepstore-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# keepstore-ubuntu-2004-3001.8-py3: {extends: .test_instance}
 # keepstore-ubuntu-1804-tiamat-py3: {extends: .test_instance}
 # keepstore-ubuntu-1804-master-py3: {extends: .test_instance}
-# keepstore-ubuntu-1804-3003-1-py3: {extends: .test_instance}
-keepstore-ubuntu-1804-3002-6-py3: {extends: .test_instance}
-# keepstore-ubuntu-1804-3001-7-py3: {extends: .test_instance}
-# keepstore-ubuntu-1804-3000-9-py3: {extends: .test_instance}
-# keepstore-ubuntu-1804-3000-9-py2: {extends: .test_instance}
-# Not supported by nginx/passenger repos
-# keepstore-debian-11-tiamat-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+keepstore-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-3001.8-py3: {extends: .test_instance}
+keepstore-debian-11-tiamat-py3: {extends: .test_instance}
 # keepstore-debian-11-master-py3: {extends: .test_instance}
-# keepstore-debian-11-3003-1-py3: {extends: .test_instance}
-# keepstore-debian-11-3002-6-py3: {extends: .test_instance}
+# keepstore-debian-11-3003.3-py3: {extends: .test_instance}
+# keepstore-debian-11-3002.7-py3: {extends: .test_instance}
 # keepstore-debian-10-tiamat-py3: {extends: .test_instance}
 # keepstore-debian-10-master-py3: {extends: .test_instance}
-# keepstore-debian-10-3003-1-py3: {extends: .test_instance}
-# keepstore-debian-10-3002-6-py3: {extends: .test_instance}
-keepstore-debian-10-3001-7-py3: {extends: .test_instance}
-# keepstore-debian-10-3000-9-py3: {extends: .test_instance}
+# keepstore-debian-10-3003.3-py3: {extends: .test_instance}
+# keepstore-debian-10-3002.7-py3: {extends: .test_instance}
+keepstore-debian-10-3001.8-py3: {extends: .test_instance}
 # keepstore-centos-7-tiamat-py3: {extends: .test_instance}
 # keepstore-centos-7-master-py3: {extends: .test_instance}
-# keepstore-centos-7-3003-1-py3: {extends: .test_instance}
-# keepstore-centos-7-3002-6-py3: {extends: .test_instance}
-# keepstore-centos-7-3001-7-py3: {extends: .test_instance}
-keepstore-centos-7-3000-9-py3: {extends: .test_instance}
+# keepstore-centos-7-3003.3-py3: {extends: .test_instance}
+# keepstore-centos-7-3002.7-py3: {extends: .test_instance}
+# keepstore-centos-7-3001.8-py3: {extends: .test_instance}
 
 # api-ubuntu-2004-tiamat-py3: {extends: .test_instance}
 # api-ubuntu-2004-master-py3: {extends: .test_instance}
-# api-ubuntu-2004-3003-1-py3: {extends: .test_instance}
-api-ubuntu-2004-3002-6-py3: {extends: .test_instance}
-# api-ubuntu-2004-3001-7-py3: {extends: .test_instance}
+# api-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+api-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# api-ubuntu-2004-3001.8-py3: {extends: .test_instance}
 # api-ubuntu-1804-tiamat-py3: {extends: .test_instance}
 # api-ubuntu-1804-master-py3: {extends: .test_instance}
-# api-ubuntu-1804-3003-1-py3: {extends: .test_instance}
-# api-ubuntu-1804-3002-6-py3: {extends: .test_instance}
-api-ubuntu-1804-3001-7-py3: {extends: .test_instance}
-# api-ubuntu-1804-3000-9-py3: {extends: .test_instance}
-# api-ubuntu-1804-3000-9-py2: {extends: .test_instance}
+# api-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# api-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+api-ubuntu-1804-3001.8-py3: {extends: .test_instance}
 # api-debian-11-tiamat-py3: {extends: .test_instance}
 # api-debian-11-master-py3: {extends: .test_instance}
-# Not supported by nginx/passenger repos
-# api-debian-11-3003-1-py3: {extends: .test_instance}
-# api-debian-11-3002-6-py3: {extends: .test_instance}
+api-debian-11-3003.3-py3: {extends: .test_instance}
+# api-debian-11-3002.7-py3: {extends: .test_instance}
 # api-debian-10-tiamat-py3: {extends: .test_instance}
 # api-debian-10-master-py3: {extends: .test_instance}
-# api-debian-10-3003-1-py3: {extends: .test_instance}
-# api-debian-10-3002-6-py3: {extends: .test_instance}
-# api-debian-10-3001-7-py3: {extends: .test_instance}
-api-debian-10-3000-9-py3: {extends: .test_instance}
+# api-debian-10-3003.3-py3: {extends: .test_instance}
+# api-debian-10-3002.7-py3: {extends: .test_instance}
+# api-debian-10-3001.8-py3: {extends: .test_instance}
 api-centos-7-tiamat-py3: {extends: .test_instance}
 # api-centos-7-master-py3: {extends: .test_instance}
-# api-centos-7-3003-1-py3: {extends: .test_instance}
-# api-centos-7-3002-6-py3: {extends: .test_instance}
-# api-centos-7-3001-7-py3: {extends: .test_instance}
-# api-centos-7-3000-9-py3: {extends: .test_instance}
+# api-centos-7-3003.3-py3: {extends: .test_instance}
+# api-centos-7-3002.7-py3: {extends: .test_instance}
+# api-centos-7-3001.8-py3: {extends: .test_instance}
 
 ###############################################################################
 # `release` stage: `semantic-release`
