@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ---
 arvados:
-  version: 'latest'
+  version: '2.3.2-1'
   # Release: one of production, testing, development
   # Used to select the repository to use
   release: production     # defaults to production
