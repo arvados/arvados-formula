@@ -132,8 +132,10 @@ arvados:
     # this formula. The following dict is just an example that will be used
     # by the `arvados.api.resources.virtual_machines` state to add entries
     # in Arvados' database of the cluster's resources'
-    # It's additionally used in the `test/salt/pillar/examples/nginx_webshell_configuration.sls`
-    # pillar to add the corresponding `location` entries in nginx's webshell vhosts & upstreams
+    # It's additionally used in the
+    #   `test/salt/pillar/examples/nginx_webshell_configuration.sls`
+    # pillar to add the corresponding `location` entries in nginx's webshell
+    # vhosts & upstreams
     resources:
       virtual_machines:
         shell1:

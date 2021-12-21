@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
 ---
 ###############################################################################
 # Define all YAML node anchors
 ###############################################################################
 .node_anchors:
   # `only` (also used for `except` where applicable)
-  only_branch_master_parent_repo: &only_branch_master_parent_repo
-    - 'master@saltstack-formulas/arvados-formula'
+  only_branch_main_parent_repo: &only_branch_main_parent_repo
+    - 'main@git.arvados.org/arvados-formula'
   # `stage`
   stage_lint: &stage_lint 'lint'
   stage_release: &stage_release 'release'
@@ -48,30 +52,32 @@ variables:
 ###############################################################################
 # `lint` stage: `commitlint`, `pre-commit` & `rubocop` (latest, failure allowed)
 ###############################################################################
-commitlint:
-  stage: *stage_lint
-  image: *image_commitlint
-  script:
-    # Add `upstream` remote to get access to `upstream/master`
-    - 'git remote add upstream
-       https://gitlab.com/saltstack-formulas/arvados-formula.git'
-    - 'git fetch --all'
-    # Set default commit hashes for `--from` and `--to`
-    - 'export COMMITLINT_FROM="$(git merge-base upstream/master HEAD)"'
-    - 'export COMMITLINT_TO="${CI_COMMIT_SHA}"'
-    # `coqbot` adds a merge commit to test PRs on top of the latest commit in
-    # the repo; amend this merge commit message to avoid failure
-    - |
-      if [ "${GITLAB_USER_LOGIN}" = "coqbot" ] \
-      && [ "${CI_COMMIT_BRANCH}" != "master" ]; then
-        git commit --amend -m \
-          'chore: reword coqbot merge commit message for commitlint'
-        export COMMITLINT_TO=HEAD
-      fi
-    # Run `commitlint`
-    - 'commitlint --from "${COMMITLINT_FROM}"
-                  --to   "${COMMITLINT_TO}"
-                  --verbose'
+# Disable commitlint because Arvados does not follow this standard, it has
+# its own, see https://dev.arvados.org/projects/arvados/wiki/Coding_Standards
+# commitlint:
+#   stage: *stage_lint
+#   image: *image_commitlint
+#   script:
+#     # Add `upstream` remote to get access to `upstream/main`
+#     - 'git remote add upstream
+#        https://git.arvados.org/arvados-formula.git'
+#     - 'git fetch --all'
+#     # Set default commit hashes for `--from` and `--to`
+#     - 'export COMMITLINT_FROM="$(git merge-base upstream/main HEAD)"'
+#     - 'export COMMITLINT_TO="${CI_COMMIT_SHA}"'
+#     # `coqbot` adds a merge commit to test PRs on top of the latest commit in
+#     # the repo; amend this merge commit message to avoid failure
+#     - |
+#       if [ "${GITLAB_USER_LOGIN}" = "coqbot" ] \
+#       && [ "${CI_COMMIT_BRANCH}" != "main" ]; then
+#         git commit --amend -m \
+#           'chore: reword coqbot merge commit message for commitlint'
+#         export COMMITLINT_TO=HEAD
+#       fi
+#     # Run `commitlint`
+#     - 'commitlint --from "${COMMITLINT_FROM}"
+#                   --to   "${COMMITLINT_TO}"
+#                   --verbose'
 
 pre-commit:
   stage: *stage_lint
@@ -123,102 +129,114 @@ rubocop:
 ## Define the rest of the matrix based on Kitchen testing
 # Make sure the instances listed below match up with
 # the `platforms` defined in `kitchen.yml`
-# api-debian-10-tiamat-py3: {extends: '.test_instance'}
-# api-debian-9-tiamat-py3: {extends: '.test_instance'}
-# api-ubuntu-2004-tiamat-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-tiamat-py3: {extends: '.test_instance'}
-# api-ubuntu-1604-tiamat-py3: {extends: '.test_instance'}
-# api-centos-8-tiamat-py3: {extends: '.test_instance'}
-# api-centos-7-tiamat-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-tiamat-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-tiamat-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-tiamat-py3: {extends: '.test_instance'}
-api-debian-10-master-py3: {extends: '.test_instance'}
-workbench-debian-10-master-py3: {extends: '.test_instance'}
-# shell-debian-10-master-py3: {extends: '.test_instance'}
-keepstore-debian-10-master-py3: {extends: '.test_instance'}
-# api-debian-9-master-py3: {extends: '.test_instance'}
-# workbench-debian-9-master-py3: {extends: '.test_instance'}
-# shell-debian-9-master-py3: {extends: '.test_instance'}
-# keepstore-debian-9-master-py3: {extends: '.test_instance'}
-# api-ubuntu-2004-master-py3: {extends: '.test_instance'}
-# workbench-ubuntu-2004-master-py3: {extends: '.test_instance'}
-# shell-ubuntu-2004-master-py3: {extends: '.test_instance'}
-# keepstore-ubuntu-2004-master-py3: {extends: '.test_instance'}
-api-ubuntu-1804-master-py3: {extends: '.test_instance'}
-workbench-ubuntu-1804-master-py3: {extends: '.test_instance'}
-# shell-ubuntu-1804-master-py3: {extends: '.test_instance'}
-# keepstore-ubuntu-1804-master-py3: {extends: '.test_instance'}
-# api-ubuntu-1604-master-py3: {extends: '.test_instance'}
-# workbench-ubuntu-1604-master-py3: {extends: '.test_instance'}
-# shell-ubuntu-1604-master-py3: {extends: '.test_instance'}
-# keepstore-ubuntu-1604-master-py3: {extends: '.test_instance'}
-# api-centos-8-master-py3: {extends: '.test_instance'}
-# workbench-centos-8-master-py3: {extends: '.test_instance'}
-# shell-centos-8-master-py3: {extends: '.test_instance'}
-# keepstore-centos-8-master-py3: {extends: '.test_instance'}
-# api-centos-7-master-py3: {extends: '.test_instance'}
-# workbench-centos-7-master-py3: {extends: '.test_instance'}
-shell-centos-7-master-py3: {extends: '.test_instance'}
-keepstore-centos-7-master-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-master-py3: {extends: '.test_instance'}
-# workbench-amazonlinux-2-master-py3: {extends: '.test_instance'}
-# shell-amazonlinux-2-master-py3: {extends: '.test_instance'}
-# keepstore-amazonlinux-2-master-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-master-py3: {extends: '.test_instance'}
-# workbench-oraclelinux-8-master-py3: {extends: '.test_instance'}
-# shell-oraclelinux-8-master-py3: {extends: '.test_instance'}
-# keepstore-oraclelinux-8-master-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-master-py3: {extends: '.test_instance'}
-# workbench-oraclelinux-7-master-py3: {extends: '.test_instance'}
-# shell-oraclelinux-7-master-py3: {extends: '.test_instance'}
-# keepstore-oraclelinux-7-master-py3: {extends: '.test_instance'}
-# api-debian-10-3003-0-py3: {extends: '.test_instance'}
-# api-debian-9-3003-0-py3: {extends: '.test_instance'}
-# api-ubuntu-2004-3003-0-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-3003-0-py3: {extends: '.test_instance'}
-# api-centos-8-3003-0-py3: {extends: '.test_instance'}
-# api-centos-7-3003-0-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-3003-0-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-3003-0-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-3003-0-py3: {extends: '.test_instance'}
-# api-debian-10-3002-6-py3: {extends: '.test_instance'}
-# api-debian-9-3002-6-py3: {extends: '.test_instance'}
-# api-ubuntu-2004-3002-6-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-3002-6-py3: {extends: '.test_instance'}
-# api-ubuntu-1604-3002-6-py3: {extends: '.test_instance'}
-# api-centos-8-3002-6-py3: {extends: '.test_instance'}
-# api-centos-7-3002-6-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-3002-6-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-3002-6-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-3002-6-py3: {extends: '.test_instance'}
-# api-debian-10-3001-7-py3: {extends: '.test_instance'}
-# api-debian-9-3001-7-py3: {extends: '.test_instance'}
-# api-ubuntu-2004-3001-7-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-3001-7-py3: {extends: '.test_instance'}
-# api-ubuntu-1604-3001-7-py3: {extends: '.test_instance'}
-# api-centos-8-3001-7-py3: {extends: '.test_instance'}
-# api-centos-7-3001-7-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-3001-7-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-3001-7-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-3001-7-py3: {extends: '.test_instance'}
-# api-debian-10-3000-9-py3: {extends: '.test_instance'}
-# api-debian-9-3000-9-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-3000-9-py3: {extends: '.test_instance'}
-# api-ubuntu-1604-3000-9-py3: {extends: '.test_instance'}
-# api-centos-8-3000-9-py3: {extends: '.test_instance'}
-# api-centos-7-3000-9-py3: {extends: '.test_instance'}
-# api-amazonlinux-2-3000-9-py3: {extends: '.test_instance'}
-# api-oraclelinux-8-3000-9-py3: {extends: '.test_instance'}
-# api-oraclelinux-7-3000-9-py3: {extends: '.test_instance'}
-# api-ubuntu-1804-3000-9-py2: {extends: '.test_instance'}
-# api-ubuntu-1604-3000-9-py2: {extends: '.test_instance'}
+# Get this list with
+# kitchen list |awk '{print $1": {extends: '.test_instance'}"}' |sort -r
+
+workbench-ubuntu-2004-tiamat-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-master-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# workbench-ubuntu-2004-3001.8-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-tiamat-py3: {extends: .test_instance}
+workbench-ubuntu-1804-master-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# workbench-ubuntu-1804-3001.8-py3: {extends: .test_instance}
+# workbench-debian-11-tiamat-py3: {extends: .test_instance}
+# workbench-debian-11-master-py3: {extends: .test_instance}
+workbench-debian-11-3003.3-py3: {extends: .test_instance}
+# workbench-debian-11-3002.7-py3: {extends: .test_instance}
+# workbench-debian-10-tiamat-py3: {extends: .test_instance}
+# workbench-debian-10-master-py3: {extends: .test_instance}
+# workbench-debian-10-3003.3-py3: {extends: .test_instance}
+workbench-debian-10-3002.7-py3: {extends: .test_instance}
+# workbench-debian-10-3001.8-py3: {extends: .test_instance}
+# workbench-centos-7-tiamat-py3: {extends: .test_instance}
+# workbench-centos-7-master-py3: {extends: .test_instance}
+# workbench-centos-7-3003.3-py3: {extends: .test_instance}
+# workbench-centos-7-3002.7-py3: {extends: .test_instance}
+workbench-centos-7-3001.8-py3: {extends: .test_instance}
+
+# shell-ubuntu-2004-tiamat-py3: {extends: .test_instance}
+shell-ubuntu-2004-master-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# shell-ubuntu-2004-3001.8-py3: {extends: .test_instance}
+# shell-ubuntu-1804-tiamat-py3: {extends: .test_instance}
+# shell-ubuntu-1804-master-py3: {extends: .test_instance}
+shell-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# shell-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# shell-ubuntu-1804-3001.8-py3: {extends: .test_instance}
+# shell-debian-11-tiamat-py3: {extends: .test_instance}
+# shell-debian-11-master-py3: {extends: .test_instance}
+# shell-debian-11-3003.3-py3: {extends: .test_instance}
+shell-debian-11-3002.7-py3: {extends: .test_instance}
+# shell-debian-10-tiamat-py3: {extends: .test_instance}
+# shell-debian-10-master-py3: {extends: .test_instance}
+# shell-debian-10-3003.3-py3: {extends: .test_instance}
+# shell-debian-10-3002.7-py3: {extends: .test_instance}
+shell-debian-10-3001.8-py3: {extends: .test_instance}
+shell-centos-7-tiamat-py3: {extends: .test_instance}
+# shell-centos-7-master-py3: {extends: .test_instance}
+# shell-centos-7-3003.3-py3: {extends: .test_instance}
+# shell-centos-7-3002.7-py3: {extends: .test_instance}
+# shell-centos-7-3001.8-py3: {extends: .test_instance}
+
+# keepstore-ubuntu-2004-tiamat-py3: {extends: .test_instance}
+# keepstore-ubuntu-2004-master-py3: {extends: .test_instance}
+keepstore-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+# keepstore-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# keepstore-ubuntu-2004-3001.8-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-tiamat-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-master-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+keepstore-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+# keepstore-ubuntu-1804-3001.8-py3: {extends: .test_instance}
+keepstore-debian-11-tiamat-py3: {extends: .test_instance}
+# keepstore-debian-11-master-py3: {extends: .test_instance}
+# keepstore-debian-11-3003.3-py3: {extends: .test_instance}
+# keepstore-debian-11-3002.7-py3: {extends: .test_instance}
+# keepstore-debian-10-tiamat-py3: {extends: .test_instance}
+# keepstore-debian-10-master-py3: {extends: .test_instance}
+# keepstore-debian-10-3003.3-py3: {extends: .test_instance}
+# keepstore-debian-10-3002.7-py3: {extends: .test_instance}
+keepstore-debian-10-3001.8-py3: {extends: .test_instance}
+# keepstore-centos-7-tiamat-py3: {extends: .test_instance}
+# keepstore-centos-7-master-py3: {extends: .test_instance}
+# keepstore-centos-7-3003.3-py3: {extends: .test_instance}
+# keepstore-centos-7-3002.7-py3: {extends: .test_instance}
+# keepstore-centos-7-3001.8-py3: {extends: .test_instance}
+
+# api-ubuntu-2004-tiamat-py3: {extends: .test_instance}
+# api-ubuntu-2004-master-py3: {extends: .test_instance}
+# api-ubuntu-2004-3003.3-py3: {extends: .test_instance}
+api-ubuntu-2004-3002.7-py3: {extends: .test_instance}
+# api-ubuntu-2004-3001.8-py3: {extends: .test_instance}
+# api-ubuntu-1804-tiamat-py3: {extends: .test_instance}
+# api-ubuntu-1804-master-py3: {extends: .test_instance}
+# api-ubuntu-1804-3003.3-py3: {extends: .test_instance}
+# api-ubuntu-1804-3002.7-py3: {extends: .test_instance}
+api-ubuntu-1804-3001.8-py3: {extends: .test_instance}
+# api-debian-11-tiamat-py3: {extends: .test_instance}
+# api-debian-11-master-py3: {extends: .test_instance}
+api-debian-11-3003.3-py3: {extends: .test_instance}
+# api-debian-11-3002.7-py3: {extends: .test_instance}
+# api-debian-10-tiamat-py3: {extends: .test_instance}
+# api-debian-10-master-py3: {extends: .test_instance}
+# api-debian-10-3003.3-py3: {extends: .test_instance}
+# api-debian-10-3002.7-py3: {extends: .test_instance}
+# api-debian-10-3001.8-py3: {extends: .test_instance}
+api-centos-7-tiamat-py3: {extends: .test_instance}
+# api-centos-7-master-py3: {extends: .test_instance}
+# api-centos-7-3003.3-py3: {extends: .test_instance}
+# api-centos-7-3002.7-py3: {extends: .test_instance}
+# api-centos-7-3001.8-py3: {extends: .test_instance}
 
 ###############################################################################
 # `release` stage: `semantic-release`
 ###############################################################################
 semantic-release:
-  only: *only_branch_master_parent_repo
+  only: *only_branch_main_parent_repo
   stage: *stage_release
   image: *image_semanticrelease
   variables:
