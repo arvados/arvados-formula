@@ -18,7 +18,7 @@ Debian:
   repo:
     url_base: 'http://apt.arvados.org'
     file: /etc/apt/sources.list.d/arvados.list
-    key_url: 'http://apt.arvados.org/pubkey.gpg'
+    repo_keyring: /usr/share/keyrings/arvados-archive-keyring.gpg
 
 RedHat:
   repo:
