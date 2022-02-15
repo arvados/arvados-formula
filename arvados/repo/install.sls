@@ -4,7 +4,6 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 {%- if arvados.use_upstream_repo %}
   {%- if grains.get('os_family') == 'Debian' %}
@@ -20,11 +19,10 @@
 
 arvados-repo-install-pkgrepo-keyring-managed:
   file.managed:
-    - name: {{ arvados.repo.repo_keyring }}
-    - source: {{ files_switch(['arvados-archive-keyring.gpg'],
-                              lookup='arvados-repo-install-pkgrepo-keyring-managed'
-                 )
-              }}
+    - name: {{ arvados.repo.keyring_file }}
+    - source:
+      - {{ arvados.repo.keyring_source }}
+    - source_hash: sha256={{ arvados.repo.keyring_source_hash }}
     - require_in:
       - pkgrepo: arvados-repo-install-pkgrepo-managed
 
@@ -32,7 +30,7 @@ arvados-repo-install-pkgrepo-managed:
   pkgrepo.managed:
     - humanname: {{ arvados.repo.humanname }}
     - name: >-
-        deb [signed-by={{ arvados.repo.repo_keyring }} arch=amd64]
+        deb [signed-by={{ arvados.repo.keyring_file }} arch=amd64]
         {{ arvados.repo.url_base }}/{{ distro }} {{ release }} main
     - file: {{ arvados.repo.file }}
 
