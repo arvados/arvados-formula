@@ -23,7 +23,23 @@ when 'debian', 'ubuntu'
     codename = 'bullseye'
   end
   repo_file = '/etc/apt/sources.list.d/arvados.list'
-  repo_url = "deb http://apt.arvados.org/#{codename} #{codename} main"
+  repo_keyring = '/usr/share/keyrings/arvados-archive-keyring.gpg'
+  repo_url = "deb [signed-by=/usr/share/keyrings/arvados-archive-keyring.gpg arch=amd64] http://apt.arvados.org/#{codename} #{codename} main"
+end
+
+control 'arvados repository keyring' do
+  title 'should be installed'
+
+  only_if('Requirement for Debian family') do
+    platform.family == 'debian'
+  end
+
+  describe file(repo_keyring) do
+    it { should exist }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+    its('mode') { should cmp '0644' }
+  end
 end
 
 control 'arvados repository' do

@@ -45,5 +45,6 @@ arvados-api-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.api.pkg.name }}
     - version: {{ arvados.version }}
+    - refresh: true
     - require:
       - sls: {{ sls_config_file }}

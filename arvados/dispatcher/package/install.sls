@@ -9,6 +9,7 @@ arvados-dispatcher-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.dispatcher.pkg.name }}
     - version: {{ arvados.version }}
+    - refresh: true
 
 # FIXME! Until https://dev.arvados.org/issues/16995 makes it to
 # a new release, this is required so the dependency is installed
@@ -16,7 +17,8 @@ arvados-dispatcher-package-install-pkg-installed:
 arvados-dispatcher-package-install-crunch-run-pkg-installed:
   pkg.installed:
     - name: crunch-run
+    - version: {{ arvados.version }}
+    - refresh: true
     - require:
       - pkg: arvados-dispatcher-package-install-pkg-installed
-    - version: {{ arvados.version }}
 {%- endif %}

@@ -29,6 +29,7 @@ arvados-workbench-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.workbench.pkg.name }}
     - version: {{ arvados.version }}
+    - refresh: true
     - require:
       {%- if arvados.ruby.manage_ruby %}
       - {{ ruby_dep }}: arvados-ruby-package-install-ruby-{{ ruby_dep }}-installed

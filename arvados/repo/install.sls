@@ -16,12 +16,22 @@
     {%- else %}
       {%- set release = distro %}
     {%- endif %}
-arvados-repo-install-pkgrepo-managed:
-  pkgrepo.managed:
-    - humanname: {{ arvados.repo.humanname }}
-    - name: deb {{ arvados.repo.url_base }}/{{ distro }} {{ release }} main
-    - file: {{ arvados.repo.file }}
-    - key_url: {{ arvados.repo.key_url }}
+
+arvados-repo-install-pkgrepo-keyring-managed:
+  file.managed:
+    - name: {{ arvados.repo.keyring_file }}
+    - source:
+      - {{ arvados.repo.keyring_source }}
+    - source_hash: sha256={{ arvados.repo.keyring_source_hash }}
+    - require_in:
+      - file: arvados-repo-install-file-managed
+
+arvados-repo-install-file-managed:
+  file.managed:
+    - name: {{ arvados.repo.file }}
+    - contents: >
+        deb [signed-by={{ arvados.repo.keyring_file }} arch=amd64]
+        {{ arvados.repo.url_base }}/{{ distro }} {{ release }} main
 
   {%- elif grains.get('os_family') == 'RedHat' %}
     {%- if arvados.release == 'testing' %}
