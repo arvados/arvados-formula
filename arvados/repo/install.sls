@@ -24,15 +24,14 @@ arvados-repo-install-pkgrepo-keyring-managed:
       - {{ arvados.repo.keyring_source }}
     - source_hash: sha256={{ arvados.repo.keyring_source_hash }}
     - require_in:
-      - pkgrepo: arvados-repo-install-pkgrepo-managed
+      - file: arvados-repo-install-file-managed
 
-arvados-repo-install-pkgrepo-managed:
-  pkgrepo.managed:
-    - humanname: {{ arvados.repo.humanname }}
-    - name: >-
+arvados-repo-install-file-managed:
+  file.managed:
+    - name: {{ arvados.repo.file }}
+    - contents: >
         deb [signed-by={{ arvados.repo.keyring_file }} arch=amd64]
         {{ arvados.repo.url_base }}/{{ distro }} {{ release }} main
-    - file: {{ arvados.repo.file }}
 
   {%- elif grains.get('os_family') == 'RedHat' %}
     {%- if arvados.release == 'testing' %}

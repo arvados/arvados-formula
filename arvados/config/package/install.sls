@@ -9,3 +9,4 @@ arvados-config-package-install-pkg-installed:
   pkg.installed:
     - name: arvados-server
     - version: {{ arvados.version }}
+    - refresh: true

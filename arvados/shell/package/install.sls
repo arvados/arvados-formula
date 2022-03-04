@@ -30,6 +30,7 @@ arvados-shell-package-install-pkg-installed:
       - {{ package }}
         {%- endif %}
       {%- endfor %}
+    - refresh: true
 
 arvados-shell-package-install-gems-deps-pkg-installed:
   pkg.installed:

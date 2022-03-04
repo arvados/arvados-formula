@@ -42,3 +42,4 @@ arvados-controller-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.controller.pkg.name }}
     - version: {{ arvados.version }}
+    - refresh: true

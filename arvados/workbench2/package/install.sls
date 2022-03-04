@@ -10,5 +10,6 @@ arvados-workbench2-package-install-pkg-installed:
   pkg.installed:
     - name: {{ arvados.workbench2.pkg.name }}
     - version: {{ arvados.version }}
+    - refresh: true
     - require:
       - sls: {{ sls_config_file }}
