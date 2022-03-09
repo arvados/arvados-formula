@@ -29,6 +29,9 @@ Clusters:
     {%- if 'Collections' in arvados.cluster %}
       {{ arvados.cluster.Collections | yaml(False) | indent(6) }}
     {%- endif %}
+    {%- if 'Keepbalance' in arvados.cluster.Services %}
+      BlobTrash: true
+    {%- endif %}
 
     TLS:
       Certificate: {{ arvados.cluster.tls.certificate | yaml_encode }}
