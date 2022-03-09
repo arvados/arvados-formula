@@ -15,4 +15,3 @@ include:
   - .shell
   - .workbench
   - .dispatcher
-  - .keepbalance
