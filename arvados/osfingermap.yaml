@@ -23,3 +23,25 @@ Ubuntu-18.04:
       - python3-dev
       - ruby-dev
       - zlib1g-dev
+
+Debian-10:
+  ruby:
+    manage_ruby: true
+    use_rvm: true
+
+    pkg: ruby-2.7.2
+    gems_deps:
+      - curl
+      - g++
+      - gcc
+      - git
+      - libcurl4
+      - libcurl4-gnutls-dev
+      - libpam0g-dev
+      - libpq-dev
+      - libxml2
+      - libxml2-dev
+      - make
+      - python3-dev
+      - ruby-dev
+      - zlib1g-dev
