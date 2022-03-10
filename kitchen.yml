@@ -147,6 +147,7 @@ suites:
             - arvados.keepweb
             - arvados.controller
             - arvados.dispatcher
+            - arvados.keepbalance
       pillars:
         top.sls:
           base:
@@ -181,6 +182,7 @@ suites:
         - path: test/integration/keepproxy
         - path: test/integration/keepweb
         - path: test/integration/controller
+        - path: test/integration/keepbalance
   #### workbench,workbench2,webshell
   - name: workbench
     driver:

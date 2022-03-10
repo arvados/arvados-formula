@@ -101,6 +101,13 @@ arvados:
     service:
       name: keepproxy
       port: 25100
+  ##### KEEPBALANCE
+  keepbalance:
+    pkg:
+      name: keep-balance
+    service:
+      name: keep-balance
+      port: 9005
   ##### KEEPWEB
   keepweb:
     pkg:
