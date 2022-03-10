@@ -6,12 +6,6 @@ keepbalance_stanza = <<-KEEPBALANCE_STANZA
           http://fixme.example.net:9005: {}
 KEEPBALANCE_STANZA
 
-collections_stanza = <<-COLLECTIONS_STANZA
-    Collections:
-      BlobSigningKey: "blobsigningkeymushaveatleast32characters"
-      BlobTrash: true
-COLLECTIONS_STANZA
-
 group = case os[:name]
         when 'centos'
           'nginx'
@@ -34,6 +28,5 @@ control 'arvados configuration' do
       )
     end
     its('content') { should include(keepbalance_stanza) }
-    its('content') { should include(collections_stanza) }
   end
 end
