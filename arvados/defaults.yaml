@@ -21,7 +21,6 @@ arvados:
     manage_gems_deps: false
 
     gems_deps:
-      - bundler
       - curl
       - g++
       - gcc
