@@ -29,9 +29,11 @@ arvados-controller-resources-virtual-machines-jq-pkg-installed:
 
 {%- for vm, vm_params in virtual_machines.items() %}
   {%- set vm_name = vm_params.name | default(vm) %}
+  {%- set arvados_api_host_insecure = arvados.cluster.tls.insecure | default(false) %}
 
-  {%- set cmd_query_vm_uuid = 'ARVADOS_API_TOKEN=' ~ api_token ~
-                              ' ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
+  {%- set cmd_query_vm_uuid = 'ARVADOS_API_TOKEN=' ~ api_token ~ ' ' ~
+                              'ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
+                              'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~ ' ' ~
                               arv_command ~ ' --short virtual_machine list' ~
                               ' --filters \'[["hostname", "=", "' ~ vm_name ~ '"]]\''
   %}
@@ -42,6 +44,7 @@ arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
       - ARVADOS_API_HOST: {{ api_host }}
+      - ARVADOS_API_HOST_INSECURE: {{ arvados.cluster.tls.insecure | default(false) }}
     - name: |
         {{ arv_command }} --format=uuid \
           virtual_machine \
@@ -75,8 +78,9 @@ arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
   # There's no direct way to query the scoped_token for a given virtual_machine
   # so we need to parse the api_client_authorization list through some jq
   {%- set cmd_query_scoped_token_url = 'VM_UUID=$(cat /tmp/' ~ vm ~ ') && ' ~
-                                       ' ARVADOS_API_TOKEN=' ~ api_token ~
-                                       ' ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
+                                       'ARVADOS_API_TOKEN=' ~ api_token ~ ' ' ~
+                                       'ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
+                                       'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~ ' ' ~
                                        arv_command ~ ' api_client_authorization list |' ~
                                        ' /usr/bin/jq -e \'.items[].scopes[] | select(. == "GET ' ~
                                        '/arvados/v1/virtual_machines/\'${VM_UUID}\'/logins")\' && ' ~
@@ -89,6 +93,7 @@ arvados-controller-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
       - ARVADOS_API_HOST: {{ api_host }}
+      - ARVADOS_API_HOST_INSECURE: {{ arvados.cluster.tls.insecure | default(false) }}
     - name: |
         VM_UUID=$(cat /tmp/{{ vm }}) &&
         {{ arv_command }} --format=uuid \
