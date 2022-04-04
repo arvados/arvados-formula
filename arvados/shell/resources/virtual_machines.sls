@@ -7,7 +7,7 @@
 
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_file = tplroot ~ '.config.file' %}
+{#- set sls_config_file = tplroot ~ '.config.file' #}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
@@ -20,10 +20,10 @@
                       else 'arv' %}
 include:
   - ..package
-  - {{ sls_config_file }}
-  - ..service
+  {# - {{ sls_config_file }} #}
+  # - ..service
 
-arvados-controller-resources-virtual-machines-jq-pkg-installed:
+arvados-shell-resources-virtual-machines-jq-pkg-installed:
   pkg.installed:
     - name: jq
 
@@ -39,7 +39,7 @@ arvados-controller-resources-virtual-machines-jq-pkg-installed:
   %}
 
 # Create the virtual machine record
-arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run:
+arvados-shell-resources-virtual-machines-{{ vm }}-record-cmd-run:
   cmd.run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
@@ -54,24 +54,23 @@ arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run:
           {{ cmd_query_vm_uuid }} | \
           /bin/grep -qE "[a-z0-9]{5}-2x53u-[a-z0-9]{15}"
     - require:
-      - pkg: arvados-controller-package-install-pkg-installed
-      - cmd: arvados-controller-service-running-service-ready-cmd-run
-      - gem: arvados-controller-package-install-gem-arvados-cli-installed
+      - pkg: arvados-shell-package-install-pkg-installed
+      - gem: arvados-shell-package-install-gem-arvados-cli-installed
 
 # We need to use the UUID generated in the previous command to see if there's a
 # scoped token for it. There's no easy way to pass the value from a shellout
 # to another state, so we store it in a temp file and use that in the next
 # command. Flaky, mostly because the `unless` clause is just checking thatg
 # the file content is a token uuid :|
-arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
+arvados-shell-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
   cmd.run:
     {%- if arvados.ruby.manage_ruby and arvados.ruby.use_rvm %}
     - prepend_path: /usr/local/rvm/gems/{{ arvados.ruby.pkg }}/bin
     {%- endif %}
     - name: {{ cmd_query_vm_uuid }} | head -1 | tee /tmp/{{ vm }}
     - require:
-      - cmd: arvados-controller-resources-virtual-machines-{{ vm }}-record-cmd-run
-      - gem: arvados-controller-package-install-gem-arvados-cli-installed
+      - cmd: arvados-shell-resources-virtual-machines-{{ vm }}-record-cmd-run
+      - gem: arvados-shell-package-install-gem-arvados-cli-installed
     - unless:
       - /bin/grep -qE "[a-z0-9]{5}-2x53u-[a-z0-9]{15}" /tmp/{{ vm }}
 
@@ -88,7 +87,7 @@ arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
   %}
 
 # Create the VM scoped tokens
-arvados-controller-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
+arvados-shell-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
   cmd.run:
     - env:
       - ARVADOS_API_TOKEN: {{ api_token }}
@@ -102,9 +101,9 @@ arvados-controller-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
           --api-client-authorization '{"scopes":["GET /arvados/v1/virtual_machines/'${VM_UUID}'/logins"]}'
     - unless: {{ cmd_query_scoped_token_url }}
     - require:
-      - pkg: arvados-controller-package-install-pkg-installed
-      - pkg: arvados-controller-resources-virtual-machines-jq-pkg-installed
-      - cmd: arvados-controller-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run
-      - gem: arvados-controller-package-install-gem-arvados-cli-installed
+      - pkg: arvados-shell-package-install-pkg-installed
+      - pkg: arvados-shell-resources-virtual-machines-jq-pkg-installed
+      - cmd: arvados-shell-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run
+      - gem: arvados-shell-package-install-gem-arvados-cli-installed
 
 {%- endfor %}
