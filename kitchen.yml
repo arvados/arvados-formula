@@ -148,6 +148,7 @@ suites:
             - arvados.controller
             - arvados.dispatcher
             - arvados.keepbalance
+            - arvados.shell.resources.virtual_machines
       pillars:
         top.sls:
           base:
