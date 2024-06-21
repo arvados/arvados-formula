@@ -24,9 +24,9 @@ Debian:
 
 RedHat:
   repo:
-    url_base: 'http://rpm.arvados.org/CentOS/$releasever/os/$basearch/'
+    url_base: 'http://rpm.arvados.org/RHEL/$releasever/os/$basearch/'
     file: /etc/yum.repos.d/arvados.repo
-    key_url: 'http://rpm.arvados.org/CentOS/RPM-GPG-KEY-curoverse'
+    key_url: 'http://rpm.arvados.org/RHEL/RPM-GPG-KEY-curoverse'
 
   ruby:
     manage_ruby: true

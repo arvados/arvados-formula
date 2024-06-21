@@ -7,7 +7,7 @@
 case os[:name]
 when 'centos'
   repo_file = '/etc/yum.repos.d/arvados.repo'
-  repo_url = 'baseurl=http://rpm.arvados.org/CentOS/$releasever/dev/$basearch/'
+  repo_url = 'baseurl=http://rpm.arvados.org/RHEL/$releasever/dev/$basearch/'
 when 'debian', 'ubuntu'
   # Inspec does not provide a `codename` matcher, so we add ours
   case platform[:release].to_f.truncate

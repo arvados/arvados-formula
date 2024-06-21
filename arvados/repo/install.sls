@@ -35,9 +35,9 @@ arvados-repo-install-file-managed:
 
   {%- elif grains.get('os_family') == 'RedHat' %}
     {%- if arvados.release == 'testing' %}
-      {%- set repo_url = 'http://rpm.arvados.org/CentOS/$releasever/testing/$basearch/' %}
+      {%- set repo_url = 'http://rpm.arvados.org/RHEL/$releasever/testing/$basearch/' %}
     {%- elif arvados.release == 'development' %}
-      {%- set repo_url = 'http://rpm.arvados.org/CentOS/$releasever/dev/$basearch/' %}
+      {%- set repo_url = 'http://rpm.arvados.org/RHEL/$releasever/dev/$basearch/' %}
     {%- else %}
       {%- set repo_url = arvados.repo.url_base %}
     {%- endif %}
