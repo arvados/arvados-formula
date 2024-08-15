@@ -13,7 +13,6 @@ Ubuntu-18.04:
       - g++
       - gcc
       - git
-      - libcurl4
       - libcurl4-gnutls-dev
       - libpam0g-dev
       - libpq-dev
@@ -35,7 +34,6 @@ Debian-10:
       - g++
       - gcc
       - git
-      - libcurl4
       - libcurl4-gnutls-dev
       - libpam0g-dev
       - libpq-dev

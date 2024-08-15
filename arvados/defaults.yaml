@@ -25,7 +25,6 @@ arvados:
       - g++
       - gcc
       - git
-      - libcurl4
       - libcurl4-gnutls-dev
       - libpam0g-dev
       - libpq-dev
