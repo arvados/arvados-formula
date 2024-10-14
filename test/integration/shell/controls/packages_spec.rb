@@ -37,17 +37,3 @@ control 'arvados shell gems' do
     end
   end
 end
-
-control 'RVM arvados shell gems' do
-  title 'should be installed'
-
-  only_if('Forced requirement for Centos-7, Ubuntu-18.04 and Debian-10') do
-    (os.redhat? and platform[:release].to_f.truncate == 7) or
-      (os.name == 'ubuntu' and platform[:release].to_f.truncate == 18) or
-      (os.name == 'debian' and platform[:release].to_f.truncate == 10)
-  end
-
-  describe gem('arvados-cli', '/usr/local/rvm/bin/rvm all do gem') do
-    it { should be_installed }
-  end
-end
