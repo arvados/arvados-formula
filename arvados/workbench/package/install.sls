@@ -11,10 +11,6 @@
 {%- set sls_ruby_install = tplroot ~ '.ruby.package.install' %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
-{%- if arvados.ruby.manage_ruby %}
-  {%- set ruby_dep = 'rvm' if arvados.ruby.use_rvm else 'pkg' %}
-{%- endif %}
-
 include:
   # The workbench server requires a valid config BEFORE installing...
   - {{ sls_config_file }}
@@ -32,6 +28,6 @@ arvados-workbench-package-install-pkg-installed:
     - refresh: true
     - require:
       {%- if arvados.ruby.manage_ruby %}
-      - {{ ruby_dep }}: arvados-ruby-package-install-ruby-{{ ruby_dep }}-installed
+      - pkg: arvados-ruby-package-install-ruby-pkg-installed
       {%- endif %}
       - sls: {{ sls_config_file }}

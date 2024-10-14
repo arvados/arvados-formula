@@ -30,8 +30,7 @@ arvados:
     # We set these to `true` here for testing purposes.
     # They both default to `false`.
     manage_ruby: true
-    use_rvm: false     # If you want to use rvm. Defaults to true for centos-7
-    # pkg: ruby        # Can specify a version like ruby-2.5.7 for rvm
+    # pkg: ruby        # Can specify a backport name like ruby3.2
     manage_gems_deps: true
     # gems_deps:
     #     - curl

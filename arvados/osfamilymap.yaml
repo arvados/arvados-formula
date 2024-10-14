@@ -29,10 +29,6 @@ RedHat:
     key_url: 'http://rpm.arvados.org/RHEL/RPM-GPG-KEY-arvados'
 
   ruby:
-    manage_ruby: true
-    use_rvm: true
-
-    pkg: ruby-2.7.2
     gems_deps:
       - curl
       - gcc
