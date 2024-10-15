@@ -15,9 +15,6 @@
 {%- set api_token = arvados.cluster.tokens.system_root | yaml_encode %}
 {%- set api_host = arvados.cluster.Services.Controller.ExternalURL | regex_replace('^http(s?)://', '', ignorecase=true) %}
 
-{%- set arv_command = '/usr/local/rvm/bin/rvm-exec default arv'
-                      if arvados.ruby.manage_ruby and arvados.ruby.use_rvm
-                      else 'arv' %}
 include:
   - ..package
   {# - {{ sls_config_file }} #}
@@ -33,8 +30,8 @@ arvados-shell-resources-virtual-machines-jq-pkg-installed:
 
   {%- set cmd_query_vm_uuid = 'ARVADOS_API_TOKEN=' ~ api_token ~ ' ' ~
                               'ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
-                              'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~ ' ' ~
-                              arv_command ~ ' --short virtual_machine list' ~
+                              'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~
+                              ' arv --short virtual_machine list' ~
                               ' --filters \'[["hostname", "=", "' ~ vm_name ~ '"]]\''
   %}
 
@@ -46,7 +43,7 @@ arvados-shell-resources-virtual-machines-{{ vm }}-record-cmd-run:
       - ARVADOS_API_HOST: {{ api_host }}
       - ARVADOS_API_HOST_INSECURE: {{ arvados.cluster.tls.insecure | default(false) }}
     - name: |
-        {{ arv_command }} --format=uuid \
+        arv --format=uuid \
           virtual_machine \
           create \
           --virtual-machine '{"hostname":"{{ vm_name }}" }'
@@ -64,9 +61,6 @@ arvados-shell-resources-virtual-machines-{{ vm }}-record-cmd-run:
 # the file content is a token uuid :|
 arvados-shell-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
   cmd.run:
-    {%- if arvados.ruby.manage_ruby and arvados.ruby.use_rvm %}
-    - prepend_path: /usr/local/rvm/gems/{{ arvados.ruby.pkg }}/bin
-    {%- endif %}
     - name: {{ cmd_query_vm_uuid }} | head -1 | tee /tmp/{{ vm }}
     - require:
       - cmd: arvados-shell-resources-virtual-machines-{{ vm }}-record-cmd-run
@@ -79,8 +73,8 @@ arvados-shell-resources-virtual-machines-{{ vm }}-get-vm_uuid-cmd-run:
   {%- set cmd_query_scoped_token_url = 'VM_UUID=$(cat /tmp/' ~ vm ~ ') && ' ~
                                        'ARVADOS_API_TOKEN=' ~ api_token ~ ' ' ~
                                        'ARVADOS_API_HOST=' ~ api_host ~ ' ' ~
-                                       'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~ ' ' ~
-                                       arv_command ~ ' api_client_authorization list |' ~
+                                       'ARVADOS_API_HOST_INSECURE=' ~ arvados_api_host_insecure ~
+                                       ' arv api_client_authorization list |' ~
                                        ' /usr/bin/jq -e \'.items[].scopes[] | select(. == "GET ' ~
                                        '/arvados/v1/virtual_machines/\'${VM_UUID}\'/logins")\' && ' ~
                                        'unset VM_UUID'
@@ -95,7 +89,7 @@ arvados-shell-resources-virtual-machines-{{ vm }}-scoped-token-cmd-run:
       - ARVADOS_API_HOST_INSECURE: {{ arvados.cluster.tls.insecure | default(false) }}
     - name: |
         VM_UUID=$(cat /tmp/{{ vm }}) &&
-        {{ arv_command }} --format=uuid \
+        arv --format=uuid \
           api_client_authorization \
           create \
           --api-client-authorization '{"scopes":["GET /arvados/v1/virtual_machines/'${VM_UUID}'/logins"]}'

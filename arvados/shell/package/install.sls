@@ -6,10 +6,6 @@
 {%- set sls_ruby_install = tplroot ~ '.ruby.package.install' %}
 {%- from tplroot ~ "/map.jinja" import arvados with context %}
 
-{%- if arvados.ruby.manage_ruby %}
-  {%- set ruby_dep = 'rvm' if arvados.ruby.use_rvm else 'pkg' %}
-{%- endif %}
-
 include:
   - {{ sls_ruby_install }}
 
@@ -43,7 +39,7 @@ arvados-shell-package-install-gem-{{ gm }}-installed:
     - name: {{ gm }}
     - require:
       {%- if arvados.ruby.manage_ruby %}
-      - {{ ruby_dep }}: arvados-ruby-package-install-ruby-{{ ruby_dep }}-installed
+      - pkg: arvados-ruby-package-install-ruby-pkg-installed
       {%- endif %}
       - pkg: arvados-shell-package-install-gems-deps-pkg-installed
 {%- endfor %}
