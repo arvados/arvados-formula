@@ -67,7 +67,8 @@ arvados:
     # to use here
     postgresql_version: 12
     service:
-      name: nginx
+      name: arvados-railsapi
+      address: localhost
       port: 8004
   ##### CONTROLLER
   controller:
