@@ -7,6 +7,8 @@
 
 {%- if arvados.use_upstream_repo %}
   {%- if grains.get('os_family') == 'Debian' %}
+include:
+  - .debian-pin
     {%- set distro = grains.get('lsb_distrib_codename') %}
 
     {%- if arvados.release == 'testing' %}

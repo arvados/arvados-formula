@@ -6,9 +6,10 @@
 ---
 arvados:
   version: 'latest'
+  pin_version: false
   # Release: one of production, testing, development
   # Used to select the repository to use
-  release: production     # defaults to production
+  release: production
   use_upstream_repo: true
   repo:
     humanname: Arvados Official Repository
