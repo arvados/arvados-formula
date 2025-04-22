@@ -8,10 +8,10 @@
 {%- if arvados.version != 'latest' and arvados.pin_version %}
   file.managed:
     - contents: |
-      # This file managed by Salt, do not edit by hand!!
-      Package: /arvados/ crunch* *crunchstat* keep* *-cwltest
-      Pin: version {{ arvados.version }}
-      Pin-Priority: 995
+        # This file managed by Salt, do not edit by hand!!
+        Package: /arvados/ crunch* *crunchstat* keep* *-cwltest
+        Pin: version {{ arvados.version }}
+        Pin-Priority: 995
 {%- else %}
   file.absent
 {%- endif %}
