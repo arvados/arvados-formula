@@ -12,6 +12,8 @@
         Package: /arvados/ crunch* *crunchstat* keep* *-cwltest
         Pin: version {{ arvados.version }}
         Pin-Priority: 995
+    - require_in:
+      - file: arvados-repo-install-file-managed
 {%- else %}
   file.absent
 {%- endif %}
