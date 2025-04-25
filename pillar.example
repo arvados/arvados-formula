@@ -11,7 +11,6 @@
 arvados:
   ### GENERAL CONFIG
   # version: '2.1.0'
-  # pin_version: true
   # release: production
   ### It makes little sense to disable this flag, but you can, if you want :)
   # use_upstream_repo: true
