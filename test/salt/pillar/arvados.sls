@@ -102,6 +102,8 @@ arvados:
       AutoSetupNewUsersWithRepository: true
 
     Services:
+      ContainerWebServices:
+        ExternalURL: https://*.containers.fixme.example.net
       Controller:
         ExternalURL: https://fixme.example.net
         InternalURLs:
