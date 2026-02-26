@@ -36,3 +36,4 @@ arvados-controller-service-running-service-ready-cmd-run:
         grep -qE "req-[a-z0-9]{20}.{5}error_token"
     - require:
       - service: arvados-controller-service-running-service-running
+      - service: nginx_service
